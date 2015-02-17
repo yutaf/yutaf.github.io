@@ -37,7 +37,7 @@
 &lt;li&gt;ちゃんと動く pcre ライブラリが入る。&lt;br /&gt;
 今回、apache とともに php をソースからビルドすることも試したが、ビルド時に両方で指定した brew インストールの pcre ライブラリが apache の php モジュールには正しくリンクされず、違うバージョン(apache 同梱のもの?)になっていた。&lt;br /&gt;
 結果、preg_replace が動作しなかった。&lt;br /&gt;
-その他にも &lt;code&gt;--enable-intl&lt;/code&gt; など linux に比べて osx では php のビルドがまともにいかないことも多いが、phpbrew はその点を補ってくれる。&lt;br /&gt;&lt;/li&gt;
+その他にも &lt;code&gt;--enable-intl&lt;/code&gt; など linux に比べて osx では php のビルドがまともにいかないことが多いが、phpbrew はその点を補ってくれる。&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;デメリット:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;デメリット&lt;/h4&gt;
