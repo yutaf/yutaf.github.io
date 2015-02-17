@@ -65,6 +65,8 @@
 
 <ul>
 <li>osx 10.9.5</li>
+<li>Apache/2.2.29</li>
+<li>mysql 5.6.15</li>
 </ul>
 
 <h2 id="requirement:a243102e0194a1a90c0e0b12d72d5bbe">Requirement</h2>
@@ -225,8 +227,9 @@ LoadModule php5_module        modules/libphp5.4.36.so
 
 <h2 id="感想:a243102e0194a1a90c0e0b12d72d5bbe">感想</h2>
 
-<p>pcre ライブラリが apache のものとの衝突を気にしないでビルドできるのはいいと思った。<br />
-面倒なところが多いが、とりあえず動いているので使っていこうと思う。</p>
+<p>pcre ライブラリを apache のものとの衝突させずにビルドしてくれるので楽。<br />
+今回 phpbrew を使わずに普通に php をビルドすることも試したが、指定した pcre ライブラリが apache モジュールには正しくリンクされず、preg_replace がまともに動かなかった。<br />
+挙動が不安定なところもあるし、もっとシンプルなツールだと有りがたいが、osx でphpをビルドするならこれが一番楽な気がする。</p>
 
   </div>
   
