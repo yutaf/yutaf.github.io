@@ -42,7 +42,7 @@
 &lt;ul&gt;
 &lt;li&gt;使用するのに php5.3 以上が必要&lt;/li&gt;
 &lt;li&gt;php のバージョン切り替えで挙動が不安定な時がある&lt;/li&gt;
-&lt;li&gt;variants という独自概念がある&lt;/li&gt;
+&lt;li&gt;configure option を variants という独自の仕組みで指定する。(普通の指定もできるが、variants も使わざるを得ない)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;requirement:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;Requirement&lt;/h2&gt;
