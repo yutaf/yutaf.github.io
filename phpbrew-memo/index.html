@@ -65,8 +65,9 @@
 <ul>
 <li>apache の php モジュールをバージョン毎に保存してくれる。</li>
 <li>ちゃんと動く pcre ライブラリが入る。<br />
-今回、ソースから apache, php をビルドすることも試したが、それぞれbuild時に同じものを指定した pcre ライブラリが apache の php モジュールには正しくリンクされず、preg_replace がまともに動かなかった。<br />
-その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことも多いので、その点を補ってくれるのは大きい。</li>
+今回、apache とともに php をソースからビルドすることも試したが、ビルド時に両方で指定した brew インストールの pcre ライブラリが apache の php モジュールには正しくリンクされず、違うバージョン(apache 同梱のもの?)になっていた。<br />
+結果、preg_replace が動作しなかった。<br />
+その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことも多いが、phpbrew はその点を補ってくれる。<br /></li>
 </ul>
 
 <h4 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h4>
