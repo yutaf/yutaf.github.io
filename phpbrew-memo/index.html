@@ -52,12 +52,27 @@
 
 <p>ローカル開発環境に phpenv + php-build を使っていたが、<a href="https://github.com/phpbrew/phpbrew">phpbrew</a> のほうが簡単そうだったので移行した。</p>
 
-<p><strong>environment</strong></p>
+<h4 id="environment:a243102e0194a1a90c0e0b12d72d5bbe">environment</h4>
 
 <ul>
 <li>osx 10.9.5</li>
 <li>Apache/2.2.29</li>
 <li>mysql 5.6.15</li>
+</ul>
+
+<h4 id="メリット:a243102e0194a1a90c0e0b12d72d5bbe">メリット</h4>
+
+<ul>
+<li>ちゃんと動く pcre ライブラリが入る。<br />
+今回、普通に php をビルドすることも試したが、指定した pcre ライブラリが apache モジュールには正しくリンクされず、preg_replace がまともに動かなかった。<br /></li>
+</ul>
+
+<h4 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h4>
+
+<ul>
+<li>使用するのに php5.3 以上が必要</li>
+<li>php のバージョン切り替えで挙動が不安定な時がある</li>
+<li>variants という独自概念がある</li>
 </ul>
 
 <h2 id="requirement:a243102e0194a1a90c0e0b12d72d5bbe">Requirement</h2>
@@ -143,7 +158,7 @@ extensions:
 <pre><code>$ phpbrew -d install 5.4.36 +dev
 </code></pre>
 
-<h4 id="最終的に辿り着いた設定方法:a243102e0194a1a90c0e0b12d72d5bbe">最終的に辿り着いた設定方法</h4>
+<h4 id="最終的に辿り着いたインストール方法:a243102e0194a1a90c0e0b12d72d5bbe">最終的に辿り着いたインストール方法</h4>
 
 <pre><code>$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 </code></pre>
@@ -218,9 +233,7 @@ LoadModule php5_module        modules/libphp5.4.36.so
 
 <h2 id="感想:a243102e0194a1a90c0e0b12d72d5bbe">感想</h2>
 
-<p>pcre ライブラリを apache のものとの衝突させずにビルドしてくれるので楽。<br />
-今回 phpbrew を使わずに普通に php をビルドすることも試したが、指定した pcre ライブラリが apache モジュールには正しくリンクされず、preg_replace がまともに動かなかった。<br />
-挙動が不安定なところもあるし、もっとシンプルなツールだと有りがたいが、osx でphpをビルドするならこれが一番楽な気がする。</p>
+<p>気持ち悪い所も多いが、osx でphpをビルドするならこれが一番楽な気がした。</p>
 
 </div>
 </div>

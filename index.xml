@@ -22,12 +22,27 @@
 
 &lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;environment&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&#34;environment:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;environment&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;osx 10.9.5&lt;/li&gt;
 &lt;li&gt;Apache/2.2.29&lt;/li&gt;
 &lt;li&gt;mysql 5.6.15&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;メリット:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;メリット&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ちゃんと動く pcre ライブラリが入る。&lt;br /&gt;
+今回、普通に php をビルドすることも試したが、指定した pcre ライブラリが apache モジュールには正しくリンクされず、preg_replace がまともに動かなかった。&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;デメリット:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;デメリット&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;使用するのに php5.3 以上が必要&lt;/li&gt;
+&lt;li&gt;php のバージョン切り替えで挙動が不安定な時がある&lt;/li&gt;
+&lt;li&gt;variants という独自概念がある&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;requirement:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;Requirement&lt;/h2&gt;
@@ -113,7 +128,7 @@ extensions:
 &lt;pre&gt;&lt;code&gt;$ phpbrew -d install 5.4.36 +dev
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;最終的に辿り着いた設定方法:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;最終的に辿り着いた設定方法&lt;/h4&gt;
+&lt;h4 id=&#34;最終的に辿り着いたインストール方法:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;最終的に辿り着いたインストール方法&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 &lt;/code&gt;&lt;/pre&gt;
@@ -188,9 +203,7 @@ LoadModule php5_module        modules/libphp5.4.36.so
 
 &lt;h2 id=&#34;感想:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;感想&lt;/h2&gt;
 
-&lt;p&gt;pcre ライブラリを apache のものとの衝突させずにビルドしてくれるので楽。&lt;br /&gt;
-今回 phpbrew を使わずに普通に php をビルドすることも試したが、指定した pcre ライブラリが apache モジュールには正しくリンクされず、preg_replace がまともに動かなかった。&lt;br /&gt;
-挙動が不安定なところもあるし、もっとシンプルなツールだと有りがたいが、osx でphpをビルドするならこれが一番楽な気がする。&lt;/p&gt;
+&lt;p&gt;気持ち悪い所も多いが、osx でphpをビルドするならこれが一番楽な気がした。&lt;/p&gt;
 </description>
     </item>
     
