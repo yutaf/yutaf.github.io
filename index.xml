@@ -117,7 +117,7 @@ extensions:
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;code&gt;+neutral&lt;/code&gt; を指定しないと &lt;code&gt;--disable-all&lt;/code&gt; 等のオプションが自動的に設定される。&lt;br /&gt;
-&lt;code&gt;--disable-all&lt;/code&gt; は phpのデフォルトで有効な json や xml モジュール等が無効になるので、これらの関数が動かなくなり困った。&lt;/p&gt;
+&lt;code&gt;--disable-all&lt;/code&gt; は phpのデフォルトで有効な json や xml モジュール等が無効になるので、これらの関数が使用できなくなる。&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;&#39;+apxs2&#39;&lt;/code&gt; は apache の php モジュールをバージョン毎に管理する為に必須(後述)。&lt;/p&gt;
 
@@ -135,7 +135,7 @@ extensions:
 
 &lt;h2 id=&#34;apache-のphpモジュール切り替え:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;apache のphpモジュール切り替え&lt;/h2&gt;
 
-&lt;p&gt;variants の &lt;code&gt;apxs2&lt;/code&gt; を設定すると各バージョンごとにモジュールを保存し、
+&lt;p&gt;variants の &lt;code&gt;+apxs2&lt;/code&gt; を設定すると各バージョンごとにモジュールを保存し、
 httpd.conf に &lt;code&gt;LoadModule php5_module ...&lt;/code&gt; の記述がされる。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/phpbrew/phpbrew/wiki/Cookbook#apache2-support&#34;&gt;https://github.com/phpbrew/phpbrew/wiki/Cookbook#apache2-support&lt;/a&gt;&lt;/p&gt;

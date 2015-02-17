@@ -156,7 +156,7 @@ extensions:
 </code></pre>
 
 <p><code>+neutral</code> を指定しないと <code>--disable-all</code> 等のオプションが自動的に設定される。<br />
-<code>--disable-all</code> は phpのデフォルトで有効な json や xml モジュール等が無効になるので、これらの関数が動かなくなり困った。</p>
+<code>--disable-all</code> は phpのデフォルトで有効な json や xml モジュール等が無効になるので、これらの関数が使用できなくなる。</p>
 
 <p><code>'+apxs2'</code> は apache の php モジュールをバージョン毎に管理する為に必須(後述)。</p>
 
@@ -174,7 +174,7 @@ extensions:
 
 <h2 id="apache-のphpモジュール切り替え:a243102e0194a1a90c0e0b12d72d5bbe">apache のphpモジュール切り替え</h2>
 
-<p>variants の <code>apxs2</code> を設定すると各バージョンごとにモジュールを保存し、
+<p>variants の <code>+apxs2</code> を設定すると各バージョンごとにモジュールを保存し、
 httpd.conf に <code>LoadModule php5_module ...</code> の記述がされる。</p>
 
 <p><a href="https://github.com/phpbrew/phpbrew/wiki/Cookbook#apache2-support">https://github.com/phpbrew/phpbrew/wiki/Cookbook#apache2-support</a></p>
