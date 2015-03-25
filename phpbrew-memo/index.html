@@ -82,18 +82,21 @@
 
 <ul>
 <li>apache の php モジュールをバージョン毎に保存してくれる。</li>
-<li>ちゃんと動く pcre ライブラリが入る。<br />
-今回、apache とともに php をソースからビルドすることも試したが、ビルド時に両方で指定した brew インストールの pcre ライブラリが apache の php モジュールには正しくリンクされず、違うバージョン(apache 同梱のもの?)になっていた。<br />
-結果、preg_replace が動作しなかった。<br />
-その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことが多いが、phpbrew はその点を補ってくれる。<br /></li>
+<li>configure オプションのコンパイルが楽になる（特にosx）
+
+<ul>
+<li>pcre</li>
+<li>&ndash;enable-intl<br />
+など。</li>
+</ul></li>
 </ul>
 
 <h4 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h4>
 
 <ul>
 <li>使用するのに php5.3 以上が必要</li>
+<li>configure option を variants という独自の仕組みで指定する。</li>
 <li>php のバージョン切り替えで挙動が不安定な時がある</li>
-<li>configure option を variants という独自の仕組みで指定する。(通常の指定のみでもビルドできるが、variants を使ったほうが良い部分がある)</li>
 </ul>
 
 <h2 id="requirement:a243102e0194a1a90c0e0b12d72d5bbe">Requirement</h2>
@@ -112,12 +115,22 @@ $ mv phpbrew /usr/local/bin/
 
 <h2 id="configure-option-の設定と-php-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">configure option の設定と php のインストール</h2>
 
-<p>variants という仕組みを利用して configure option を設定し、インストールする。</p>
+<p>configure option は variants という独自の指定方法がある。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +pdo +mysql +pgsql +apxs2=/usr/bin/apxs2
 </code></pre>
 
-<p>通常の configure option の記述をする場合</p>
+<p>variants の一覧は以下のコマンドで確認可能。</p>
+
+<pre><code>$ phpbrew variants
+</code></pre>
+
+<p>variants の良いところは、特に osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。<br />
+例えば、pcre は apache 経由でphpを動かした時と cli で動かしたときに違うバージョンにリンクしてしまっていることがあり、preg_replace がまともに動作しないことがある。<br />
+しかし、この variants を使って pcre を指定すれば、ちゃんと動く pcre ライブラリが入る。<br />
+その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。</p>
+
+<p>通常の configure option と同じ記述もできる。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +mysql +sqlite -- \
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
@@ -179,7 +192,7 @@ extensions:
 <pre><code>$ phpbrew -d install 5.4.36 +dev
 </code></pre>
 
-<h4 id="最終的に辿り着いたインストール方法:a243102e0194a1a90c0e0b12d72d5bbe">最終的に辿り着いたインストール方法</h4>
+<h4 id="個人的ベストプラクティス:a243102e0194a1a90c0e0b12d72d5bbe">個人的ベストプラクティス</h4>
 
 <pre><code>$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 </code></pre>
@@ -196,7 +209,7 @@ extensions:
 
 <h2 id="xdebug-インストール:a243102e0194a1a90c0e0b12d72d5bbe">xdebug インストール</h2>
 
-<p>上の yaml ファイルに記述してあるので、以下でインストールできる。</p>
+<p>上の yaml ファイル の extensions のところに記述してある variants を指定してインストールできる。</p>
 
 <pre><code>$ phpbrew ext install +dev
 </code></pre>

@@ -31,18 +31,21 @@
 
 &lt;ul&gt;
 &lt;li&gt;apache の php モジュールをバージョン毎に保存してくれる。&lt;/li&gt;
-&lt;li&gt;ちゃんと動く pcre ライブラリが入る。&lt;br /&gt;
-今回、apache とともに php をソースからビルドすることも試したが、ビルド時に両方で指定した brew インストールの pcre ライブラリが apache の php モジュールには正しくリンクされず、違うバージョン(apache 同梱のもの?)になっていた。&lt;br /&gt;
-結果、preg_replace が動作しなかった。&lt;br /&gt;
-その他にも &lt;code&gt;--enable-intl&lt;/code&gt; など linux に比べて osx では php のビルドがまともにいかないことが多いが、phpbrew はその点を補ってくれる。&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;configure オプションのコンパイルが楽になる（特にosx）
+
+&lt;ul&gt;
+&lt;li&gt;pcre&lt;/li&gt;
+&lt;li&gt;&amp;ndash;enable-intl&lt;br /&gt;
+など。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;デメリット:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;デメリット&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;使用するのに php5.3 以上が必要&lt;/li&gt;
+&lt;li&gt;configure option を variants という独自の仕組みで指定する。&lt;/li&gt;
 &lt;li&gt;php のバージョン切り替えで挙動が不安定な時がある&lt;/li&gt;
-&lt;li&gt;configure option を variants という独自の仕組みで指定する。(通常の指定のみでもビルドできるが、variants を使ったほうが良い部分がある)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;requirement:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;Requirement&lt;/h2&gt;
@@ -61,12 +64,22 @@ $ mv phpbrew /usr/local/bin/
 
 &lt;h2 id=&#34;configure-option-の設定と-php-のインストール:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;configure option の設定と php のインストール&lt;/h2&gt;
 
-&lt;p&gt;variants という仕組みを利用して configure option を設定し、インストールする。&lt;/p&gt;
+&lt;p&gt;configure option は variants という独自の指定方法がある。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ phpbrew install 5.3.10 +pdo +mysql +pgsql +apxs2=/usr/bin/apxs2
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;通常の configure option の記述をする場合&lt;/p&gt;
+&lt;p&gt;variants の一覧は以下のコマンドで確認可能。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phpbrew variants
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;variants の良いところは、特に osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。&lt;br /&gt;
+例えば、pcre は apache 経由でphpを動かした時と cli で動かしたときに違うバージョンにリンクしてしまっていることがあり、preg_replace がまともに動作しないことがある。&lt;br /&gt;
+しかし、この variants を使って pcre を指定すれば、ちゃんと動く pcre ライブラリが入る。&lt;br /&gt;
+その他にも &lt;code&gt;--enable-intl&lt;/code&gt; など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。&lt;/p&gt;
+
+&lt;p&gt;通常の configure option と同じ記述もできる。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ phpbrew install 5.3.10 +mysql +sqlite -- \
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
@@ -128,7 +141,7 @@ extensions:
 &lt;pre&gt;&lt;code&gt;$ phpbrew -d install 5.4.36 +dev
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;最終的に辿り着いたインストール方法:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;最終的に辿り着いたインストール方法&lt;/h4&gt;
+&lt;h4 id=&#34;個人的ベストプラクティス:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;個人的ベストプラクティス&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code&gt;$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 &lt;/code&gt;&lt;/pre&gt;
@@ -145,7 +158,7 @@ extensions:
 
 &lt;h2 id=&#34;xdebug-インストール:a243102e0194a1a90c0e0b12d72d5bbe&#34;&gt;xdebug インストール&lt;/h2&gt;
 
-&lt;p&gt;上の yaml ファイルに記述してあるので、以下でインストールできる。&lt;/p&gt;
+&lt;p&gt;上の yaml ファイル の extensions のところに記述してある variants を指定してインストールできる。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ phpbrew ext install +dev
 &lt;/code&gt;&lt;/pre&gt;
