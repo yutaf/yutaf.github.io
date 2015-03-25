@@ -123,7 +123,7 @@ $ mv phpbrew /usr/local/bin/
 
 <h2 id="configure-option-の設定と-php-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">configure option の設定と php のインストール</h2>
 
-<p>configure option は variants という独自の指定方法がある。</p>
+<p>phpbrew には variants という独自の configure option の指定方法がある。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +pdo +mysql +pgsql +apxs2=/usr/bin/apxs2
 </code></pre>
@@ -133,12 +133,17 @@ $ mv phpbrew /usr/local/bin/
 <pre><code>$ phpbrew variants
 </code></pre>
 
-<p>variants の良いところは、特に osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。<br />
-例えば、pcre は apache 経由でphpを動かした時と cli で動かしたときに違うバージョンにリンクしてしまっていることがあり、preg_replace がまともに動作しないことがある。<br />
-しかし、この variants を使って pcre を指定すれば、ちゃんと動く pcre ライブラリが入る。<br />
+<p>variants の良いところは、 osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。<br />
+例えば、pcre は php の cli で動くライブラリと apache モジュールで動くライブラリを同じものにするには php, apache それぞれのビルド時に同じ pcre ライブラリを指定しなければならない。<br />
+特に apache には pcre ライブラリが同梱されているので、指定をしないとこの同梱のものが使われ、古くてまともに動かなかったりする。<br />
+さらに、 osx ではちゃんと指定しても正しくライブラリが設定されないことがあり、ハマるポイントのひとつだ。</p>
+
+<p>しかし、この variants を使って pcre を指定すれば、apache モジュールと php cli で同じバージョンのちゃんと動く pcre ライブラリが入る。<br />
 その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。</p>
 
-<p>通常の configure option と同じ記述もできる。</p>
+<p><br></p>
+
+<p>ちなみに、<code>--</code> に続けて書けば通常の configure option の記述が有効になる。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +mysql +sqlite -- \
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
