@@ -139,11 +139,10 @@ $ mv phpbrew /usr/local/bin/
 さらに、 osx ではちゃんと指定しても正しくライブラリが設定されないことがあり、ハマるポイントのひとつだ。</p>
 
 <p>しかし、この variants を使って pcre を指定すれば、apache モジュールと php cli で同じバージョンのちゃんと動く pcre ライブラリが入る。<br />
-その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。</p>
-
-<p><br></p>
-
-<p>ちなみに、<code>--</code> に続けて書けば通常の configure option の記述が有効になる。</p>
+<br>
+その他にも <code>--enable-intl</code> など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。<br />
+<br>
+ちなみに、<code>--</code> に続けて書けば通常の configure option の記述が有効になる。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +mysql +sqlite -- \
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
