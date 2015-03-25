@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>my new hugo site</title>
+    <title>yutaf blog</title>
     <link>http://yutaf.github.io/</link>
-    <description>Recent content on my new hugo site</description>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    
-    
-    
-    <lastBuildDate>Tue, 17 Feb 2015 12:32:23 JST</lastBuildDate>
+    <lastBuildDate>Tue, 17 Feb 2015 12:32:23 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>phpbrew memo</title>
       <link>http://yutaf.github.io/phpbrew-memo/</link>
-      <pubDate>Tue, 17 Feb 2015 12:32:23 JST</pubDate>
+      <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
       
       <guid>http://yutaf.github.io/phpbrew-memo/</guid>
       <description>
