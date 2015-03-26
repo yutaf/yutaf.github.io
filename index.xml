@@ -76,13 +76,14 @@ $ mv phpbrew /usr/local/bin/
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;variants の良いところは、 osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。&lt;br /&gt;
-例えば、pcre は php の cli で動くライブラリと apache モジュールで動くライブラリを同じものにするには php, apache それぞれのビルド時に同じ pcre ライブラリを指定しなければならない。&lt;br /&gt;
-特に apache には pcre ライブラリが同梱されているので、指定をしないとこの同梱のものが使われ、古くてまともに動かなかったりする。&lt;br /&gt;
-さらに、 osx ではちゃんと指定しても正しくライブラリが設定されないことがあり、ハマるポイントのひとつだ。&lt;/p&gt;
+例えば、pcre は php の cli で動くライブラリと apache モジュールで動くライブラリを同じものにするには php, apache それぞれのビルド時に同じ pcre ライブラリを指定しなければならない。&lt;/p&gt;
+
+&lt;p&gt;また、 apache には pcre ライブラリが同梱されているので、指定しないと同梱のものが使われ、古くてまともに動かなかったりする。&lt;br /&gt;
+さらに、 osx ではちゃんと指定しても正しくライブラリがリンクされないことがあり、かなりハマった経験がある。&lt;/p&gt;
 
 &lt;p&gt;しかし、この variants を使って pcre を指定すれば、apache モジュールと php cli で同じバージョンのちゃんと動く pcre ライブラリが入る。&lt;br /&gt;
 &lt;br&gt;
-その他にも &lt;code&gt;--enable-intl&lt;/code&gt; など linux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。&lt;br /&gt;
+&lt;code&gt;--enable-intl&lt;/code&gt; もlinux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。&lt;br /&gt;
 &lt;br&gt;
 ちなみに、&lt;code&gt;--&lt;/code&gt; に続けて書けば通常の configure option の記述が有効になる。&lt;/p&gt;
 
