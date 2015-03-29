@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <meta property="og:title" content=" I made a deployment tool - ryogoku &middot;  yutaf blog" />
   <meta property="og:site_name" content="yutaf blog" />
-  <meta property="og:url" content="http://localhost:1313/ryogoku/" />
+  <meta property="og:url" content="http://yutaf.github.io/ryogoku/" />
   
   <meta property="og:type" content="article" />
   
@@ -17,19 +17,19 @@
      I made a deployment tool - ryogoku &middot;  yutaf blog
   </title>
 
-  <link rel="stylesheet" href="http://localhost:1313/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/main.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/github.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
-  <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
   <link href="" rel="alternate" type="application/rss+xml" title="yutaf blog" />
 </head>
 <body>
   <header class="global-header">
     <section class="header-text">
-      <h1><a href="http://localhost:1313/">yutaf blog</a></h1>
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
       
       <div class="sns-links hidden-print">
   
@@ -47,7 +47,7 @@
 </div>
 
       
-      <a href="http://localhost:1313/" class="btn-header btn-back hidden-xs">
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
         <i class="fa fa-angle-left"></i>
         &nbsp;Home
       </a>
@@ -76,25 +76,125 @@
   <section>
     
 
-<p>rsync によるデプロイツール・ryogoku を作成した。<br />
-I made a deployment tool, ryogoku.<br />
-It uses <code>rsync</code> for deployment.</p>
+<p>rsync によるデプロイツール・<a href="https://github.com/yutaf/ryogoku">ryogoku</a> を作成した。<br />
+I made a deployment tool, <a href="https://github.com/yutaf/ryogoku">ryogoku</a>.<br />
+It uses <code>rsync</code> to deploy.</p>
 
 <h2 id="why:f8a50e8a7dc0bdb8135e7d60049e24a6">why</h2>
 
-<h2 id="environment:f8a50e8a7dc0bdb8135e7d60049e24a6">environment</h2>
+<p>会社でデプロイの自動化を進めており、何か良いツールはないか探していた。<br />
+ちなみに自分の会社は以下の様な条件での仕事が多い。</p>
 
 <ul>
-<li>受託仕事なので、プロダクション・サーバーがクライアントの所有。<br />
-git や ruby 等が入っていないことが多く、こちらでインストールすることも不可。</li>
-<li>web サーバー二台の db 一台という構成が殆ど。</li>
+<li>受託業務中心。納品するのは php アプリケーション<br /></li>
+<li>プロダクション・サーバーがクライアントの所有で自由にツール類をインストールできない。git や ruby 等が入っていないことが殆ど。</li>
+<li>web サーバー2台の db サーバー1台という小規模な構成が殆ど。<br /></li>
 </ul>
 
-<h2 id="features:f8a50e8a7dc0bdb8135e7d60049e24a6">features</h2>
+<p>これらの条件に見合うようなデプロイツールを探して、色々情報を集めた。<br />
+特に参考になったのはこのページ。</p>
+
+<p><a href="http://d.hatena.ne.jp/naoya/20130118/1358477523">開発メモ#1 : Cinnamon によるデプロイ</a></p>
+
+<p>そして、最終的には以下の様な理由で自作することにした。</p>
 
 <ul>
-<li>parallel execution</li>
+<li>capistrano は複雑そう。また、php のアプリで ruby のツールを使いたくなかった。</li>
+<li>fabric も検討したが、デザイナー含めた他のメンバーに homebrew や pip 等のインストール作業をさせるのがハードルだと感じた。</li>
+<li><a href="https://github.com/tj/deploy">deploy</a> というシェルスクリプトのデプロイツールを発見し、インストールが楽なこととシンプルな使い方がとても良いと感じた。<br />
+<a href="http://qiita.com/futoase/items/c2ac39cfe28813b79bc4">【個人メモ】デプロイするためにdeployを使ってみる</a><br />
+しかし、デプロイ先サーバーでの git インストールが必須な点と、複数台のホストに対して実行出来ない点が自分の目的とそぐわなかった。</li>
 </ul>
+
+<p>以上から、<a href="https://github.com/tj/deploy">deploy</a> をベースに、殆どの unix マシンで使用可能な rsync 使ったツールを作成することにした。</p>
+
+<p>I wanted simple deployment tool suitable for my work.<br />
+My work is like</p>
+
+<ul>
+<li>making php applications that are outsourced from various clients.</li>
+<li>Production servers are properties of clients, and softwares like git or ruby are rarely installed in them.<br />
+And also I am not permitted to install softwares.</li>
+<li>Server cluster is consisted of 2 web servers and 1 database server in most cases.</li>
+</ul>
+
+<p>I started searching tools to match these conditions.<br />
+But I eventually decide to make my own one after a while surfing the web.<br />
+Because</p>
+
+<ul>
+<li>capistrano seemed to be too complicated.</li>
+<li>fabric seemed much better than capistrano, but I thought it was still hard for my team to install homebrew or pip things.</li>
+<li>I found <a href="https://github.com/tj/deploy">deploy</a> on github.<br />
+that&rsquo;s cool deployment tool because installation and usage were very simpler than others.<br />
+But it requires git to be installed in deployment servers and doesn&rsquo;t support deployment to multiple hosts.<br />
+That didn&rsquo;t match my purpose.</li>
+</ul>
+
+<p>So I decided to make my own one based on <a href="https://github.com/tj/deploy">deploy</a>.<br />
+Thank you, <a href="https://github.com/tj/deploy">deploy</a>.</p>
+
+<h2 id="what-it-is-like-ryogoku:f8a50e8a7dc0bdb8135e7d60049e24a6">What it is like - ryogoku</h2>
+
+<p><a href="https://github.com/yutaf/ryogoku">https://github.com/yutaf/ryogoku</a></p>
+
+<h3 id="installation:f8a50e8a7dc0bdb8135e7d60049e24a6">Installation</h3>
+
+<p>Clone the repository from github, and</p>
+
+<pre><code>$ make install
+</code></pre>
+
+<h3 id="configuration:f8a50e8a7dc0bdb8135e7d60049e24a6">Configuration</h3>
+
+<p><code>ryogoku.conf</code> を git レポジトリルートに作成し、以下の様な内容を書く。</p>
+
+<p>Create <code>ryogoku.conf</code> file which has content like below at the git repository root.</p>
+
+<pre><code>[prod]
+user rob
+host 128.199.170.128 128.199.244.193
+path /var/www/html
+ref origin/master
+pre-rsync ./bin/pre-rsync
+post-deploy /var/www/html/bin/update.sh &amp;&amp; /var/www/html/bin/update.prod.sh
+umask 002
+</code></pre>
+
+<p>内容について簡単に説明すると、</p>
+
+<ul>
+<li>デプロイ先は<br />
+<code>rob@128.199.170.128:/var/www/html</code> <code>rob@128.199.244.193:/var/www/html</code></li>
+<li><code>ref</code> はデプロイする git のリビジョンを指定</li>
+<li><code>pre-rsync</code> は rsync を行う前に実行するコマンド</li>
+<li><code>post-deploy</code> は rsync を行ったあとに実行するコマンド</li>
+<li><code>umask</code> はファイルパーミッションを設定する</li>
+</ul>
+
+<p>What directives in this configuration file means are</p>
+
+<ul>
+<li>deploying to<br />
+<code>rob@128.199.170.128:/var/www/html</code> <code>rob@128.199.244.193:/var/www/html</code></li>
+<li><code>ref</code> is the git revision to be deployed.</li>
+<li><code>pre-rsync</code> defines commands that are executed before rsync.</li>
+<li><code>post-deploy</code> defines commands that are executed after rsync.</li>
+<li><code>umask</code> defines the file permissions.</li>
+</ul>
+
+<h3 id="deployment:f8a50e8a7dc0bdb8135e7d60049e24a6">Deployment</h3>
+
+<pre><code>$ ryogoku prod
+</code></pre>
+
+<p>これで、<code>master</code> ブランチが <code>prod</code> で指定したホストにデプロイされる。</p>
+
+<p>Thus <code>master</code> revision is deployed to the hosts defined in <code>prod</code> section.</p>
+
+<h3 id="how-it-works:f8a50e8a7dc0bdb8135e7d60049e24a6">How it works</h3>
+
+<p><img src="/images/ryogoku-01.png" class="image"></p>
 
   </section>
   <footer>
@@ -110,7 +210,7 @@ git や ruby 等が入っていないことが多く、こちらでインスト�
     </section>
     <ul class="pager">
       
-      <li class="previous"><a href="http://localhost:1313/hello-hubo/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      <li class="previous"><a href="http://yutaf.github.io/phpbrew-memo/"><span aria-hidden="true">&larr;</span> Older</a></li>
       
       
       <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
@@ -142,15 +242,12 @@ git や ruby 等が入っていないことが多く、こちらでインスト�
 
   </footer>
 
-  <script src="http://localhost:1313/js/highlight.pack.js"></script>
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
   </script>
   
   
-<script>document.write('<script src="http://'
-        + (location.host || 'localhost').split(':')[0]
-		+ ':1313/livereload.js?mindelay=10"></'
-        + 'script>')</script></body>
+</body>
 </html>
 
