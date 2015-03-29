@@ -11,6 +11,12 @@
   
   <meta property="og:article:published_time" content="2015-03-25T23:11:48&#43;09:00" />
   
+  <meta property="og:article:tag" content="deploy" />
+  
+  <meta property="og:article:tag" content="bash" />
+  
+  <meta property="og:article:tag" content="ryogoku" />
+  
   
 
   <title>
@@ -69,6 +75,12 @@
         </time>
       </div>
       <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/deploy">#deploy</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/bash">#bash</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/ryogoku">#ryogoku</a></span>
         
       </div>
     </div>
@@ -145,6 +157,10 @@ Thank you, <a href="https://github.com/tj/deploy">deploy</a>.</p>
 <pre><code>$ make install
 </code></pre>
 
+<h3 id="how-it-works:f8a50e8a7dc0bdb8135e7d60049e24a6">How it works</h3>
+
+<p><img src="/images/ryogoku-01.png" class="image"></p>
+
 <h3 id="configuration:f8a50e8a7dc0bdb8135e7d60049e24a6">Configuration</h3>
 
 <p><code>ryogoku.conf</code> を git レポジトリルートに作成し、以下の様な内容を書く。</p>
@@ -183,18 +199,14 @@ umask 002
 <li><code>umask</code> defines the file permissions.</li>
 </ul>
 
-<h3 id="deployment:f8a50e8a7dc0bdb8135e7d60049e24a6">Deployment</h3>
+<h3 id="execution:f8a50e8a7dc0bdb8135e7d60049e24a6">Execution</h3>
 
 <pre><code>$ ryogoku prod
 </code></pre>
 
-<p>これで、<code>master</code> ブランチが <code>prod</code> で指定したホストにデプロイされる。</p>
+<p>これで、master リビジョンが prod で指定したホストにデプロイされる。</p>
 
-<p>Thus <code>master</code> revision is deployed to the hosts defined in <code>prod</code> section.</p>
-
-<h3 id="how-it-works:f8a50e8a7dc0bdb8135e7d60049e24a6">How it works</h3>
-
-<p><img src="/images/ryogoku-01.png" class="image"></p>
+<p><code>master</code> revision is deployed to the hosts defined in <code>prod</code> section by this command.</p>
 
   </section>
   <footer>
