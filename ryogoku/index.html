@@ -182,7 +182,8 @@ umask 002
 <ul>
 <li>デプロイ先は<br />
 <code>rob@128.199.170.128:/var/www/html</code> <code>rob@128.199.244.193:/var/www/html</code></li>
-<li><code>ref</code> はデプロイする git のリビジョンを指定</li>
+<li><code>ref</code> はデプロイする git のリビジョンを指定<br />
+コマンドライン引数での指定も可能で、その場合はコマンドライン引数の値が優先される。</li>
 <li><code>pre-rsync</code> は rsync を行う前に実行するコマンド</li>
 <li><code>post-deploy</code> は rsync を行ったあとに実行するコマンド</li>
 <li><code>umask</code> はファイルパーミッションを設定する</li>
@@ -193,7 +194,8 @@ umask 002
 <ul>
 <li>deploying to<br />
 <code>rob@128.199.170.128:/var/www/html</code> <code>rob@128.199.244.193:/var/www/html</code></li>
-<li><code>ref</code> is the git revision to be deployed.</li>
+<li><code>ref</code> is the git revision to be deployed.<br />
+This value can also be set by command line argument, which is prior to config one.</li>
 <li><code>pre-rsync</code> defines commands that are executed before rsync.</li>
 <li><code>post-deploy</code> defines commands that are executed after rsync.</li>
 <li><code>umask</code> defines the file permissions.</li>
@@ -207,6 +209,24 @@ umask 002
 <p>これで、master リビジョンが prod で指定したホストにデプロイされる。</p>
 
 <p><code>master</code> revision is deployed to the hosts defined in <code>prod</code> section by this command.</p>
+
+<p><br></p>
+
+<p>git リビジョンを指定する場合は、コマンドラインの引数に渡す。</p>
+
+<p>If you want to deploy specific revision, you can pass an argument to command.</p>
+
+<pre><code>$ ryogoku prod HEAD^^
+</code></pre>
+
+<pre><code>$ ryogoku prod b7ea7b3
+</code></pre>
+
+<pre><code>$ ryogoku prod 1.1.2
+</code></pre>
+
+<pre><code>$ ryogoku prod origin/develop
+</code></pre>
 
   </section>
   <footer>

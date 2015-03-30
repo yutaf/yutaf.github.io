@@ -112,7 +112,8 @@ umask 002
 &lt;ul&gt;
 &lt;li&gt;デプロイ先は&lt;br /&gt;
 &lt;code&gt;rob@128.199.170.128:/var/www/html&lt;/code&gt; &lt;code&gt;rob@128.199.244.193:/var/www/html&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; はデプロイする git のリビジョンを指定&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; はデプロイする git のリビジョンを指定&lt;br /&gt;
+コマンドライン引数での指定も可能で、その場合はコマンドライン引数の値が優先される。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;pre-rsync&lt;/code&gt; は rsync を行う前に実行するコマンド&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;post-deploy&lt;/code&gt; は rsync を行ったあとに実行するコマンド&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;umask&lt;/code&gt; はファイルパーミッションを設定する&lt;/li&gt;
@@ -123,7 +124,8 @@ umask 002
 &lt;ul&gt;
 &lt;li&gt;deploying to&lt;br /&gt;
 &lt;code&gt;rob@128.199.170.128:/var/www/html&lt;/code&gt; &lt;code&gt;rob@128.199.244.193:/var/www/html&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; is the git revision to be deployed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; is the git revision to be deployed.&lt;br /&gt;
+This value can also be set by command line argument, which is prior to config one.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;pre-rsync&lt;/code&gt; defines commands that are executed before rsync.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;post-deploy&lt;/code&gt; defines commands that are executed after rsync.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;umask&lt;/code&gt; defines the file permissions.&lt;/li&gt;
@@ -137,6 +139,24 @@ umask 002
 &lt;p&gt;これで、master リビジョンが prod で指定したホストにデプロイされる。&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;master&lt;/code&gt; revision is deployed to the hosts defined in &lt;code&gt;prod&lt;/code&gt; section by this command.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;git リビジョンを指定する場合は、コマンドラインの引数に渡す。&lt;/p&gt;
+
+&lt;p&gt;If you want to deploy specific revision, you can pass an argument to command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod HEAD^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod b7ea7b3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod 1.1.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod origin/develop
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
