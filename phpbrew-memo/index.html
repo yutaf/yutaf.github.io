@@ -90,7 +90,7 @@
 
 <p>ローカル開発環境に phpenv + php-build を使っていたが、<a href="https://github.com/phpbrew/phpbrew">phpbrew</a> のほうが簡単そうだったので移行した。</p>
 
-<h4 id="environment:a243102e0194a1a90c0e0b12d72d5bbe">environment</h4>
+<h3 id="environment:a243102e0194a1a90c0e0b12d72d5bbe">environment</h3>
 
 <ul>
 <li>osx 10.9.5</li>
@@ -98,7 +98,7 @@
 <li>mysql 5.6.15</li>
 </ul>
 
-<h4 id="メリット:a243102e0194a1a90c0e0b12d72d5bbe">メリット</h4>
+<h3 id="メリット:a243102e0194a1a90c0e0b12d72d5bbe">メリット</h3>
 
 <ul>
 <li>apache の php モジュールをバージョン毎に保存してくれる。</li>
@@ -111,7 +111,7 @@
 </ul></li>
 </ul>
 
-<h4 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h4>
+<h3 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h3>
 
 <ul>
 <li>使用するのに php5.3 以上が必要</li>
@@ -135,7 +135,7 @@ $ mv phpbrew /usr/local/bin/
 
 <h2 id="configure-option-の設定と-php-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">configure option の設定と php のインストール</h2>
 
-<p>phpbrew には variants という独自の configure option の指定方法がある。</p>
+<p>phpbrew には <code>variants</code> という独自の configure option の指定方法がある。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +pdo +mysql +pgsql +apxs2=/usr/bin/apxs2
 </code></pre>
@@ -145,23 +145,29 @@ $ mv phpbrew /usr/local/bin/
 <pre><code>$ phpbrew variants
 </code></pre>
 
-<p>variants の良いところは、 osx で失敗しがちな configure オプションのビルドをうまくやってくれるところだ。<br />
-例えば、pcre は php の cli で動くライブラリと apache モジュールで動くライブラリを同じものにするには php, apache それぞれのビルド時に同じ pcre ライブラリを指定しなければならない。</p>
+<p>variants を使うと、configure オプションによるビルドの失敗を上手く補ってくれるメリットがある。<br />
+例えば、<code>pcre</code> オプションは以下の様な失敗をしやすい。</p>
 
-<p>また、 apache には pcre ライブラリが同梱されているので、指定しないと同梱のものが使われ、古くてまともに動かなかったりする。<br />
-さらに、 osx ではちゃんと指定しても正しくライブラリがリンクされないことがあり、かなりハマった経験がある。</p>
+<ul>
+<li>php の cli で動く pcre と apache モジュールで動く pcre のバージョンが違う</li>
+<li>apache に同梱された pcre がリンクされて、そのバージョンが古くてまともに動かない</li>
+<li>pcre ライブラリを指定しても、正しくリンクされない(個人的には osx でありました)</li>
+</ul>
+
+<p>結果として、<code>preg_replace</code> 等、preg 系関数がまともに動かなくなってしまうことがある。</p>
 
 <p>しかし、この variants を使って pcre を指定すれば、apache モジュールと php cli で同じバージョンのちゃんと動く pcre ライブラリが入る。<br />
+これはかなりありがたい。<br />
 <br>
 <code>--enable-intl</code> もlinux に比べて osx では php のビルドがまともにいかないことが多いが、それもうまく補ってくれる。<br />
 <br>
-ちなみに、<code>--</code> に続けて書けば通常の configure option の記述が有効になる。</p>
+ちなみに、<code>--</code> に続けて書けば通常の configure option の記述も可能。</p>
 
 <pre><code>$ phpbrew install 5.3.10 +mysql +sqlite -- \
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
 </code></pre>
 
-<h4 id="ファイルによる-configure-option-の設定:a243102e0194a1a90c0e0b12d72d5bbe">ファイルによる configure option の設定</h4>
+<h3 id="ファイルによる-variants-の設定:a243102e0194a1a90c0e0b12d72d5bbe">ファイルによる variants の設定</h3>
 
 <p>yamlファイルで独自の variants を設定できる。</p>
 
@@ -217,7 +223,7 @@ extensions:
 <pre><code>$ phpbrew -d install 5.4.36 +dev
 </code></pre>
 
-<h4 id="個人的ベストプラクティス:a243102e0194a1a90c0e0b12d72d5bbe">個人的ベストプラクティス</h4>
+<h3 id="個人的ベストプラクティス:a243102e0194a1a90c0e0b12d72d5bbe">個人的ベストプラクティス</h3>
 
 <pre><code>$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 </code></pre>
@@ -227,17 +233,17 @@ extensions:
 
 <p><code>'+apxs2'</code> は apache の php モジュールをバージョン毎に管理する為に必須(後述)。</p>
 
-<h2 id="php-のバージョン切り替え:a243102e0194a1a90c0e0b12d72d5bbe">php のバージョン切り替え</h2>
-
-<pre><code>$ phpbrew switch php-5.4.36
-</code></pre>
-
 <h2 id="extension-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">extension のインストール</h2>
 
 <p>xdebug などの extension も yaml ファイル に独自の variants を記述してインストールできる。<br />
 （上のyaml を参照。）</p>
 
 <pre><code>$ phpbrew ext install +dev
+</code></pre>
+
+<h2 id="php-のバージョン切り替え:a243102e0194a1a90c0e0b12d72d5bbe">php のバージョン切り替え</h2>
+
+<pre><code>$ phpbrew switch php-5.4.36
 </code></pre>
 
 <h2 id="apache-のphpモジュール切り替え:a243102e0194a1a90c0e0b12d72d5bbe">apache のphpモジュール切り替え</h2>
@@ -275,9 +281,7 @@ LoadModule php5_module        modules/libphp5.3.29.so
 ...
 </code></pre>
 
-<h5 id="バージョン切り替えの方法:a243102e0194a1a90c0e0b12d72d5bbe">バージョン切り替えの方法</h5>
-
-<p>httpd.conf で使用するバージョンのモジュール以外をコメントアウトして apache を再起動する</p>
+<p>バージョンを切り替えるには httpd.conf で使用するバージョンのモジュール以外をコメントアウトして apache を再起動する</p>
 
 <pre><code class="language-apacheconf:/opt/apache2.2.29/conf/httpd.conf">...
 
