@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
   <meta property="og:title" content=" I made a deployment tool - ryogoku &middot;  yutaf blog" />
   <meta property="og:site_name" content="yutaf blog" />
-  <meta property="og:url" content="http://localhost:1313/ryogoku/" />
+  <meta property="og:url" content="http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/" />
   
   <meta property="og:type" content="article" />
   
@@ -23,19 +23,19 @@
      I made a deployment tool - ryogoku &middot;  yutaf blog
   </title>
 
-  <link rel="stylesheet" href="http://localhost:1313/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/main.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/css/github.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
-  <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico" />
-  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
   <link href="" rel="alternate" type="application/rss+xml" title="yutaf blog" />
 </head>
 <body>
   <header class="global-header">
     <section class="header-text">
-      <h1><a href="http://localhost:1313/">yutaf blog</a></h1>
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
       
       <div class="sns-links hidden-print">
   
@@ -53,7 +53,7 @@
 </div>
 
       
-      <a href="http://localhost:1313/" class="btn-header btn-back hidden-xs">
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
         <i class="fa fa-angle-left"></i>
         &nbsp;Home
       </a>
@@ -76,11 +76,11 @@
       </div>
       <div class="pull-right">
         
-        <span class="post-tag small"><a href="http://localhost:1313//tags/deploy">#deploy</a></span>
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/deploy">#deploy</a></span>
         
-        <span class="post-tag small"><a href="http://localhost:1313//tags/bash">#bash</a></span>
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/bash">#bash</a></span>
         
-        <span class="post-tag small"><a href="http://localhost:1313//tags/ryogoku">#ryogoku</a></span>
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/ryogoku">#ryogoku</a></span>
         
       </div>
     </div>
@@ -92,7 +92,7 @@
 I made a deployment tool, <a href="https://github.com/yutaf/ryogoku">ryogoku</a>.<br />
 It uses <code>rsync</code> to deploy.</p>
 
-<h2 id="why:f8a50e8a7dc0bdb8135e7d60049e24a6">why</h2>
+<h2 id="why:a243d8c3cf1cd7d968aa0a338320bf50">why</h2>
 
 <p>会社でデプロイの自動化を進めており、何か良いツールはないか探していた。<br />
 ちなみに自分の会社は以下の様な条件での仕事が多い。</p>
@@ -146,22 +146,22 @@ That didn&rsquo;t match my purpose.</li>
 <p>So I decided to make my own one based on <a href="https://github.com/tj/deploy">deploy</a>.<br />
 Thank you, <a href="https://github.com/tj/deploy">deploy</a>.</p>
 
-<h2 id="what-it-is-like-ryogoku:f8a50e8a7dc0bdb8135e7d60049e24a6">What it is like - ryogoku</h2>
+<h2 id="what-it-is-like-ryogoku:a243d8c3cf1cd7d968aa0a338320bf50">What it is like - ryogoku</h2>
 
 <p><a href="https://github.com/yutaf/ryogoku">https://github.com/yutaf/ryogoku</a></p>
 
-<h3 id="installation:f8a50e8a7dc0bdb8135e7d60049e24a6">Installation</h3>
+<h3 id="installation:a243d8c3cf1cd7d968aa0a338320bf50">Installation</h3>
 
 <p>Clone the repository from github, and</p>
 
 <pre><code>$ make install
 </code></pre>
 
-<h3 id="how-it-works:f8a50e8a7dc0bdb8135e7d60049e24a6">How it works</h3>
+<h3 id="how-it-works:a243d8c3cf1cd7d968aa0a338320bf50">How it works</h3>
 
 <p><img src="/images/ryogoku-01.png" class="image"></p>
 
-<h3 id="configuration:f8a50e8a7dc0bdb8135e7d60049e24a6">Configuration</h3>
+<h3 id="configuration:a243d8c3cf1cd7d968aa0a338320bf50">Configuration</h3>
 
 <p><code>ryogoku.conf</code> を git レポジトリルートに作成し、以下の様な内容を書く。</p>
 
@@ -201,7 +201,7 @@ This value can also be set by command line argument, which is prior to config on
 <li><code>umask</code> defines the file permissions.</li>
 </ul>
 
-<h3 id="execution:f8a50e8a7dc0bdb8135e7d60049e24a6">Execution</h3>
+<h3 id="execution:a243d8c3cf1cd7d968aa0a338320bf50">Execution</h3>
 
 <pre><code>$ ryogoku prod
 </code></pre>
@@ -242,7 +242,7 @@ This value can also be set by command line argument, which is prior to config on
     </section>
     <ul class="pager">
       
-      <li class="previous"><a href="http://localhost:1313/i-made-a-deployment-tool-ryogoku/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      <li class="previous"><a href="http://yutaf.github.io/phpbrew-memo/"><span aria-hidden="true">&larr;</span> Older</a></li>
       
       
       <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
@@ -274,15 +274,12 @@ This value can also be set by command line argument, which is prior to config on
 
   </footer>
 
-  <script src="http://localhost:1313/js/highlight.pack.js"></script>
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
   <script>
     hljs.initHighlightingOnLoad();
   </script>
   
   
-<script>document.write('<script src="http://'
-        + (location.host || 'localhost').split(':')[0]
-		+ ':1313/livereload.js?mindelay=10"></'
-        + 'script>')</script></body>
+</body>
 </html>
 
