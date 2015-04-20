@@ -95,7 +95,7 @@ Thank you, &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;
 
 &lt;p&gt;&lt;code&gt;ryogoku.conf&lt;/code&gt; を git レポジトリルートに作成し、以下の様な内容を書く。&lt;/p&gt;
 
-&lt;p&gt;Create &lt;code&gt;ryogoku.conf&lt;/code&gt; file which has content like below at the git repository root.&lt;/p&gt;
+&lt;p&gt;Create &lt;code&gt;ryogoku.conf&lt;/code&gt; at the git repository root.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;[prod]
 user rob
