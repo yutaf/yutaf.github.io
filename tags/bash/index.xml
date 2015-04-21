@@ -101,7 +101,7 @@ Thank you, &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;
 user rob
 host 128.199.170.128 128.199.244.193
 path /var/www/html
-ref origin/master
+ref master
 pre-rsync ./bin/pre-rsync
 post-deploy /var/www/html/bin/update.sh &amp;amp;&amp;amp; /var/www/html/bin/update.prod.sh
 umask 002
@@ -155,7 +155,7 @@ This value can also be set by command line argument, which is prior to config on
 &lt;pre&gt;&lt;code&gt;$ ryogoku prod 1.1.2
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;pre&gt;&lt;code&gt;$ ryogoku prod origin/develop
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod develop
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
