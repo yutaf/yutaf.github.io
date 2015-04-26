@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" provisioning with itamae &middot;  yutaf blog" />
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://localhost:1313/provisioning-with-itamae/" />
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2015-04-07T22:42:50&#43;09:00" />
+  
+  
+
+  <title>
+     provisioning with itamae &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://localhost:1313/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/main.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/github.css" />
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+  <link href="" rel="alternate" type="application/rss+xml" title="yutaf blog" />
+</head>
+<body>
+  <header class="global-header">
+    <section class="header-text">
+      <h1><a href="http://localhost:1313/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+      <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+</div>
+
+      
+      <a href="http://localhost:1313/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">provisioning with itamae</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2015-04-07T22:42:50&#43;09:00">
+          Apr 7, 2015
+        </time>
+      </div>
+      <div class="pull-right">
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>I provisioned my company&rsquo;s webhook server with <a href="https://github.com/itamae-kitchen/itamae">itamae</a> recently.<br />
+itamae is provisioning tool created by <a href="https://cookpad.com/en/categories/japanese-recipes">cookpad</a> and formerly called as Lightchef (named after <a href="https://www.chef.io/chef/">Chef</a>).<br />
+In conclusion, it is great tool because of it&rsquo;s simplicity.<br />
+It is very easy to start provisioning with itamae.</p>
+
+<h2 id="my-first-provisioning-tool:40fe1895693cb84a0b6def29bb369ea9">My first provisioning tool</h2>
+
+<p>I&rsquo;ve been using <a href="https://www.docker.com/">Docker</a> to create vm machines for develop.<br />
+But my company&rsquo;s webhook server that I was going to build had to run as normal server, not as container.<br />
+So I decided to build it with some provisioning tool.</p>
+
+<p>I started with searching tools because I have never used provisioning tools like <a href="https://www.chef.io/chef/">Chef</a> or <a href="http://www.ansible.com/">Ansible</a>.</p>
+
+<p>Chef seemed very complicatied and taking much time to start.<br />
+So I don&rsquo;t want to use it.<br />
+I had been thinking Ansible had suited my occasion better until I found itamae.</p>
+
+<p>itamae has good DSL like <code>not_if</code>.<br />
+Ansible configuration is to be defined by yaml, So it is weaker than itamae in setting flexibility.<br />
+itamae is also influenced very much by Chef  however it is much simpler than Chef instead of .</p>
+
+<p>Actually it didn&rsquo;t cost me much time to learn and go.</p>
+
+  </section>
+  <footer>
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://localhost:1313/i-made-a-deployment-tool-ryogoku/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="http://localhost:1313/paul-mccartney-japan-tour-042515/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+    
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+      <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://localhost:1313/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+
