@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy on yutaf blog</title>
+    <link>http://yutaf.github.io/tags/deploy/</link>
+    <description>Recent content in Deploy on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <lastBuildDate>Wed, 25 Mar 2015 23:11:48 +0900</lastBuildDate>
+    <atom:link href="http://yutaf.github.io/tags/deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>I made a deployment tool - ryogoku</title>
+      <link>http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/</link>
+      <pubDate>Wed, 25 Mar 2015 23:11:48 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/</guid>
+      <description>
+
+&lt;p&gt;rsync によるデプロイツール・&lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;ryogoku&lt;/a&gt; を作成した。&lt;br /&gt;
+I made a deployment tool, &lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;ryogoku&lt;/a&gt;.&lt;br /&gt;
+It uses &lt;code&gt;rsync&lt;/code&gt; to deploy.&lt;/p&gt;
+
+&lt;h2 id=&#34;why:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;why&lt;/h2&gt;
+
+&lt;p&gt;会社でデプロイの自動化を進めており、何か良いツールはないか探していた。&lt;br /&gt;
+ちなみに自分の会社は以下の様な条件での仕事が多い。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;受託業務中心。納品するのは php アプリケーション&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;プロダクション・サーバーがクライアントの所有で自由にツール類をインストールできない。git や ruby 等が入っていないことが殆ど。&lt;/li&gt;
+&lt;li&gt;web サーバー2台の db サーバー1台という小規模な構成が殆ど。&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;これらの条件に見合うようなデプロイツールを探して、色々情報を集めた。&lt;br /&gt;
+特に参考になったのはこのページ。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/naoya/20130118/1358477523&#34;&gt;開発メモ#1 : Cinnamon によるデプロイ&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そして、最終的には以下の様な理由で自作することにした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;capistrano は複雑そう。また、php のアプリで ruby のツールを使いたくなかった。&lt;/li&gt;
+&lt;li&gt;fabric も検討したが、デザイナー含めた他のメンバーに homebrew や pip 等のインストール作業をさせるのがハードルだと感じた。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt; というシェルスクリプトのデプロイツールを発見し、インストールが楽なこととシンプルな使い方がとても良いと感じた。&lt;br /&gt;
+&lt;a href=&#34;http://qiita.com/futoase/items/c2ac39cfe28813b79bc4&#34;&gt;【個人メモ】デプロイするためにdeployを使ってみる&lt;/a&gt;&lt;br /&gt;
+しかし、デプロイ先サーバーでの git インストールが必須な点と、複数台のホストに対して実行出来ない点が自分の目的とそぐわなかった。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上から、&lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt; をベースに、殆どの unix マシンで使用可能な rsync 使ったツールを作成することにした。&lt;/p&gt;
+
+&lt;p&gt;I wanted simple deployment tool suitable for my work.&lt;br /&gt;
+My work is like&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;making php applications that are outsourced from various clients.&lt;/li&gt;
+&lt;li&gt;Production servers are properties of clients, and softwares like git or ruby are rarely installed in them.&lt;br /&gt;
+And also I am not permitted to install softwares.&lt;/li&gt;
+&lt;li&gt;Server cluster is consisted of 2 web servers and 1 database server in most cases.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I started searching tools to match these conditions.&lt;br /&gt;
+But I eventually decide to make my own one after a while surfing the web.&lt;br /&gt;
+Because&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;capistrano seemed to be too complicated.&lt;/li&gt;
+&lt;li&gt;fabric seemed much better than capistrano, but I thought it was still hard for my team to install homebrew or pip things.&lt;/li&gt;
+&lt;li&gt;I found &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt; on github.&lt;br /&gt;
+that&amp;rsquo;s cool deployment tool because installation and usage were very simpler than others.&lt;br /&gt;
+But it requires git to be installed in deployment servers and doesn&amp;rsquo;t support deployment to multiple hosts.&lt;br /&gt;
+That didn&amp;rsquo;t match my purpose.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So I decided to make my own one based on &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;.&lt;br /&gt;
+Thank you, &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-it-is-like-ryogoku:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;What it is like - ryogoku&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;https://github.com/yutaf/ryogoku&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;installation:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Installation&lt;/h3&gt;
+
+&lt;p&gt;Clone the repository from github, and&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;how-it-works:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;How it works&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/ryogoku-01.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;configuration:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Configuration&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;ryogoku.conf&lt;/code&gt; を git レポジトリルートに作成し、以下の様な内容を書く。&lt;/p&gt;
+
+&lt;p&gt;Create &lt;code&gt;ryogoku.conf&lt;/code&gt; at the git repository root.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[prod]
+user rob
+host 128.199.170.128 128.199.244.193
+path /var/www/html
+ref master
+pre-rsync ./bin/pre-rsync
+post-deploy /var/www/html/bin/update.sh &amp;amp;&amp;amp; /var/www/html/bin/update.prod.sh
+umask 002
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;内容について簡単に説明すると、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;デプロイ先は&lt;br /&gt;
+&lt;code&gt;rob@128.199.170.128:/var/www/html&lt;/code&gt; &lt;code&gt;rob@128.199.244.193:/var/www/html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; はデプロイする git のリビジョンを指定&lt;br /&gt;
+コマンドライン引数での指定も可能で、その場合はコマンドライン引数の値が優先される。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pre-rsync&lt;/code&gt; は rsync を行う前に実行するコマンド&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;post-deploy&lt;/code&gt; は rsync を行ったあとに実行するコマンド&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;umask&lt;/code&gt; はファイルパーミッションを設定する&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What directives in this configuration file means are&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;deploying to&lt;br /&gt;
+&lt;code&gt;rob@128.199.170.128:/var/www/html&lt;/code&gt; &lt;code&gt;rob@128.199.244.193:/var/www/html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ref&lt;/code&gt; is the git revision to be deployed.&lt;br /&gt;
+This value can also be set by command line argument, which is prior to config one.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pre-rsync&lt;/code&gt; defines commands that are executed before rsync.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;post-deploy&lt;/code&gt; defines commands that are executed after rsync.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;umask&lt;/code&gt; defines the file permissions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;execution:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Execution&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで、master リビジョンが prod で指定したホストにデプロイされる。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;master&lt;/code&gt; revision is deployed to the hosts defined in &lt;code&gt;prod&lt;/code&gt; section by this command.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;git リビジョンを指定する場合は、コマンドラインの引数に渡す。&lt;/p&gt;
+
+&lt;p&gt;If you want to deploy specific revision, you can pass an argument to command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod HEAD^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod b7ea7b3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod 1.1.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ryogoku prod develop
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
