@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Provisioning on yutaf blog</title>
+    <link>http://yutaf.github.io/tags/provisioning/</link>
+    <description>Recent content in Provisioning on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <lastBuildDate>Tue, 07 Apr 2015 22:42:50 +0900</lastBuildDate>
+    <atom:link href="http://yutaf.github.io/tags/provisioning/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>provisioning with itamae</title>
+      <link>http://yutaf.github.io/provisioning-with-itamae/</link>
+      <pubDate>Tue, 07 Apr 2015 22:42:50 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/provisioning-with-itamae/</guid>
+      <description>
+
+&lt;p&gt;I provisioned my company&amp;rsquo;s webhook server with &lt;a href=&#34;https://github.com/itamae-kitchen/itamae&#34;&gt;itamae&lt;/a&gt; recently.&lt;br /&gt;
+itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;/p&gt;
+
+&lt;p&gt;I have never used Chef and also other provisioning tools like Ansible.&lt;br /&gt;
+But I could learn it for 2,3 hours and began to provision.&lt;br /&gt;
+It is very easy to start provisioning with itamae.&lt;br /&gt;
+I like it.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-use-it:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;How to use it&lt;/h2&gt;
+
+&lt;p&gt;First of all we need &lt;code&gt;recipe&lt;/code&gt; to provision.&lt;br /&gt;
+Here&amp;rsquo;s my recipe to install ruby with rbenv.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;recipes/ruby.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;execute &amp;quot;install rbenv&amp;quot; do
+  command &amp;quot;
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv &amp;amp;&amp;amp; \
+    echo &#39;export PATH=\&amp;quot;$HOME/.rbenv/bin:$PATH\&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc  &amp;amp;&amp;amp; \
+    echo &#39;eval \&amp;quot;$(rbenv init -)\&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc &amp;amp;&amp;amp; \
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+  &amp;quot;
+  not_if &amp;quot;test -d ~/.rbenv&amp;quot;
+end
+execute &amp;quot;install ruby&amp;quot; do
+  command &amp;quot;rbenv install 2.2.1 &amp;amp;&amp;amp; rbenv global 2.2.1&amp;quot;
+  not_if &amp;quot;test -d /root/.rbenv/versions/2.2.1&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then execute this recipe via ssh.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;itamae ssh -h 54.64.46.48 -u webhook recipes/ruby.rb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;details:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Details&lt;/h2&gt;
+
+&lt;h4 id=&#34;about-recipe:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;About recipe&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We don&amp;rsquo;t need to write &lt;code&gt;sudo&lt;/code&gt; specifically because itamae automatically does it well.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;not_if&lt;/code&gt; is very useful &lt;a href=&#34;https://github.com/itamae-kitchen/itamae/wiki/Resources&#34;&gt;resource&lt;/a&gt;.&lt;br /&gt;
+With that we can avoid unnecessary execution of recipes when we do it repeatedly.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;execution:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Execution&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;we can of course execute itamae locally not via ssh.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;more-to-it:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More to it&lt;/h2&gt;
+
+&lt;h4 id=&#34;including-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Including Recipes&lt;/h4&gt;
+
+&lt;p&gt;Paths are indicated relatively from the recipe.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;include_recipe &amp;quot;yum.rb&amp;quot;
+include_recipe &amp;quot;apache22-php.rb&amp;quot;
+include_recipe &amp;quot;ruby.rb&amp;quot;
+include_recipe &amp;quot;gem.rb&amp;quot;
+include_recipe &amp;quot;npm.rb&amp;quot;
+include_recipe &amp;quot;ryogoku.rb&amp;quot;
+include_recipe &amp;quot;add_deploy_user.rb&amp;quot;
+include_recipe &amp;quot;add_webhook_script.rb&amp;quot;
+include_recipe &amp;quot;cron.rb&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;more-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More recipes&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;recipes/add_deploy_user.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;execute &amp;quot;add deploy user&amp;quot; do
+  # you cannot ssh unless changing password
+  command &amp;quot;
+    adduser --system --shell /bin/bash --home-dir /home/deploy --user-group deploy &amp;amp;&amp;amp; \
+    passwd -f -u deploy &amp;amp;&amp;amp; \
+    mkdir -p /home/deploy/.ssh
+  &amp;quot;
+  not_if &amp;quot;grep ^deploy /etc/passwd&amp;quot;
+end
+# Set up key
+remote_directory &amp;quot;/home/deploy/.ssh&amp;quot; do
+  source &amp;quot;../templates/.ssh/&amp;quot;
+end
+execute &amp;quot;Change ssh files permission&amp;quot; do
+  command &amp;quot;
+    chown -R deploy:deploy /home/deploy &amp;amp;&amp;amp; \
+    chmod 700 /home/deploy/.ssh &amp;amp;&amp;amp; \
+    chmod 600 /home/deploy/.ssh/authorized_keys &amp;amp;&amp;amp; \
+    chmod 600 /home/deploy/.ssh/id_rsa
+  &amp;quot;
+end
+execute &amp;quot;disable requiretty&amp;quot; do
+  command &amp;quot;sed -i &#39;s;^Defaults *requiretty;#&amp;amp;;g&#39; /etc/sudoers&amp;quot;
+end
+execute &amp;quot;enable apache user to execute ryogoku without password&amp;quot; do
+  command &amp;quot;echo &#39;apache  ALL=(deploy) NOPASSWD: /usr/local/bin/ryogoku&#39; &amp;gt;&amp;gt; /etc/sudoers&amp;quot;
+  not_if &amp;quot;grep ^apache /etc/sudoers&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;recipes/apache22-php.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;execute &amp;quot;mkdir -p /usr/local/src&amp;quot; do
+  command &amp;quot;mkdir -p /usr/local/src&amp;quot;
+  not_if &amp;quot;test -d /usr/local/src&amp;quot;
+end
+
+#
+# apache
+#
+
+execute &amp;quot;download apache tarball&amp;quot; do
+  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; curl -L -O http://apache.cs.utah.edu//httpd/httpd-2.2.29.tar.gz&amp;quot;
+  not_if &amp;quot;test -e /usr/local/src/httpd-2.2.29.tar.gz&amp;quot;
+end
+
+execute &amp;quot;tar apache tarball&amp;quot; do
+  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; tar xzvf httpd-2.2.29.tar.gz&amp;quot;
+  not_if &amp;quot;test -d /usr/local/src/httpd-2.2.29&amp;quot;
+end
+
+execute &amp;quot;install apache&amp;quot; do
+  command &amp;quot;
+  cd /usr/local/src/httpd-2.2.29 &amp;amp;&amp;amp; \
+  ./configure \
+    --prefix=/opt/apache2.2.29 \
+    --enable-mods-shared=all \
+    --enable-proxy \
+    --enable-ssl \
+    --with-ssl \
+    --with-mpm=prefork \
+    --with-pcre &amp;amp;&amp;amp; \
+  make &amp;amp;&amp;amp; \
+  make install
+  &amp;quot;
+  not_if &amp;quot;test -d /opt/apache2.2.29&amp;quot;
+end
+
+# Apache config
+sed_scripts_for_httpd_conf = [
+  &#39;s/^Listen 80/#&amp;amp;/&#39;,
+  &#39;s/^DocumentRoot/#&amp;amp;/&#39;,
+  &#39;/^&amp;lt;Directory/,/^&amp;lt;\/Directory/s/^/#/&#39;,
+  &#39;s;ScriptAlias /cgi-bin;#&amp;amp;;&#39;,
+  &#39;s;#\(Include conf/extra/httpd-mpm.conf\);\1;&#39;,
+  &#39;s;#\(Include conf/extra/httpd-default.conf\);\1;&#39;,
+  &#39;/^\s*DirectoryIndex/s/$/ index.php/&#39;, # DirectoryIndex; index.html precedes index.php
+  # Change User &amp;amp; Group
+  &#39;s;^\(User \)daemon$;\1apache;&#39;,
+  &#39;s;^\(Group \)daemon$;\1apache;&#39;
+]
+
+sed_scripts_for_httpd_conf.each do |sed_script_for_httpd_conf|
+  execute sed_script_for_httpd_conf do
+    command &#39;sed -i \&#39;&#39; + sed_script_for_httpd_conf + &#39;\&#39; /opt/apache2.2.29/conf/httpd.conf&#39;
+  end
+end
+
+execute &amp;quot;edit httpd.conf&amp;quot; do
+  command &#39;echo &amp;quot;Include /srv/apache/apache.conf&amp;quot; &amp;gt;&amp;gt; /opt/apache2.2.29/conf/httpd.conf&#39;
+  not_if &amp;quot;grep /srv/apache/apache.conf /opt/apache2.2.29/conf/httpd.conf&amp;quot;
+end
+
+execute &amp;quot;edit httpd-defaut.conf&amp;quot; do
+  command &#39;sed -i &amp;quot;s/\(ServerTokens \)Full/\1Prod/&amp;quot; /opt/apache2.2.29/conf/extra/httpd-default.conf&#39;
+end
+
+# Change User &amp;amp; Group
+#  useradd --system --shell /usr/sbin/nologin --user-group --home /dev/null apache; \
+execute &amp;quot;add apache user &amp;amp; group&amp;quot; do
+  command &amp;quot;useradd --system --shell /usr/sbin/nologin --user-group --home /dev/null apache&amp;quot;
+  not_if &amp;quot;grep &#39;^apache&#39; /etc/passwd&amp;quot;
+end
+
+execute &amp;quot;mkdir -p /srv/apache&amp;quot; do
+  command &amp;quot;mkdir -p /srv/apache&amp;quot;
+  not_if &amp;quot;test -d /srv/apache&amp;quot;
+end
+
+remote_file &amp;quot;/srv/apache/apache.conf&amp;quot; do
+  source &amp;quot;../templates/apache.conf&amp;quot;
+end
+
+execute &amp;quot;set apache CustomLog&amp;quot; do
+  command &#39;echo \&#39;CustomLog &amp;quot;|/opt/apache2.2.29/bin/rotatelogs /srv/www/logs/access/access.%Y%m%d.log 86400 540&amp;quot; combined\&#39; &amp;gt;&amp;gt; /srv/apache/apache.conf&#39;
+  not_if &amp;quot;grep &#39;^CustomLog&#39; /srv/apache/apache.conf&amp;quot;
+end
+
+execute &amp;quot;set apache ErrorLog&amp;quot; do
+  command &#39;echo \&#39;ErrorLog &amp;quot;|/opt/apache2.2.29/bin/rotatelogs /srv/www/logs/error/error.%Y%m%d.log 86400 540&amp;quot;\&#39; &amp;gt;&amp;gt; /srv/apache/apache.conf&#39;
+  not_if &amp;quot;grep &#39;^ErrorLog&#39; /srv/apache/apache.conf&amp;quot;
+end
+
+execute &amp;quot;make log dirs&amp;quot; do
+  command &amp;quot;mkdir -m 777 -p /srv/www/logs/{access,error,app}&amp;quot;
+  not_if &amp;quot;test -d /srv/www/logs/access&amp;quot;
+end
+
+execute &amp;quot;make Apache document root&amp;quot; do
+  command &amp;quot;mkdir -p /srv/www/htdocs/&amp;quot;
+  not_if &amp;quot;test -d /srv/www/htdocs/&amp;quot;
+end
+
+#
+# php
+#
+
+execute &amp;quot;download php tarball&amp;quot; do
+  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; curl -L -O http://php.net/distributions/php-5.6.7.tar.gz&amp;quot;
+  not_if &amp;quot;test -e /usr/local/src/php-5.6.7.tar.gz&amp;quot;
+end
+
+execute &amp;quot;tar php tarball&amp;quot; do
+  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; tar xzvf php-5.6.7.tar.gz&amp;quot;
+  not_if &amp;quot;test -d /usr/local/src/php-5.6.7&amp;quot;
+end
+
+execute &amp;quot;install php&amp;quot; do
+  command &amp;quot;
+  cd /usr/local/src/php-5.6.7 &amp;amp;&amp;amp; \
+  ./configure \
+    --prefix=/opt/php-5.6.7 \
+    --with-config-file-path=/srv/php \
+    --with-apxs2=/opt/apache2.2.29/bin/apxs \
+    --with-libdir=lib64 \
+    --enable-mbstring \
+    --enable-intl \
+    --with-icu-dir=/usr \
+    --with-gettext=/usr \
+    --with-pcre-regex=/usr \
+    --with-pcre-dir=/usr \
+    --with-readline=/usr \
+    --with-libxml-dir=/usr/bin/xml2-config \
+    --with-zlib=/usr \
+    --with-zlib-dir=/usr \
+    --with-gd \
+    --with-jpeg-dir=/usr \
+    --with-png-dir=/usr \
+    --with-freetype-dir=/usr \
+    --enable-gd-native-ttf \
+    --enable-gd-jis-conv \
+    --with-openssl=/usr \
+    --with-mcrypt=/usr \
+    --enable-bcmath \
+    --with-curl \
+    --enable-exif &amp;amp;&amp;amp; \
+  make &amp;amp;&amp;amp; \
+  make install
+  &amp;quot;
+  not_if &amp;quot;test -d /opt/php-5.6.7&amp;quot;
+end
+
+#
+# xdebug
+#
+
+# set php PATH because using phpize for xdebug installation
+execute &amp;quot;set php PATH&amp;quot; do
+  command &amp;quot;echo &#39;export PATH=/opt/php-5.6.7/bin:$PATH&#39; &amp;gt;&amp;gt; ~/.bashrc&amp;quot;
+  not_if &amp;quot;grep /opt/php-5.6.7/bin ~/.bashrc&amp;quot;
+end
+
+execute &amp;quot;install xdebug&amp;quot; do
+  command &amp;quot;
+    cd /usr/local/src &amp;amp;&amp;amp; \
+    curl -L -O http://xdebug.org/files/xdebug-2.3.2.tgz &amp;amp;&amp;amp; \
+    tar -xzf xdebug-2.3.2.tgz &amp;amp;&amp;amp; \
+    cd xdebug-2.3.2 &amp;amp;&amp;amp; \
+    phpize &amp;amp;&amp;amp; \
+    ./configure --enable-xdebug &amp;amp;&amp;amp; \
+    make &amp;amp;&amp;amp; \
+    make install
+  &amp;quot;
+  not_if &amp;quot;test -e /opt/php-5.6.7/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so&amp;quot;
+end
+
+# php.ini
+execute &amp;quot;mkdir -p /srv/php&amp;quot; do
+  command &amp;quot;mkdir -p /srv/php&amp;quot;
+  not_if &amp;quot;test -d /srv/php&amp;quot;
+end
+remote_file &amp;quot;/srv/php/php.ini&amp;quot; do
+  source &amp;quot;../templates/php.ini&amp;quot;
+end
+execute &amp;quot;Add zend_extension directive&amp;quot; do
+  command &amp;quot;echo &#39;zend_extension = \&amp;quot;/opt/php-5.6.7/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so\&amp;quot;&#39; &amp;gt;&amp;gt; /srv/php/php.ini&amp;quot;
+  not_if &amp;quot;grep ^zend_extension /srv/php/php.ini&amp;quot;
+end
+
+
+execute &amp;quot;start apache&amp;quot; do
+  command &amp;quot;/opt/apache2.2.29/bin/apachectl start&amp;quot;
+  not_if &amp;quot;ps aux | grep httpd | grep -v grep&amp;quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
