@@ -97,8 +97,7 @@
       <description>
 
 &lt;p&gt;I provisioned my company&amp;rsquo;s webhook server with &lt;a href=&#34;https://github.com/itamae-kitchen/itamae&#34;&gt;itamae&lt;/a&gt; recently.&lt;br /&gt;
-itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;br /&gt;
-I agree with its former name because it&amp;rsquo;s not as complicatied as &lt;a href=&#34;https://www.chef.io/chef/&#34;&gt;Chef&lt;/a&gt;.&lt;/p&gt;
+itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;/p&gt;
 
 &lt;p&gt;I have never used Chef and also other provisioning tools like Ansible.&lt;br /&gt;
 But I could learn it for 2,3 hours and began to provision.&lt;br /&gt;
