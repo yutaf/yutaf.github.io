@@ -21,8 +21,8 @@
 &lt;p&gt;I provisioned my company&amp;rsquo;s webhook server with &lt;a href=&#34;https://github.com/itamae-kitchen/itamae&#34;&gt;itamae&lt;/a&gt; recently.&lt;br /&gt;
 itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;/p&gt;
 
-&lt;p&gt;I have never used Chef and also other provisioning tools like Ansible.&lt;br /&gt;
-But I could learn it for 2,3 hours and began to provision.&lt;br /&gt;
+&lt;p&gt;I have never used provisioning tools like Chef or Ansible at all.&lt;br /&gt;
+But I could learn itamae for 2,3 hours and began to provision.&lt;br /&gt;
 It is very easy to start provisioning with itamae.&lt;br /&gt;
 I like it.&lt;/p&gt;
 
@@ -69,7 +69,7 @@ With that we can avoid unnecessary execution of recipes when we do it repeatedly
 &lt;li&gt;we can of course execute itamae locally not via ssh.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;more-to-it:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More to it&lt;/h2&gt;
+&lt;h2 id=&#34;more:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More&lt;/h2&gt;
 
 &lt;h4 id=&#34;including-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Including Recipes&lt;/h4&gt;
 
@@ -86,7 +86,7 @@ include_recipe &amp;quot;add_webhook_script.rb&amp;quot;
 include_recipe &amp;quot;cron.rb&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;more-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More recipes&lt;/h4&gt;
+&lt;h4 id=&#34;other-my-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Other my recipes&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;recipes/add_deploy_user.rb&lt;/code&gt;&lt;/p&gt;
 
