@@ -86,7 +86,7 @@ include_recipe &amp;quot;add_webhook_script.rb&amp;quot;
 include_recipe &amp;quot;cron.rb&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;other-my-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Other my recipes&lt;/h4&gt;
+&lt;h4 id=&#34;my-other-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;My other recipes&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;recipes/add_deploy_user.rb&lt;/code&gt;&lt;/p&gt;
 
