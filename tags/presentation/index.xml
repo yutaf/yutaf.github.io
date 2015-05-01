@@ -21,10 +21,10 @@
 &lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;
 
 &lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
-発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
+結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
 ちなみに、これは自分にとって初めての社外の人に向けた発表だった。&lt;/p&gt;
 
-&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/tIIytx7ajztnz5&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
+&lt;script async class=&#34;speakerdeck-embed&#34; data-id=&#34;a57e354b64c9494eb03f30e5a38afa27&#34; data-ratio=&#34;1.33333333333333&#34; src=&#34;//speakerdeck.com/assets/embed.js&#34;&gt;&lt;/script&gt;
 
 &lt;h2 id=&#34;発表を通じてわかったこと:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
 
@@ -56,17 +56,15 @@
 &lt;p&gt;発表に対する質問も受けた。そのおかげで、デプロイに関してのポイントや自分が気づいていないところに気づけたので、質問者の方には感謝したい。&lt;br /&gt;
 質問は本当に大事ですね。&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;「既存のツールを使わないで、自分たちで作ったツールを使うメリットは？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;「既存のツールを使わないで、自分たちで作ったツールを使うメリットは？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 その時は上手く答えられなかったので、ここに書こうと思う。&lt;br /&gt;&lt;br /&gt;
 メリットは、自分たちの仕事に最適化したツールが作れるということ。&lt;br /&gt;
 既存のツールの不要な機能をそぎ落として、自分たちに必要な最低限のものを作れる。&lt;br /&gt;&lt;br /&gt;
 デメリットは、しっかりメンテナンスをしなければならないこと。&lt;br /&gt;
 スライド中にある、フロントツールのビルドに時間がかかるといった問題のように、時間の経過とともに出てくる問題に対処出来なければ使い続けていけるツールにならない。&lt;br /&gt;&lt;br /&gt;
 また、既存のツールと違い、ネット上に情報が集積されていないので、作成者以外の人間が理解できるようドキュメントの整備は既存のツール以上にしっかりやらなければならない。&lt;br /&gt;&lt;br /&gt;
-この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;&lt;br /&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;&lt;br /&gt;
+&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 恥ずかしながら、APC, OPcache について知らなかった。&lt;br /&gt;
 &lt;a href=&#34;https://www.xserver.ne.jp/manual/man_server_php_apc.php&#34;&gt;https://www.xserver.ne.jp/manual/man_server_php_apc.php&lt;/a&gt;&lt;br /&gt;
 &lt;code&gt;「APC」や「OPcache」とは、PHPの高速化、CPU負荷を軽減するための拡張モジュールです。&lt;/code&gt;&lt;br /&gt;
@@ -82,9 +80,9 @@ ryogoku に関して言えば、シンボリックリンクを張り替えず、
 一方で考えたことは、OPcache を使うような高いパフォーマンスが求められるアプリケーションでは、シンボリックリンクを切り替えるタイプのゼロダウンタイムなデプロイが求められるのではないかということ。&lt;br /&gt;
 そういったアプリケーションには ryogoku は不向きだと思った。&lt;br /&gt;&lt;br /&gt;
 ryogoku が向いているのは、ゲームなどのリアルタイム性が強く求められるものでなく、静的なコンテンツやブログ、CMSなど、コンマ何秒間のダウンタイムが問題にならないものかと思う。&lt;br /&gt;
-言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;/p&gt;&lt;/li&gt;
+言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;/p&gt;
 
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;「ロールバックはどうしている？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;「ロールバックはどうしている？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 ryogoku には revert というコマンドがあり、それでロールバックを実現している。&lt;br /&gt;
 このコマンドの実際の動作がどうなっているかというと、戻りたいgit の commit id を指定してデプロイしている。&lt;br /&gt;
 つまり、バックアップからの復元でない。&lt;br /&gt;
@@ -92,8 +90,7 @@ ryogoku には revert というコマンドがあり、それでロールバッ�
 細かい話になるので簡単に言いたいが、あるデプロイを境に rsync の除外リストから外されたファイル(転送対象になったファイル)があると、ロールバックしたときに不要なファイルがデプロイ先サーバーに残ってしまうことがある。&lt;br /&gt;
 これは今後改善しなくてはと思っている。&lt;br /&gt;&lt;br /&gt;
 ちなみに capistrano であれば、デプロイごとにアプリケーションをまるまるディレクトリごと作成して、シンボリックリンクを張り替えて対応しているので、ロールバックも過去のディレクトリにリンクを張り替えればいいだけなので、確実。&lt;br /&gt;&lt;br /&gt;
-ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
+ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;
 
 &lt;h2 id=&#34;発表を通じてわかったこと-まとめ:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
 
