@@ -54,7 +54,8 @@
 &lt;p&gt;&lt;strong&gt;質問&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;発表に対する質問も受けた。そのおかげで、デプロイに関してのポイントや自分が気づいていないところに気づけたので、質問者の方には感謝したい。&lt;br /&gt;
-質問は本当に大事ですね。&lt;/p&gt;
+質問は本当に大事ですね。&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;「既存のツールを使わないで、自分たちで作ったツールを使うメリットは？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 その時は上手く答えられなかったので、ここに書こうと思う。&lt;br /&gt;&lt;br /&gt;
@@ -63,8 +64,10 @@
 デメリットは、しっかりメンテナンスをしなければならないこと。&lt;br /&gt;
 スライド中にある、フロントツールのビルドに時間がかかるといった問題のように、時間の経過とともに出てくる問題に対処出来なければ使い続けていけるツールにならない。&lt;br /&gt;&lt;br /&gt;
 また、既存のツールと違い、ネット上に情報が集積されていないので、作成者以外の人間が理解できるようドキュメントの整備は既存のツール以上にしっかりやらなければならない。&lt;br /&gt;&lt;br /&gt;
-この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;&lt;br /&gt;
-&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 恥ずかしながら、APC, OPcache について知らなかった。&lt;br /&gt;
 &lt;a href=&#34;https://www.xserver.ne.jp/manual/man_server_php_apc.php&#34;&gt;https://www.xserver.ne.jp/manual/man_server_php_apc.php&lt;/a&gt;&lt;br /&gt;
 &lt;code&gt;「APC」や「OPcache」とは、PHPの高速化、CPU負荷を軽減するための拡張モジュールです。&lt;/code&gt;&lt;br /&gt;
@@ -80,7 +83,8 @@ ryogoku に関して言えば、シンボリックリンクを張り替えず、
 一方で考えたことは、OPcache を使うような高いパフォーマンスが求められるアプリケーションでは、シンボリックリンクを切り替えるタイプのゼロダウンタイムなデプロイが求められるのではないかということ。&lt;br /&gt;
 そういったアプリケーションには ryogoku は不向きだと思った。&lt;br /&gt;&lt;br /&gt;
 ryogoku が向いているのは、ゲームなどのリアルタイム性が強く求められるものでなく、静的なコンテンツやブログ、CMSなど、コンマ何秒間のダウンタイムが問題にならないものかと思う。&lt;br /&gt;
-言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;/p&gt;
+言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;「ロールバックはどうしている？」&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
 ryogoku には revert というコマンドがあり、それでロールバックを実現している。&lt;br /&gt;
