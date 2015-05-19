@@ -7,8 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 30 Apr 2015 18:14:33 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2015 14:55:52 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>php max_input_vars make you lost form values</title>
+      <link>http://yutaf.github.io/php-max-input-vars/</link>
+      <pubDate>Tue, 19 May 2015 14:55:52 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/php-max-input-vars/</guid>
+      <description>&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
+最初は js のバグかと思っていたが、php の設定が問題だった。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.softel.co.jp/blogs/tech/archives/3591&#34;&gt;【php】max_input_varsの影響でフォームの値を全部受け取れないことがある   at softelメモ&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;問題
+フォームから送信した値が、サーバー側（php）で取得できない。
+
+プログラムは動いてるみたいなんだけど、あるはずの $_REQUEST[‘hoge’] などがないみたい。
+
+どうなってるのこれ？
+
+答え
+以下の条件に当てはまるようなら、phpのmax_input_varsの設定値の影響かもしれない。
+
+...
+
+max_input_vars integer
+
+入力変数を最大で何個まで受け付けるかを指定します 
+(この制限は、スーパーグローバル $_GET、$_POST そして $_COOKIE にそれぞれ個別に適用されます)。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;対象サーバーの &lt;code&gt;max_input_vars&lt;/code&gt; は 150 だったので、300 まで上げた。&lt;br /&gt;
+解決した。&lt;/p&gt;
+
+&lt;p&gt;それにしても ie(11) だけで起こった理由がわからない。&lt;br /&gt;
+他のブラウザよりも多くのフォーム値を送信しているということ？&lt;/p&gt;
+
+&lt;p&gt;同じ実装ではないが、次のような記事を見つけた。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://hack.aipo.com/archives/5998/&#34;&gt;inputタグのonclickでform.submit()を実行しているため、IEだけ二重にリクエストが送信される時の対処法&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;この対処法は自分の場合は有効でなかった。&lt;br /&gt;
+とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>第89回 PHP勉強会＠東京</title>
