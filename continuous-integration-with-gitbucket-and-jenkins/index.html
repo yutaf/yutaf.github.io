@@ -167,12 +167,12 @@ Jenkins url : <code>http://192.168.10.11:8080</code></p>
 jenkinsbot ユーザーが対象のレポジトリにアクセスできるように、Group に入れたり、Collaborators に入れたりしておく</li>
 <li>gitbucket レポジトリ <code>http://gitbucket.sample.co.jp/root/test</code> を作成</li>
 <li>gitbucket レポジトリのwebhook url に <code>http://192.168.10.11:8080/ghprbhook/</code> を設定。<br />
-<img src="/images/deploy-without-github-01.png" class="image"></li>
+<img src="/images/continuous-integration-with-gitbucket-and-jenkins-01.png" class="image"></li>
 <li><code>http://gitbucket.sample.co.jp/jenkinsbot/_application</code> で Personal access tokens を作成</li>
 
 <li><p>Jenkins の設定ページで GitHub Pull Request Builder のセクションを設定する<br />
 <code>http://192.168.10.11:8080/configure</code><br />
-<img src="/images/deploy-without-github-02.png" class="image"></p>
+<img src="/images/continuous-integration-with-gitbucket-and-jenkins-02.png" class="image"></p>
 
 <ul>
 <li>GitHub server api URL: <code>http://gitbucket.sample.co.jp/api/v3</code></li>
@@ -206,8 +206,8 @@ testjob を作成<br />
 <li>Admin list = <code>root</code></li>
 </ul></li>
 <li>保存する
-<img src="/images/deploy-without-github-03.png" class="image"><br />
-<img src="/images/deploy-without-github-04.png" class="image"><br /></li>
+<img src="/images/continuous-integration-with-gitbucket-and-jenkins-03.png" class="image"><br />
+<img src="/images/continuous-integration-with-gitbucket-and-jenkins-04.png" class="image"><br /></li>
 </ul></li>
 </ul>
 
@@ -215,7 +215,7 @@ testjob を作成<br />
 
 <p>ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。</p>
 
-<p><img src="/images/deploy-without-github-05.png" class="image"></p>
+<p><img src="/images/continuous-integration-with-gitbucket-and-jenkins-05.png" class="image"></p>
 
 <h2 id="test:ecdde15144661f1ec91b92fcff83e0bc">Test</h2>
 
