@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on yutaf blog</title>
+    <link>http://localhost:1313/tags/git/</link>
+    <description>Recent content in Git on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <lastBuildDate>Wed, 10 Jun 2015 22:22:41 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>a new deployment model in outsourced software development in japan</title>
+      <link>http://localhost:1313/a-new-deployment-model-in-outsourced-software-development-in-japan/</link>
+      <pubDate>Wed, 10 Jun 2015 22:22:41 +0900</pubDate>
+      
+      <guid>http://localhost:1313/a-new-deployment-model-in-outsourced-software-development-in-japan/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

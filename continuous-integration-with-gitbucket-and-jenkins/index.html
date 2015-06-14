@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  
+  <meta property="og:title" content=" Continuous integration with gitbucket and jenkins &middot;  yutaf blog" />
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2015-06-11T13:10:53&#43;09:00" />
+  
+  <meta property="og:article:tag" content="deploy" />
+  
+  <meta property="og:article:tag" content="gitbucket" />
+  
+  <meta property="og:article:tag" content="jenkins" />
+  
+  
+
+  <title>
+     Continuous integration with gitbucket and jenkins &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+  <header class="global-header">
+    <section class="header-text">
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+</div>
+
+      
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Continuous integration with gitbucket and jenkins</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2015-06-11T13:10:53&#43;09:00">
+          Jun 11, 2015
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/deploy">#deploy</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/gitbucket">#gitbucket</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/jenkins">#jenkins</a></span>
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<!--
+Have you ever thought of these kind of things ?  
+
+- **We want to develop with github, but our codes must be placed in private network...**  
+- **Github Enterprise is too expensive...**  
+- **We want to run continuous integration with Travis CI or CircleCI to catch `pull request` events and build. But github is needed to use those services...**
+
+I have no idea to bring your team github.  
+But I found that we can do almost same things all in your private zone with `GitBucket` + `jenkins`.  
+-->
+
+<!--
+GitBucket is OSS almost like GitHub, easy to use and free.  
+Jenkins can catch pull requests with its plugins.  
+-->
+
+<p>伊藤直也さんが書いた <a href="http://d.hatena.ne.jp/naoya/20140502/1399027655">GitHub 時代のデプロイ戦略</a> という記事がある。</p>
+
+<p><code>GitHub のイベントを契機に CI as a Service にデプロイを担当させる</code></p>
+
+<p>去年この記事を読んだときは、先端を行っている会社はこんなことをやっているのか、すごい、としか思えなかった。<br />
+そもそも <code>GitBucket</code> を使っている自分の会社では無理だろうと。</p>
+
+<p>しかし、GitBucket をしばらく運用し、プルリクエストを覚え、jenkins でテストを回そう、ということを進めていくうちに、<code>GitBucket</code> + <code>Jenkins</code> で案外ここに書いてあることと近いことができるのが分かってきた。</p>
+
+<h2 id="requirement:ecdde15144661f1ec91b92fcff83e0bc">requirement</h2>
+
+<ul>
+<li><a href="https://github.com/takezoe/gitbucket">GitBucket</a></li>
+<li><a href="https://jenkins-ci.org/">Jenkins</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin">GitHub pull request builder plugin</a></li>
+</ul>
+
+<h2 id="github-pull-request-builder-plugin:ecdde15144661f1ec91b92fcff83e0bc">GitHub pull request builder plugin</h2>
+
+<p>github のプルリクエストを契機にJenkins に自動マージ、任意のジョブを実行させることができるプラグイン。<br />
+実際にはgithub に限らず、GitBucket でも使うことが出来る。</p>
+
+<!--
+また、Jenkins の Job 設定の際に使用できる `Environment Variables` があり、どのブランチからどのブランチに pull request が送られたかもわかるようになっている。  
+以下、プラグインのドキュメントより引用。  
+
+```
+Environment Variables
+The plugin makes some very useful environment variables available.
+
+・ ghprbActualCommit
+・ ghprbActualCommitAuthor
+・ ghprbActualCommitAuthorEmail
+・ ghprbPullDescription
+・ ghprbPullId
+・ ghprbPullLink
+・ ghprbPullTitle
+・ ghprbSourceBranch
+・ ghprbTargetBranch
+・ sha1
+```
+-->
+
+<h2 id="settings:ecdde15144661f1ec91b92fcff83e0bc">Settings</h2>
+
+<p><a href="https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin">https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin</a></p>
+
+<p>リンクに従って、設定を行う。</p>
+
+<p>GitBucket と Jenkins の url は以下。<br />
+GitBucket url : <code>http://gitbucket.sample.co.jp/</code><br />
+Jenkins url : <code>http://192.168.10.11:8080</code></p>
+
+<ul>
+<li>jenkinsbot ユーザーを gitbucket に作成<br />
+jenkinsbot ユーザーが対象のレポジトリにアクセスできるように、Group に入れたり、Collaborators に入れたりしておく</li>
+<li>gitbucket レポジトリ <code>http://gitbucket.sample.co.jp/root/test</code> を作成</li>
+<li>gitbucket レポジトリのwebhook url に <code>http://192.168.10.11:8080/ghprbhook/</code> を設定。<br />
+<img src="/images/deploy-without-github-01.png" class="image"></li>
+<li><code>http://gitbucket.sample.co.jp/jenkinsbot/_application</code> で Personal access tokens を作成</li>
+
+<li><p>Jenkins の設定ページで GitHub Pull Request Builder のセクションを設定する<br />
+<code>http://192.168.10.11:8080/configure</code><br />
+<img src="/images/deploy-without-github-02.png" class="image"></p>
+
+<ul>
+<li>GitHub server api URL: <code>http://gitbucket.sample.co.jp/api/v3</code></li>
+<li>Access Token: 上で取得したものを入力</li>
+<li>保存</li>
+</ul></li>
+
+<li><p>Jenkins でジョブを作成<br />
+testjob を作成<br />
+<code>http://192.168.10.11:8080/job/testjob/</code></p></li>
+
+<li><p>ジョブの設定<br />
+<code>http://192.168.10.11:8080/job/testjob/configure</code></p>
+
+<ul>
+<li>GitHub project : <code>http://gitbucket.sample.co.jp/root/test</code></li>
+<li>ソースコード管理<br />
+
+<ul>
+<li>Git</li>
+<li>Repository URL: ssh://jenkinsbot@gitbucket.sample.co.jp/root/test.git</li>
+<li>Credentials : 有効なSSH キーを設定<br />
+高度な設定を開く<br /></li>
+<li>Refspec : <code>+refs/pull/*:refs/remotes/origin/pr/*</code><br /></li>
+<li>Branch Specifier (blank for &lsquo;any&rsquo;) : <code>${sha1}</code></li>
+</ul></li>
+<li>Build trigger
+
+<ul>
+<li>GitHub Pull Request Builder</li>
+<li>Admin list = <code>root</code></li>
+</ul></li>
+<li>保存する
+<img src="/images/deploy-without-github-03.png" class="image"><br />
+<img src="/images/deploy-without-github-04.png" class="image"><br /></li>
+</ul></li>
+</ul>
+
+<h2 id="gitbucket-のプルリクエストでテストを実行:ecdde15144661f1ec91b92fcff83e0bc">GitBucket のプルリクエストでテストを実行</h2>
+
+<p>ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。</p>
+
+<p><img src="/images/deploy-without-github-05.png" class="image"></p>
+
+<h2 id="test:ecdde15144661f1ec91b92fcff83e0bc">Test</h2>
+
+<p>どのようなテストを行っているか。</p>
+
+<p>Jenkins に、自動マージされたブランチのソースコードをデプロイ対象ホストの適当なディレクトリにデプロイさせる。<br />
+もちろん、本来のデプロイのパスではない、影響のないパスに。<br />
+その後、デプロイ対象ホストで unit テストを実行する。</p>
+
+<p>そうすることで pull request マージ後のソースコードがデプロイ対象ホストで正しく動くかを確認できる。<br />
+自分は db のテストを中心に書いていて、各デプロイ先ホストで db テーブルが正しく作られているか等を確認している。</p>
+
+<h2 id="merged-or-closed-without-merge:ecdde15144661f1ec91b92fcff83e0bc">Merged ? or Closed without merge ?</h2>
+
+<p>後はテストの結果を見て、</p>
+
+<ul>
+<li>成功したらpull request をマージして Jenkins から自動デプロイする</li>
+<li>マージされずに close されたら Jenkins は何もしない</li>
+</ul>
+
+<p>というふうに進めたい。<br />
+しかし、そこまで出来ていない。<br />
+なぜなら、GitBucket で pull request がマージされたか、マージされずに close されたかが Jenkins 側で判別できない為。(2015.06 時点)</p>
+
+<p>GitBucket で pull request がマージ、もしくは close されたタイミングで Jenkins に通知を送ることは可能で、GitBucket のレポジトリに以下の様な webhook url を設定すればできる。</p>
+
+<p><code>http://192.168.10.11:8080/job/testjob/buildWithParameters</code></p>
+
+<p>通知はjson 形式で Jenkins にPOST送信され、その中にはレポジトリやブランチ、git のsha 1 等が含まている。<br />
+しかし、肝心の pull request がマージされたのか、マージされず close されたのかが分かる情報が含まれていない。。</p>
+
+<p>その為、今はマージした後にブランチを手元に pull してから デプロイを行っている。</p>
+
+<p>GitBucket のソースコードを調べてみると、マージを判定する値の部分がコメントアウトされていた。<br />
+いずれのアップデートで含まれるようになるのだろうか。。</p>
+
+<p><a href="https://github.com/takezoe/gitbucket/search?l=scala&amp;q=merged&amp;type=Code&amp;utf8=%E2%9C%93">https://github.com/takezoe/gitbucket/search?l=scala&amp;q=merged&amp;type=Code&amp;utf8=%E2%9C%93</a></p>
+
+<h2 id="感想:ecdde15144661f1ec91b92fcff83e0bc">感想</h2>
+
+<p>今まで、手元でたまに行っていたテストを pull request をきっかけに自動的に実行出来るようになったので、安心感が増した。<br />
+これをきっかけにテストを今までよりちゃんと書こうと思う。</p>
+
+<h2 id="参考:ecdde15144661f1ec91b92fcff83e0bc">参考</h2>
+
+<p><a href="http://d.hatena.ne.jp/oovu70/20130118/p1">JenkinsプラグインのGitHub pull request builder pluginを使ってみる</a></p>
+
+  </section>
+  <footer>
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://yutaf.github.io/php-max-input-vars/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+    
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

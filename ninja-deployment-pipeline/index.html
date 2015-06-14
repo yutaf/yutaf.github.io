@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  
+  <meta property="og:title" content=" deployment pipeline without github - GitHub 時代のデプロイ戦略(GitBucketで) &middot;  yutaf blog" />
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://localhost:1313/ninja-deployment-pipeline/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2015-06-11T13:10:53&#43;09:00" />
+  
+  <meta property="og:article:tag" content="deploy" />
+  
+  <meta property="og:article:tag" content="gitbucket" />
+  
+  <meta property="og:article:tag" content="jenkins" />
+  
+  <meta property="og:article:tag" content="ryogoku" />
+  
+  
+
+  <title>
+     deployment pipeline without github - GitHub 時代のデプロイ戦略(GitBucketで) &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://localhost:1313/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/main.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/css/github.css" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+  <header class="global-header">
+    <section class="header-text">
+      <h1><a href="http://localhost:1313/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+</div>
+
+      
+      <a href="http://localhost:1313/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">deployment pipeline without github - GitHub 時代のデプロイ戦略(GitBucketで)</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2015-06-11T13:10:53&#43;09:00">
+          Jun 11, 2015
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://localhost:1313//tags/deploy">#deploy</a></span>
+        
+        <span class="post-tag small"><a href="http://localhost:1313//tags/gitbucket">#gitbucket</a></span>
+        
+        <span class="post-tag small"><a href="http://localhost:1313//tags/jenkins">#jenkins</a></span>
+        
+        <span class="post-tag small"><a href="http://localhost:1313//tags/ryogoku">#ryogoku</a></span>
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    
+
+<p>Have you ever thought of these kind of things ?</p>
+
+<ul>
+<li><strong>We want to develop with github, but our codes must be placed in private network&hellip;</strong><br /></li>
+<li><strong>Github Enterprise is too expensive&hellip;</strong><br /></li>
+<li><strong>We want to run continuous integration with Travis CI or CircleCI to catch <code>pull request</code> events and build. But github is needed to use those services&hellip;</strong></li>
+</ul>
+
+<p>I have no idea to bring your team github.<br />
+But I found that we can do almost same things all in your private zone with <code>GitBucket</code> + <code>jenkins</code>.</p>
+
+<!--
+GitBucket is OSS almost like GitHub, easy to use and free.  
+Jenkins can catch pull requests with its plugins.  
+-->
+
+<p>伊藤直也さんが書いた <a href="http://d.hatena.ne.jp/naoya/20140502/1399027655">GitHub 時代のデプロイ戦略</a> という記事がある。</p>
+
+<p><code>GitHub のイベントを契機に CI as a Service にデプロイを担当させる</code></p>
+
+<p>去年この記事を読んだときは、先端を行っている会社はこんなことをやっているのか、すごいな程度にしか思っていなかった。<br />
+そもそも <code>GitBucket</code> を使っている自分の会社では無理だろうと。</p>
+
+<p>しかし、GitBucket をしばらく運用し、プルリクエストを覚え、<code>jenkins</code> でテストを回そう、ということを進めていくうちに、案外ここに書いてあるのと同じことができるのが分かってきた。</p>
+
+<h2 id="requirement:0486fddb51bc82750af72c22055d5c56">requirement</h2>
+
+<ul>
+<li><a href="https://github.com/takezoe/gitbucket">GitBucket</a></li>
+<li><a href="https://jenkins-ci.org/">Jenkins</a></li>
+<li><a href="https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin">GitHub pull request builder plugin</a></li>
+</ul>
+
+<h2 id="how:0486fddb51bc82750af72c22055d5c56">How</h2>
+
+<p>TODO ここに図を置く。</p>
+
+<p>GitBucket url : <code>http://gitbucket.sample.co.jp/</code><br />
+Jenkins url : <code>http://192.168.10.11:8080</code></p>
+
+<p>とする。</p>
+
+<h3 id="github-pull-request-builder-plugin:0486fddb51bc82750af72c22055d5c56">GitHub pull request builder plugin</h3>
+
+<p>github のプルリクエストを契機にJenkins にマージ、任意のジョブを実行させることができるプラグイン。<br />
+実際にはgithub に限らず、GitBucket でも使うことが出来る。</p>
+
+<p><a href="https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin">https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin</a></p>
+
+<p>上記のリンクに従って、以下の様な設定を行う。</p>
+
+<ul>
+<li>jenkinsbot ユーザーを gitbucket に作成</li>
+<li>gitbucket レポジトリのwebhook url に <code>http://192.168.10.11:8080/ghprbhook/</code> を設定。</li>
+</ul>
+
+<p>referral links</p>
+
+<p><a href="http://d.hatena.ne.jp/oovu70/20130118/p1">http://d.hatena.ne.jp/oovu70/20130118/p1</a></p>
+
+  </section>
+  <footer>
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://localhost:1313/php-max-input-vars/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+    
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://localhost:1313/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>
+
