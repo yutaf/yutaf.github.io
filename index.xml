@@ -27,7 +27,7 @@ Domain Status: clientHold https://icann.org/epp#clientHold
 
 &lt;p&gt;&lt;code&gt;Domain Status: clientHold&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;参考にしていたページだとここが&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://dev.classmethod.jp/cloud/aws/onamae-to-route53/&#34;&gt;参考にしていたページ&lt;/a&gt;だとここが&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Domain Status: ok
 &lt;/code&gt;&lt;/pre&gt;
