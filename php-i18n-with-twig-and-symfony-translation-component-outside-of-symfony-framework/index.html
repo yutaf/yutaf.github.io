@@ -116,10 +116,15 @@
 <pre><code>$loader = new Twig_Loader_Filesystem(__DIR__.'/../templates');
 $twig = new Twig_Environment($loader);
 
-$translator = new Symfony\Component\Translation\Translator('en_GB', new \Symfony\Component\Translation\MessageSelector());
-$translator-&gt;setFallbackLocales(['ja_JP']);
+$locale = 'en';
+if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) &amp;&amp; strlen($_SERVER['HTTP_ACCEPT_LANGUAGE'])&gt;0) {
+  $locale = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+}
+$translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector());
+$translator-&gt;setFallbackLocales(['en']);
 $translator-&gt;addLoader('yaml', new Symfony\Component\Translation\Loader\YamlFileLoader());
 $translator-&gt;addResource('yaml',  __DIR__.'/../locales/en.yml', 'en');
+$translator-&gt;addResource('yaml',  __DIR__.'/../locales/ja.yml', 'ja');
 
 $twig-&gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator));
 $data = ['somethig' =&gt; 'abcd'];

@@ -35,10 +35,15 @@
 &lt;pre&gt;&lt;code&gt;$loader = new Twig_Loader_Filesystem(__DIR__.&#39;/../templates&#39;);
 $twig = new Twig_Environment($loader);
 
-$translator = new Symfony\Component\Translation\Translator(&#39;en_GB&#39;, new \Symfony\Component\Translation\MessageSelector());
-$translator-&amp;gt;setFallbackLocales([&#39;ja_JP&#39;]);
+$locale = &#39;en&#39;;
+if(isset($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;]) &amp;amp;&amp;amp; strlen($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;])&amp;gt;0) {
+  $locale = substr($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;], 0, 2);
+}
+$translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector());
+$translator-&amp;gt;setFallbackLocales([&#39;en&#39;]);
 $translator-&amp;gt;addLoader(&#39;yaml&#39;, new Symfony\Component\Translation\Loader\YamlFileLoader());
 $translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/en.yml&#39;, &#39;en&#39;);
+$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/ja.yml&#39;, &#39;ja&#39;);
 
 $twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator));
 $data = [&#39;somethig&#39; =&amp;gt; &#39;abcd&#39;];
