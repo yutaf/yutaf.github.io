@@ -7,8 +7,70 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 28 Jan 2016 16:24:41 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jun 2016 14:47:30 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>php i18n with twig and symfony translation component outside of symfony framework</title>
+      <link>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</link>
+      <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
+      <description>&lt;p&gt;composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;require&amp;quot; : {
+    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
+    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/yaml&amp;quot;: &amp;quot;^3.1&amp;quot;
+  },
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$loader = new Twig_Loader_Filesystem(__DIR__.&#39;/../templates&#39;);
+$twig = new Twig_Environment($loader);
+
+$translator = new Symfony\Component\Translation\Translator(&#39;en_GB&#39;, new \Symfony\Component\Translation\MessageSelector());
+$translator-&amp;gt;setFallbackLocales([&#39;ja_JP&#39;]);
+$translator-&amp;gt;addLoader(&#39;yaml&#39;, new Symfony\Component\Translation\Loader\YamlFileLoader());
+$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/en.yml&#39;, &#39;en&#39;);
+
+$twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator));
+$data = [&#39;somethig&#39; =&amp;gt; &#39;abcd&#39;];
+$twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;yml&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;foo: FOO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;p&amp;gt;{{ &#39;foo&#39;|trans }}&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;output&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;FOO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Domain Status: clientHold</title>
