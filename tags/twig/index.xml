@@ -7,8 +7,95 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Sun, 05 Jun 2016 14:47:30 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jun 2016 13:35:28 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/twig/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Internationalize symfony validation component outside of symfony framework</title>
+      <link>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</link>
+      <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
+      <description>&lt;p&gt;It took me some hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
+The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;require&amp;quot; : {
+    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
+    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/form&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/validator&amp;quot;: &amp;quot;^3.1&amp;quot;,
+  },
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Loader\XliffFileLoader
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+
+$translator = new Translator($locale, new MessageSelector());
+
+$vendorDir = realpath(__DIR__.&#39;/../vendor&#39;);
+$vendorFormDir = $vendorDir.&#39;/symfony/form&#39;;
+$vendorValidatorDir = $vendorDir.&#39;/symfony/validator&#39;;
+
+$translator-&amp;gt;addLoader(&#39;xlf&#39;, new XliffFileLoader());
+// there are built-in translations for the core error messages
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
+
+$validator = Validation::createValidatorBuilder()
+  -&amp;gt;setTranslator($translator)
+  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
+  -&amp;gt;getValidator();
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([new ValidatorExtension($validator)])
+  -&amp;gt;getFormFactory();
+
+$form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
+  -&amp;gt;add(&#39;email&#39;, TextType::class, array(
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 4)),
+          ),
+        ))
+  -&amp;gt;add(&#39;password&#39;, PasswordType::class, array(
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 6)),
+          ),
+        ))
+  -&amp;gt;getForm();
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is important that you specify &lt;code&gt;validators&lt;/code&gt; as the domain, 4th argument of &lt;code&gt;addResource&lt;/code&gt; method.&lt;br /&gt;
+And it should correspond to the validator&amp;rsquo;s domain, which is specified with &lt;code&gt;setTranslationDomain&lt;/code&gt; method.&lt;br /&gt;
+You have to pass translator instance to the validator, too.&lt;/p&gt;
+
+&lt;p&gt;Please see the documentation if you want further explanation for domain.
+&lt;a href=&#34;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&#34;&gt;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s it!&lt;br /&gt;
+You already have form with internationalized validation messages.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;http://symfony.com/doc/current/components/form/introduction.html#translation&#34;&gt;http://symfony.com/doc/current/components/form/introduction.html#translation&lt;/a&gt;
+&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>php i18n with twig and symfony translation component outside of symfony framework</title>
