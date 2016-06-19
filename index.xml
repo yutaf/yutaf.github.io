@@ -16,7 +16,7 @@
       <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
       
       <guid>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;It took me some hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
+      <description>&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
 The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;composer.json&lt;/p&gt;
