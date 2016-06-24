@@ -7,8 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Sun, 19 Jun 2016 13:35:28 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jun 2016 11:16:11 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/twig/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Password confirmation form with symfony</title>
+      <link>http://yutaf.github.io/password-confirmation-form-with-symfony/</link>
+      <pubDate>Fri, 24 Jun 2016 11:16:11 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/password-confirmation-form-with-symfony/</guid>
+      <description>&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
+&lt;em&gt;RepeatedType Field&lt;/em&gt; helps us to create password &amp;amp; password confirmation fields.&lt;br /&gt;
+&lt;a href=&#34;http://symfony.com/doc/current/reference/forms/types/repeated.html&#34;&gt;http://symfony.com/doc/current/reference/forms/types/repeated.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+$validator = Validation::createValidatorBuilder()
+  -&amp;gt;setTranslator($translator)
+  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
+  -&amp;gt;getValidator();
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([new ValidatorExtension($validator)])
+  -&amp;gt;getFormFactory();
+
+$form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
+  -&amp;gt;add(&#39;email&#39;, TextType::class, array(
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 4)),
+          ),
+        ))
+  -&amp;gt;add(&#39;password&#39;, RepeatedType::class, array(
+        &#39;type&#39; =&amp;gt; PasswordType::class,
+        &#39;required&#39; =&amp;gt; true,
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 6)),
+          ),
+        &#39;first_options&#39;  =&amp;gt; array(&#39;label&#39; =&amp;gt; &#39;label.password&#39;),
+        &#39;second_options&#39; =&amp;gt; array(&#39;label&#39; =&amp;gt; &#39;label.passwordConfirmation&#39;),
+        ))
+  -&amp;gt;getForm();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Internationalize symfony validation component outside of symfony framework</title>
