@@ -7,8 +7,63 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Fri, 24 Jun 2016 11:16:11 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jun 2016 13:33:48 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Translate csrf validation message in symfony form component</title>
+      <link>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</link>
+      <pubDate>Fri, 24 Jun 2016 13:33:48 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</guid>
+      <description>&lt;p&gt;I was stuck for a while.&lt;br /&gt;
+You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&lt;/p&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Forms;
+
+...
+
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([$csrfExtension])
+  -&amp;gt;getFormFactory();
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　&lt;/p&gt;
+
+&lt;p&gt;I wrote about internationalization of symfony validation component in &lt;a href=&#34;http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/&#34;&gt;older post&lt;/a&gt;,&lt;br /&gt;
+however it seems each form extensions should be passed the Translator instance individually.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Validator\Validation;
+
+...
+
+$validator = Validation::createValidatorBuilder()
+  -&amp;gt;setTranslator($translator)
+  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
+  -&amp;gt;getValidator();
+
+// extensions
+$validatorExtension = new ValidatorExtension($validator);
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([$csrfExtension, $validatorExtension])
+  -&amp;gt;getFormFactory();
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Password confirmation form with symfony</title>

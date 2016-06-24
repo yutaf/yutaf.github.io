@@ -3,15 +3,17 @@
 <head prefix="og: http://ogp.me/ns#">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" Password confirmation form with symfony &middot;  yutaf blog" />
+  <meta property="og:title" content=" Translate csrf validation message in symfony form component &middot;  yutaf blog" />
   
   <meta property="og:site_name" content="yutaf blog" />
-  <meta property="og:url" content="http://yutaf.github.io/password-confirmation-form-with-symfony/" />
+  <meta property="og:url" content="http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/" />
   
   
   <meta property="og:type" content="article" />
   
-  <meta property="og:article:published_time" content="2016-06-24T11:16:11&#43;09:00" />
+  <meta property="og:article:published_time" content="2016-06-24T13:33:48&#43;09:00" />
+  
+  <meta property="og:article:tag" content="i18n" />
   
   <meta property="og:article:tag" content="php" />
   
@@ -20,7 +22,7 @@
   
 
   <title>
-     Password confirmation form with symfony &middot;  yutaf blog
+     Translate csrf validation message in symfony form component &middot;  yutaf blog
   </title>
 
   <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
@@ -71,15 +73,17 @@
 
 <article>
   <header>
-    <h1 class="text-primary">Password confirmation form with symfony</h1>
+    <h1 class="text-primary">Translate csrf validation message in symfony form component</h1>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
-        <time datetime="2016-06-24T11:16:11&#43;09:00">
+        <time datetime="2016-06-24T13:33:48&#43;09:00">
           Jun 24, 2016
         </time>
       </div>
       <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/i18n">#i18n</a></span>
         
         <span class="post-tag small"><a href="http://yutaf.github.io//tags/php">#php</a></span>
         
@@ -89,44 +93,52 @@
     </div>
   </header>
   <section>
-    <p>I was so impressed it goes very easy.<br />
-<em>RepeatedType Field</em> helps us to create password &amp; password confirmation fields.<br />
-<a href="http://symfony.com/doc/current/reference/forms/types/repeated.html">http://symfony.com/doc/current/reference/forms/types/repeated.html</a></p>
+    <p>I was stuck for a while.<br />
+You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.</p>
 
 <p>php</p>
 
-<pre><code>...
+<pre><code>use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Forms;
+
+...
+
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, 'validators');
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&gt;addExtensions([$csrfExtension])
+  -&gt;getFormFactory();
+
+...
+</code></pre>
+
+<p>　</p>
+
+<p>I wrote about internationalization of symfony validation component in <a href="http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/">older post</a>,<br />
+however it seems each form extensions should be passed the Translator instance individually.</p>
+
+<pre><code>use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Validator\Validation;
+
+...
 
 $validator = Validation::createValidatorBuilder()
   -&gt;setTranslator($translator)
   -&gt;setTranslationDomain('validators')
   -&gt;getValidator();
 
+// extensions
+$validatorExtension = new ValidatorExtension($validator);
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, 'validators');
+
 $formFactory = Forms::createFormFactoryBuilder()
-  -&gt;addExtensions([new ValidatorExtension($validator)])
+  -&gt;addExtensions([$csrfExtension, $validatorExtension])
   -&gt;getFormFactory();
-
-$form = $formFactory-&gt;get()-&gt;createBuilder()
-  -&gt;add('email', TextType::class, array(
-        'constraints' =&gt; array(
-          new NotBlank(),
-          new Length(array('min' =&gt; 4)),
-          ),
-        ))
-  -&gt;add('password', RepeatedType::class, array(
-        'type' =&gt; PasswordType::class,
-        'required' =&gt; true,
-        'constraints' =&gt; array(
-          new NotBlank(),
-          new Length(array('min' =&gt; 6)),
-          ),
-        'first_options'  =&gt; array('label' =&gt; 'label.password'),
-        'second_options' =&gt; array('label' =&gt; 'label.passwordConfirmation'),
-        ))
-  -&gt;getForm();
 </code></pre>
-
-<p>Then you will have password confirmation fields with their matching validation.</p>
 
   </section>
   <footer>
@@ -143,10 +155,10 @@ $form = $formFactory-&gt;get()-&gt;createBuilder()
     </section>
     <ul class="pager">
       
-      <li class="previous"><a href="http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      <li class="previous"><a href="http://yutaf.github.io/password-confirmation-form-with-symfony/"><span aria-hidden="true">&larr;</span> Older</a></li>
       
       
-      <li class="next"><a href="http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
       
     </ul>
   </footer>
