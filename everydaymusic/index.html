@@ -104,48 +104,6 @@
 <p>This web app searches music you might prefer from youtube once a day.<br />
 Then notify you by email.</p>
 
-<h4 id="technical-insights:7813f33a24687e4038bb9f8b10a2ce0e">Technical insights</h4>
-
-<ul>
-<li><p><em>How it searches music</em><br />
-　<br />
-The app knows users&rsquo; prefernces from facebook likes or users&rsquo; manual inputs.<br />
-Then it requests to Youtube search API with the data and find music.</p></li>
-
-<li><p><em>Find music outside user&rsquo;s prefernce list</em><br />
-　<br />
-I think finding new music is a great joy.<br />
-It has a trick to find new music/artists with <a href="https://developer.spotify.com/web-api/get-related-artists/">Spotify&rsquo;s Related Artists API</a>.<br />
-The API helps the app find other artists related to users&rsquo; prefernce list.</p></li>
-
-<li><p><em>Microsevices</em><br />
-　<br />
-I tried microsevices for the first time with this app development.<br />
-It is built with <em>Ruby On Rails</em> and <em>php</em>.<br />
-<em>php</em> is only used for facebook login part.<br />
-The other parts were developed with <em>Ruby On Rails</em>.<br />
-It was just because I wanted to develop with official facebook&rsquo;s php sdk.<br />
-Of course we can build facebook login with Rails adequately, and I know it&rsquo;s nonsense, but I just wanted to try it.<br />
-　<br />
-However, Looking back the development process, I didn&rsquo;t get much profits from it.<br />
-I wasted too much time for the jobs made from microsevices architecture.<br />
-　<br />
-A lesson I got is that <em>microsevices</em> makes a lot of duplicated works.<br />
-I mean, If I implement model jobs like fetching records from MySql in Rails service, I should implement another same model jobs in php.<br />
-This made me feel like the code I should implement getting twice.<br />
-Besides, There is context switch, I think, when you move from php to rails and vice versa.<br />
-<em>Microsevices</em> might be a good architecture for scaling, though this app apparently doesn&rsquo;t need it.<br />
-Because this app is very small and just started.</p></li>
-
-<li><p><em><a href="http://sidekiq.org/">Sidekiq</a></em><br />
-　<br />
-This is a great concurrency job tool offered by ruby gems.<br />
-It really makes concurrency implemention easier.<br />
-I used it for batch jobs sending emails to users.<br />
-It also offers cool management dashbord.<br />
-Awesome!</p></li>
-</ul>
-
 <h4 id="technology-stacks:7813f33a24687e4038bb9f8b10a2ce0e">Technology stacks</h4>
 
 <ul>
@@ -164,6 +122,44 @@ Awesome!</p></li>
 
 <p><a href="https://github.com/yutaf/everydaymusic">https://github.com/yutaf/everydaymusic</a><br />
 <a href="https://github.com/yutaf/everydaymusic-facebook-service">https://github.com/yutaf/everydaymusic-facebook-service</a></p>
+
+<h4 id="technical-insights:7813f33a24687e4038bb9f8b10a2ce0e">Technical insights</h4>
+
+<ul>
+<li><p><em>How it searches music</em><br />
+The app knows users&rsquo; prefernces from facebook likes or users&rsquo; manual inputs.<br />
+Then it requests to Youtube search API with the data and find music.</p></li>
+
+<li><p><em>Find music outside user&rsquo;s prefernce list</em><br />
+I think finding new music is a great joy.<br />
+It has a trick to find new music/artists with <a href="https://developer.spotify.com/web-api/get-related-artists/">Spotify&rsquo;s Related Artists API</a>.<br />
+The API helps the app find other artists related to users&rsquo; prefernce list.</p></li>
+
+<li><p><em>Microsevices</em><br />
+I tried microsevices for the first time with this app development.<br />
+It is built with <em>Ruby On Rails</em> and <em>php</em>.<br />
+<em>php</em> is only used for facebook login part.<br />
+The other parts were developed with <em>Ruby On Rails</em>.<br />
+It was just because I wanted to develop with official facebook&rsquo;s php sdk.<br />
+Of course we can build facebook login with Rails adequately, and I know it&rsquo;s nonsense, but I just wanted to try it.<br />
+　<br />
+However, Looking back the development process, I didn&rsquo;t get much profits from it.<br />
+I wasted too much time for the jobs made from microsevices architecture.<br />
+　<br />
+A lesson I got is that <em>microsevices</em> makes a lot of duplicated works.<br />
+I mean, If I implement model jobs like fetching records from MySql in Rails service, I should implement another same model jobs in php.<br />
+This made me feel like the code I should implement getting twice.<br />
+Besides, There is context switch, I think, when you move from php to rails and vice versa.<br />
+<em>Microsevices</em> might be a good architecture for scaling, though this app apparently doesn&rsquo;t need it.<br />
+Because this app is very small and just started.</p></li>
+
+<li><p><em><a href="http://sidekiq.org/">Sidekiq</a></em><br />
+This is a great concurrency job tool offered by ruby gems.<br />
+It really makes concurrency implemention easier.<br />
+I used it for batch jobs sending emails to users.<br />
+It also offers cool management dashbord.<br />
+Awesome!</p></li>
+</ul>
 
   </section>
   <footer>
