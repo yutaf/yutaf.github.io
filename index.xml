@@ -40,6 +40,11 @@
 &lt;p&gt;This web app searches music you might prefer from youtube once a day.&lt;br /&gt;
 Then notify you by email.&lt;/p&gt;
 
+&lt;h4 id=&#34;github:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;github&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
+
 &lt;h4 id=&#34;technology-stacks:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technology stacks&lt;/h4&gt;
 
 &lt;ul&gt;
@@ -53,11 +58,6 @@ Then notify you by email.&lt;/p&gt;
 &lt;li&gt;mysql 5.6&lt;/li&gt;
 &lt;li&gt;Redis&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h4 id=&#34;github:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;github&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
 
 &lt;h4 id=&#34;technical-insights:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technical insights&lt;/h4&gt;
 
