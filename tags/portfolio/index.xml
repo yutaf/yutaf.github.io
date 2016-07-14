@@ -39,15 +39,18 @@ Then notify you by email.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;em&gt;How it searches music&lt;/em&gt;&lt;br /&gt;
+　&lt;br /&gt;
 The app knows users&amp;rsquo; prefernces from facebook likes or users&amp;rsquo; manual inputs.&lt;br /&gt;
 Then it requests to Youtube search API with the data and find music.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;em&gt;Find music outside user&amp;rsquo;s prefernce list&lt;/em&gt;&lt;br /&gt;
+　&lt;br /&gt;
 I think finding new music is a great joy.&lt;br /&gt;
 It has a trick to find new music/artists with &lt;a href=&#34;https://developer.spotify.com/web-api/get-related-artists/&#34;&gt;Spotify&amp;rsquo;s Related Artists API&lt;/a&gt;.&lt;br /&gt;
 The API helps the app find other artists related to users&amp;rsquo; prefernce list.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;em&gt;Microsevices&lt;/em&gt;&lt;br /&gt;
+　&lt;br /&gt;
 I tried microsevices for the first time with this app development.&lt;br /&gt;
 It is built with &lt;em&gt;Ruby On Rails&lt;/em&gt; and &lt;em&gt;php&lt;/em&gt;.&lt;br /&gt;
 &lt;em&gt;php&lt;/em&gt; is only used for facebook login part.&lt;br /&gt;
@@ -66,6 +69,7 @@ Besides, There is context switch, I think, when you move from php to rails and v
 Because this app is very small and just started.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;http://sidekiq.org/&#34;&gt;Sidekiq&lt;/a&gt;&lt;/em&gt;&lt;br /&gt;
+　&lt;br /&gt;
 This is a great concurrency job tool offered by ruby gems.&lt;br /&gt;
 It really makes concurrency implemention easier.&lt;br /&gt;
 I used it for batch jobs sending emails to users.&lt;br /&gt;
