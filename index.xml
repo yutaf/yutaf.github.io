@@ -68,7 +68,7 @@ Then it requests to Youtube search API with the data and find music.&lt;/p&gt;&l
 
 &lt;li&gt;&lt;p&gt;&lt;em&gt;Find music outside user&amp;rsquo;s prefernce list&lt;/em&gt;&lt;br /&gt;
 I think finding new music is a great joy.&lt;br /&gt;
-It has a trick to find new music/artists with &lt;a href=&#34;https://developer.spotify.com/web-api/get-related-artists/&#34;&gt;Spotify&amp;rsquo;s Related Artists API&lt;/a&gt;.&lt;br /&gt;
+This app has a trick to find new music/artists with &lt;a href=&#34;https://developer.spotify.com/web-api/get-related-artists/&#34;&gt;Spotify&amp;rsquo;s Related Artists API&lt;/a&gt;.&lt;br /&gt;
 The API helps the app find other artists related to users&amp;rsquo; prefernce list.&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;&lt;em&gt;Microsevices&lt;/em&gt;&lt;br /&gt;
@@ -77,7 +77,9 @@ It is built with &lt;em&gt;Ruby On Rails&lt;/em&gt; and &lt;em&gt;php&lt;/em&gt;
 &lt;em&gt;php&lt;/em&gt; is only used for facebook login part.&lt;br /&gt;
 The other parts were developed with &lt;em&gt;Ruby On Rails&lt;/em&gt;.&lt;br /&gt;
 It was just because I wanted to develop with official facebook&amp;rsquo;s php sdk.&lt;br /&gt;
-Of course we can build facebook login with Rails adequately, and I know it&amp;rsquo;s nonsense, but I just wanted to try it.&lt;br /&gt;
+Of course we can build facebook login with Rails adequately.
+So it&amp;rsquo;s nonsense, I know.&lt;br /&gt;
+But I just wanted to try.&lt;br /&gt;
 　&lt;br /&gt;
 However, Looking back the development process, I didn&amp;rsquo;t get much profits from it.&lt;br /&gt;
 I wasted too much time for the jobs made from microsevices architecture.&lt;br /&gt;
@@ -85,7 +87,7 @@ I wasted too much time for the jobs made from microsevices architecture.&lt;br /
 A lesson I got is that &lt;em&gt;microsevices&lt;/em&gt; makes a lot of duplicated works.&lt;br /&gt;
 I mean, If I implement model jobs like fetching records from MySql in Rails service, I should implement another same model jobs in php.&lt;br /&gt;
 This made me feel like the code I should implement getting twice.&lt;br /&gt;
-Besides, There is context switch, I think, when you move from php to rails and vice versa.&lt;br /&gt;
+Besides, there was a context switch when I moved from php to rails and vice versa.&lt;br /&gt;
 &lt;em&gt;Microsevices&lt;/em&gt; might be a good architecture for scaling, though this app apparently doesn&amp;rsquo;t need it.&lt;br /&gt;
 Because this app is very small and just started.&lt;/p&gt;&lt;/li&gt;
 
