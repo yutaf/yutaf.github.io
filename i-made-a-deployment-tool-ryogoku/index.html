@@ -103,7 +103,7 @@
 I made a deployment tool, <a href="https://github.com/yutaf/ryogoku">ryogoku</a>.<br />
 It uses <code>rsync</code> to deploy.</p>
 
-<h2 id="why:a243d8c3cf1cd7d968aa0a338320bf50">why</h2>
+<h2 id="why">why</h2>
 
 <p>会社でデプロイの自動化を進めており、何か良いツールはないか探していた。<br />
 ちなみに自分の会社は以下の様な条件での仕事が多い。</p>
@@ -157,22 +157,22 @@ That didn&rsquo;t match my purpose.</li>
 <p>So I decided to make my own one based on <a href="https://github.com/tj/deploy">deploy</a>.<br />
 Thank you, <a href="https://github.com/tj/deploy">deploy</a>.</p>
 
-<h2 id="what-it-is-like-ryogoku:a243d8c3cf1cd7d968aa0a338320bf50">What it is like - ryogoku</h2>
+<h2 id="what-it-is-like-ryogoku">What it is like - ryogoku</h2>
 
 <p><a href="https://github.com/yutaf/ryogoku">https://github.com/yutaf/ryogoku</a></p>
 
-<h3 id="installation:a243d8c3cf1cd7d968aa0a338320bf50">Installation</h3>
+<h3 id="installation">Installation</h3>
 
 <p>Clone the repository from github, and</p>
 
 <pre><code>$ make install
 </code></pre>
 
-<h3 id="how-it-works:a243d8c3cf1cd7d968aa0a338320bf50">How it works</h3>
+<h3 id="how-it-works">How it works</h3>
 
 <p><img src="/images/ryogoku-01.png" class="image"></p>
 
-<h3 id="configuration:a243d8c3cf1cd7d968aa0a338320bf50">Configuration</h3>
+<h3 id="configuration">Configuration</h3>
 
 <p><code>ryogoku.conf</code> を git レポジトリルートに作成し、以下の様な内容を書く。</p>
 
@@ -212,7 +212,7 @@ This value can also be set by command line argument, which is prior to config on
 <li><code>umask</code> defines the file permissions.</li>
 </ul>
 
-<h3 id="execution:a243d8c3cf1cd7d968aa0a338320bf50">Execution</h3>
+<h3 id="execution">Execution</h3>
 
 <pre><code>$ ryogoku prod
 </code></pre>

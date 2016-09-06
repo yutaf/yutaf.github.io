@@ -97,7 +97,7 @@
 
 <p>ローカル開発環境に phpenv + php-build を使っていたが、<a href="https://github.com/phpbrew/phpbrew">phpbrew</a> のほうが簡単そうだったので移行した。</p>
 
-<h3 id="environment:a243102e0194a1a90c0e0b12d72d5bbe">environment</h3>
+<h3 id="environment">environment</h3>
 
 <ul>
 <li>osx 10.9.5</li>
@@ -105,7 +105,7 @@
 <li>mysql 5.6.15</li>
 </ul>
 
-<h3 id="メリット:a243102e0194a1a90c0e0b12d72d5bbe">メリット</h3>
+<h3 id="メリット">メリット</h3>
 
 <ul>
 <li>apache の php モジュールをバージョン毎に保存してくれる。</li>
@@ -118,7 +118,7 @@
 </ul></li>
 </ul>
 
-<h3 id="デメリット:a243102e0194a1a90c0e0b12d72d5bbe">デメリット</h3>
+<h3 id="デメリット">デメリット</h3>
 
 <ul>
 <li>使用するのに php5.3 以上が必要</li>
@@ -126,21 +126,21 @@
 <li>php のバージョン切り替えで挙動が不安定な時がある</li>
 </ul>
 
-<h2 id="requirement:a243102e0194a1a90c0e0b12d72d5bbe">Requirement</h2>
+<h2 id="requirement">Requirement</h2>
 
 <p><a href="https://github.com/phpbrew/phpbrew/wiki/Requirement">https://github.com/phpbrew/phpbrew/wiki/Requirement</a></p>
 
 <p>phpbrew を利用するには php が必要。<br />
 osx はデフォルトで php がインストールされているので、osx ユーザーにはいいと思う。</p>
 
-<h2 id="インストール:a243102e0194a1a90c0e0b12d72d5bbe">インストール</h2>
+<h2 id="インストール">インストール</h2>
 
 <pre><code>$ curl -L -O https://github.com/phpbrew/phpbrew/raw/master/phpbrew
 $ chmod +x phpbrew
 $ mv phpbrew /usr/local/bin/
 </code></pre>
 
-<h2 id="configure-option-の設定と-php-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">configure option の設定と php のインストール</h2>
+<h2 id="configure-option-の設定と-php-のインストール">configure option の設定と php のインストール</h2>
 
 <p>phpbrew には <code>variants</code> という独自の configure option の指定方法がある。</p>
 
@@ -174,7 +174,7 @@ $ mv phpbrew /usr/local/bin/
     --enable-ftp --apxs2=/opt/local/apache2/bin/apxs
 </code></pre>
 
-<h3 id="ファイルによる-variants-の設定:a243102e0194a1a90c0e0b12d72d5bbe">ファイルによる variants の設定</h3>
+<h3 id="ファイルによる-variants-の設定">ファイルによる variants の設定</h3>
 
 <p>yamlファイルで独自の variants を設定できる。</p>
 
@@ -230,7 +230,7 @@ extensions:
 <pre><code>$ phpbrew -d install 5.4.36 +dev
 </code></pre>
 
-<h3 id="個人的ベストプラクティス:a243102e0194a1a90c0e0b12d72d5bbe">個人的ベストプラクティス</h3>
+<h3 id="個人的ベストプラクティス">個人的ベストプラクティス</h3>
 
 <pre><code>$ phpbrew -d install 5.4.36 +neutral +apxs2=/opt/apache2.2.29/bin/apxs +dev
 </code></pre>
@@ -240,7 +240,7 @@ extensions:
 
 <p><code>'+apxs2'</code> は apache の php モジュールをバージョン毎に管理する為に必須(後述)。</p>
 
-<h2 id="extension-のインストール:a243102e0194a1a90c0e0b12d72d5bbe">extension のインストール</h2>
+<h2 id="extension-のインストール">extension のインストール</h2>
 
 <p>xdebug などの extension も yaml ファイル に独自の variants を記述してインストールできる。<br />
 （上のyaml を参照。）</p>
@@ -248,12 +248,12 @@ extensions:
 <pre><code>$ phpbrew ext install +dev
 </code></pre>
 
-<h2 id="php-のバージョン切り替え:a243102e0194a1a90c0e0b12d72d5bbe">php のバージョン切り替え</h2>
+<h2 id="php-のバージョン切り替え">php のバージョン切り替え</h2>
 
 <pre><code>$ phpbrew switch php-5.4.36
 </code></pre>
 
-<h2 id="apache-のphpモジュール切り替え:a243102e0194a1a90c0e0b12d72d5bbe">apache のphpモジュール切り替え</h2>
+<h2 id="apache-のphpモジュール切り替え">apache のphpモジュール切り替え</h2>
 
 <p>variants の <code>+apxs2</code> を設定すると各バージョンごとにモジュールを保存し、
 httpd.conf に <code>LoadModule php5_module ...</code> の記述がされる。</p>
@@ -302,7 +302,7 @@ LoadModule php5_module        modules/libphp5.4.36.so
 <pre><code>$ sudo apachectl graceful
 </code></pre>
 
-<h2 id="感想:a243102e0194a1a90c0e0b12d72d5bbe">感想</h2>
+<h2 id="感想">感想</h2>
 
 <p>気持ち悪い所も多いが、osx でphpをビルドするならこれが一番楽な気がした。</p>
 

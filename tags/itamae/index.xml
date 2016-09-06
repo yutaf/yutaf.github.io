@@ -26,7 +26,7 @@ But I could learn itamae for 2,3 hours and began to provision.&lt;br /&gt;
 It is very easy to start provisioning with itamae.&lt;br /&gt;
 I like it.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-to-use-it:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;How to use it&lt;/h2&gt;
+&lt;h2 id=&#34;how-to-use-it&#34;&gt;How to use it&lt;/h2&gt;
 
 &lt;p&gt;First of all we need &lt;code&gt;recipe&lt;/code&gt; to provision.&lt;br /&gt;
 Here&amp;rsquo;s my recipe to install ruby with rbenv.&lt;/p&gt;
@@ -53,9 +53,9 @@ end
 &lt;pre&gt;&lt;code&gt;itamae ssh -h 54.64.46.48 -u webhook recipes/ruby.rb
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;details:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Details&lt;/h2&gt;
+&lt;h2 id=&#34;details&#34;&gt;Details&lt;/h2&gt;
 
-&lt;h4 id=&#34;about-recipe:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;About recipe&lt;/h4&gt;
+&lt;h4 id=&#34;about-recipe&#34;&gt;About recipe&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;We don&amp;rsquo;t need to write &lt;code&gt;sudo&lt;/code&gt; specifically because itamae automatically does it well.&lt;br /&gt;&lt;/li&gt;
@@ -63,15 +63,15 @@ end
 With that we can avoid unnecessary execution of recipes when we do it repeatedly.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&#34;execution:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Execution&lt;/h4&gt;
+&lt;h4 id=&#34;execution&#34;&gt;Execution&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;we can of course execute itamae locally not via ssh.&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;more:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More&lt;/h2&gt;
+&lt;h2 id=&#34;more&#34;&gt;More&lt;/h2&gt;
 
-&lt;h4 id=&#34;including-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Including Recipes&lt;/h4&gt;
+&lt;h4 id=&#34;including-recipes&#34;&gt;Including Recipes&lt;/h4&gt;
 
 &lt;p&gt;Paths are indicated relatively from the recipe.&lt;/p&gt;
 
@@ -86,7 +86,7 @@ include_recipe &amp;quot;add_webhook_script.rb&amp;quot;
 include_recipe &amp;quot;cron.rb&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&#34;my-other-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;My other recipes&lt;/h4&gt;
+&lt;h4 id=&#34;my-other-recipes&#34;&gt;My other recipes&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;recipes/add_deploy_user.rb&lt;/code&gt;&lt;/p&gt;
 

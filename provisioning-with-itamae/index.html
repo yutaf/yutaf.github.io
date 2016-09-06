@@ -99,7 +99,7 @@ But I could learn itamae for 2,3 hours and began to provision.<br />
 It is very easy to start provisioning with itamae.<br />
 I like it.</p>
 
-<h2 id="how-to-use-it:40fe1895693cb84a0b6def29bb369ea9">How to use it</h2>
+<h2 id="how-to-use-it">How to use it</h2>
 
 <p>First of all we need <code>recipe</code> to provision.<br />
 Here&rsquo;s my recipe to install ruby with rbenv.</p>
@@ -126,9 +126,9 @@ end
 <pre><code>itamae ssh -h 54.64.46.48 -u webhook recipes/ruby.rb
 </code></pre>
 
-<h2 id="details:40fe1895693cb84a0b6def29bb369ea9">Details</h2>
+<h2 id="details">Details</h2>
 
-<h4 id="about-recipe:40fe1895693cb84a0b6def29bb369ea9">About recipe</h4>
+<h4 id="about-recipe">About recipe</h4>
 
 <ul>
 <li>We don&rsquo;t need to write <code>sudo</code> specifically because itamae automatically does it well.<br /></li>
@@ -136,15 +136,15 @@ end
 With that we can avoid unnecessary execution of recipes when we do it repeatedly.<br /></li>
 </ul>
 
-<h4 id="execution:40fe1895693cb84a0b6def29bb369ea9">Execution</h4>
+<h4 id="execution">Execution</h4>
 
 <ul>
 <li>we can of course execute itamae locally not via ssh.<br /></li>
 </ul>
 
-<h2 id="more:40fe1895693cb84a0b6def29bb369ea9">More</h2>
+<h2 id="more">More</h2>
 
-<h4 id="including-recipes:40fe1895693cb84a0b6def29bb369ea9">Including Recipes</h4>
+<h4 id="including-recipes">Including Recipes</h4>
 
 <p>Paths are indicated relatively from the recipe.</p>
 
@@ -159,7 +159,7 @@ include_recipe &quot;add_webhook_script.rb&quot;
 include_recipe &quot;cron.rb&quot;
 </code></pre>
 
-<h4 id="my-other-recipes:40fe1895693cb84a0b6def29bb369ea9">My other recipes</h4>
+<h4 id="my-other-recipes">My other recipes</h4>
 
 <p><code>recipes/add_deploy_user.rb</code></p>
 

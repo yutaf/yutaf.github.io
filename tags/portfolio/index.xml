@@ -27,25 +27,25 @@
 &lt;p style=&#34;text-align: center;&#34;&gt;Video page&lt;/p&gt;
 &lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_03.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;info:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Info&lt;/h2&gt;
+&lt;h2 id=&#34;info&#34;&gt;Info&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://everydaymusic.net/&#34;&gt;http://everydaymusic.net/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;released:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Released&lt;/h4&gt;
+&lt;h4 id=&#34;released&#34;&gt;Released&lt;/h4&gt;
 
 &lt;p&gt;February 2016&lt;/p&gt;
 
-&lt;h4 id=&#34;overview:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Overview&lt;/h4&gt;
+&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This web app searches a music video you might prefer from youtube once a day.&lt;br /&gt;
 Then it notifies you of the update by email.&lt;/p&gt;
 
-&lt;h4 id=&#34;github:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;github&lt;/h4&gt;
+&lt;h4 id=&#34;github&#34;&gt;github&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;technology-stacks:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technology stacks&lt;/h4&gt;
+&lt;h4 id=&#34;technology-stacks&#34;&gt;Technology stacks&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;DigitalOcean (IaaS)&lt;/li&gt;
@@ -59,7 +59,7 @@ Then it notifies you of the update by email.&lt;/p&gt;
 &lt;li&gt;Redis&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&#34;technical-insights:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technical insights&lt;/h4&gt;
+&lt;h4 id=&#34;technical-insights&#34;&gt;Technical insights&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;em&gt;How it searches music&lt;/em&gt;&lt;br /&gt;

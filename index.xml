@@ -7,8 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 14 Jul 2016 11:32:37 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 06 Sep 2016 14:42:34 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Create tsv file with league csv</title>
+      <link>http://yutaf.github.io/create_tsv_file_with_league_csv/</link>
+      <pubDate>Tue, 06 Sep 2016 14:42:34 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/create_tsv_file_with_league_csv/</guid>
+      <description>
+
+&lt;p&gt;tsv = tab-separated values.&lt;br /&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Tab-separated_values&#34;&gt;https://en.wikipedia.org/wiki/Tab-separated_values&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s super easy to create tsv file with league/csv.&lt;br /&gt;
+&lt;a href=&#34;http://csv.thephpleague.com/&#34;&gt;http://csv.thephpleague.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ composer require league/csv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use League\Csv\Writer;
+
+$tsv_list =[
+  [1, 2, 3],
+  [&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;],
+];
+
+$writer = Writer::createFromFileObject(new SplTempFileObject());
+$writer-&amp;gt;setDelimiter(&amp;quot;\t&amp;quot;);
+$writer-&amp;gt;insertAll($tsv_list);
+
+file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toString());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>everydaymusic</title>
@@ -27,25 +66,25 @@
 &lt;p style=&#34;text-align: center;&#34;&gt;Video page&lt;/p&gt;
 &lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_03.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;info:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Info&lt;/h2&gt;
+&lt;h2 id=&#34;info&#34;&gt;Info&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://everydaymusic.net/&#34;&gt;http://everydaymusic.net/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;released:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Released&lt;/h4&gt;
+&lt;h4 id=&#34;released&#34;&gt;Released&lt;/h4&gt;
 
 &lt;p&gt;February 2016&lt;/p&gt;
 
-&lt;h4 id=&#34;overview:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Overview&lt;/h4&gt;
+&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
 
 &lt;p&gt;This web app searches a music video you might prefer from youtube once a day.&lt;br /&gt;
 Then it notifies you of the update by email.&lt;/p&gt;
 
-&lt;h4 id=&#34;github:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;github&lt;/h4&gt;
+&lt;h4 id=&#34;github&#34;&gt;github&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&#34;technology-stacks:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technology stacks&lt;/h4&gt;
+&lt;h4 id=&#34;technology-stacks&#34;&gt;Technology stacks&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;DigitalOcean (IaaS)&lt;/li&gt;
@@ -59,7 +98,7 @@ Then it notifies you of the update by email.&lt;/p&gt;
 &lt;li&gt;Redis&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&#34;technical-insights:7813f33a24687e4038bb9f8b10a2ce0e&#34;&gt;Technical insights&lt;/h4&gt;
+&lt;h4 id=&#34;technical-insights&#34;&gt;Technical insights&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;em&gt;How it searches music&lt;/em&gt;&lt;br /&gt;
@@ -779,7 +818,7 @@ Jenkins can catch pull requests with its plugins.
 
 &lt;p&gt;しかし、GitBucket をしばらく運用し、プルリクエストを覚え、jenkins でテストを回そう、ということを進めていくうちに、&lt;code&gt;GitBucket&lt;/code&gt; + &lt;code&gt;Jenkins&lt;/code&gt; で案外ここに書いてあることと近いことができるのが分かってきた。&lt;/p&gt;
 
-&lt;h2 id=&#34;requirement:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;requirement&lt;/h2&gt;
+&lt;h2 id=&#34;requirement&#34;&gt;requirement&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket&#34;&gt;GitBucket&lt;/a&gt;&lt;/li&gt;
@@ -787,7 +826,7 @@ Jenkins can catch pull requests with its plugins.
 &lt;li&gt;&lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin&#34;&gt;GitHub pull request builder plugin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;github-pull-request-builder-plugin:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
+&lt;h2 id=&#34;github-pull-request-builder-plugin&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
 
 &lt;p&gt;github のプルリクエストを契機にJenkins に自動マージ、任意のジョブを実行させることができるプラグイン。&lt;br /&gt;
 実際にはgithub に限らず、GitBucket でも使うことが出来る。&lt;/p&gt;
@@ -813,7 +852,7 @@ The plugin makes some very useful environment variables available.
 ```
 --&gt;
 
-&lt;h2 id=&#34;settings:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Settings&lt;/h2&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&#34;&gt;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&lt;/a&gt;&lt;/p&gt;
 
@@ -872,13 +911,13 @@ testjob を作成&lt;br /&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
+&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
 
 &lt;p&gt;ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-05.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;test:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Test&lt;/h2&gt;
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
 
 &lt;p&gt;どのようなテストを行っているか。&lt;/p&gt;
 
@@ -889,7 +928,7 @@ testjob を作成&lt;br /&gt;
 &lt;p&gt;そうすることで pull request マージ後のソースコードがデプロイ対象ホストで正しく動くかを確認できる。&lt;br /&gt;
 自分は db のテストを中心に書いていて、各デプロイ先ホストで db テーブルが正しく作られているか等を確認している。&lt;/p&gt;
 
-&lt;h2 id=&#34;merged-or-closed-without-merge:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
+&lt;h2 id=&#34;merged-or-closed-without-merge&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
 
 &lt;p&gt;後はテストの結果を見て、&lt;/p&gt;
 
@@ -916,12 +955,12 @@ testjob を作成&lt;br /&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&#34;&gt;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;感想:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;感想&lt;/h2&gt;
+&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;
 
 &lt;p&gt;今まで、手元でたまに行っていたテストを pull request をきっかけに自動的に実行出来るようになったので、安心感が増した。&lt;br /&gt;
 これをきっかけにテストを今までよりちゃんと書こうと思う。&lt;/p&gt;
 
-&lt;h2 id=&#34;参考:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;参考&lt;/h2&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -987,7 +1026,7 @@ max_input_vars integer
 
 &lt;script async class=&#34;speakerdeck-embed&#34; data-id=&#34;a57e354b64c9494eb03f30e5a38afa27&#34; data-ratio=&#34;1.33333333333333&#34; src=&#34;//speakerdeck.com/assets/embed.js&#34;&gt;&lt;/script&gt;
 
-&lt;h2 id=&#34;発表を通じてわかったこと:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
+&lt;h2 id=&#34;発表を通じてわかったこと&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;発表の時間配分&lt;/strong&gt;&lt;/p&gt;
 
@@ -1071,7 +1110,7 @@ max_input_vars integer
 
 &lt;p&gt;ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;
 
-&lt;h2 id=&#34;発表を通じてわかったこと-まとめ:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
+&lt;h2 id=&#34;発表を通じてわかったこと-まとめ&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;勉強会は補欠になっていても、繰り上がって発表者になることもあるので笑、準備はしておくこと&lt;/li&gt;
@@ -1222,314 +1261,6 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
 37. Golden Slumbers (The Beatles song)&lt;br /&gt;
 38. Carry That Weight (The Beatles song)&lt;br /&gt;
 39. The End (The Beatles song)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>provisioning with itamae</title>
-      <link>http://yutaf.github.io/provisioning-with-itamae/</link>
-      <pubDate>Tue, 07 Apr 2015 22:42:50 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/provisioning-with-itamae/</guid>
-      <description>
-
-&lt;p&gt;I provisioned my company&amp;rsquo;s webhook server with &lt;a href=&#34;https://github.com/itamae-kitchen/itamae&#34;&gt;itamae&lt;/a&gt; recently.&lt;br /&gt;
-itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;/p&gt;
-
-&lt;p&gt;I have never used provisioning tools like Chef or Ansible at all.&lt;br /&gt;
-But I could learn itamae for 2,3 hours and began to provision.&lt;br /&gt;
-It is very easy to start provisioning with itamae.&lt;br /&gt;
-I like it.&lt;/p&gt;
-
-&lt;h2 id=&#34;how-to-use-it:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;How to use it&lt;/h2&gt;
-
-&lt;p&gt;First of all we need &lt;code&gt;recipe&lt;/code&gt; to provision.&lt;br /&gt;
-Here&amp;rsquo;s my recipe to install ruby with rbenv.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;recipes/ruby.rb&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;execute &amp;quot;install rbenv&amp;quot; do
-  command &amp;quot;
-    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv &amp;amp;&amp;amp; \
-    echo &#39;export PATH=\&amp;quot;$HOME/.rbenv/bin:$PATH\&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc  &amp;amp;&amp;amp; \
-    echo &#39;eval \&amp;quot;$(rbenv init -)\&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc &amp;amp;&amp;amp; \
-    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-  &amp;quot;
-  not_if &amp;quot;test -d ~/.rbenv&amp;quot;
-end
-execute &amp;quot;install ruby&amp;quot; do
-  command &amp;quot;rbenv install 2.2.1 &amp;amp;&amp;amp; rbenv global 2.2.1&amp;quot;
-  not_if &amp;quot;test -d /root/.rbenv/versions/2.2.1&amp;quot;
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then execute this recipe via ssh.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;itamae ssh -h 54.64.46.48 -u webhook recipes/ruby.rb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;details:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Details&lt;/h2&gt;
-
-&lt;h4 id=&#34;about-recipe:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;About recipe&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;We don&amp;rsquo;t need to write &lt;code&gt;sudo&lt;/code&gt; specifically because itamae automatically does it well.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;not_if&lt;/code&gt; is very useful &lt;a href=&#34;https://github.com/itamae-kitchen/itamae/wiki/Resources&#34;&gt;resource&lt;/a&gt;.&lt;br /&gt;
-With that we can avoid unnecessary execution of recipes when we do it repeatedly.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;execution:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Execution&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;we can of course execute itamae locally not via ssh.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;more:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;More&lt;/h2&gt;
-
-&lt;h4 id=&#34;including-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;Including Recipes&lt;/h4&gt;
-
-&lt;p&gt;Paths are indicated relatively from the recipe.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;include_recipe &amp;quot;yum.rb&amp;quot;
-include_recipe &amp;quot;apache22-php.rb&amp;quot;
-include_recipe &amp;quot;ruby.rb&amp;quot;
-include_recipe &amp;quot;gem.rb&amp;quot;
-include_recipe &amp;quot;npm.rb&amp;quot;
-include_recipe &amp;quot;ryogoku.rb&amp;quot;
-include_recipe &amp;quot;add_deploy_user.rb&amp;quot;
-include_recipe &amp;quot;add_webhook_script.rb&amp;quot;
-include_recipe &amp;quot;cron.rb&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;my-other-recipes:40fe1895693cb84a0b6def29bb369ea9&#34;&gt;My other recipes&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;recipes/add_deploy_user.rb&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;execute &amp;quot;add deploy user&amp;quot; do
-  # you cannot ssh unless changing password
-  command &amp;quot;
-    adduser --system --shell /bin/bash --home-dir /home/deploy --user-group deploy &amp;amp;&amp;amp; \
-    passwd -f -u deploy &amp;amp;&amp;amp; \
-    mkdir -p /home/deploy/.ssh
-  &amp;quot;
-  not_if &amp;quot;grep ^deploy /etc/passwd&amp;quot;
-end
-# Set up key
-remote_directory &amp;quot;/home/deploy/.ssh&amp;quot; do
-  source &amp;quot;../templates/.ssh/&amp;quot;
-end
-execute &amp;quot;Change ssh files permission&amp;quot; do
-  command &amp;quot;
-    chown -R deploy:deploy /home/deploy &amp;amp;&amp;amp; \
-    chmod 700 /home/deploy/.ssh &amp;amp;&amp;amp; \
-    chmod 600 /home/deploy/.ssh/authorized_keys &amp;amp;&amp;amp; \
-    chmod 600 /home/deploy/.ssh/id_rsa
-  &amp;quot;
-end
-execute &amp;quot;disable requiretty&amp;quot; do
-  command &amp;quot;sed -i &#39;s;^Defaults *requiretty;#&amp;amp;;g&#39; /etc/sudoers&amp;quot;
-end
-execute &amp;quot;enable apache user to execute ryogoku without password&amp;quot; do
-  command &amp;quot;echo &#39;apache  ALL=(deploy) NOPASSWD: /usr/local/bin/ryogoku&#39; &amp;gt;&amp;gt; /etc/sudoers&amp;quot;
-  not_if &amp;quot;grep ^apache /etc/sudoers&amp;quot;
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;recipes/apache22-php.rb&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;execute &amp;quot;mkdir -p /usr/local/src&amp;quot; do
-  command &amp;quot;mkdir -p /usr/local/src&amp;quot;
-  not_if &amp;quot;test -d /usr/local/src&amp;quot;
-end
-
-#
-# apache
-#
-
-execute &amp;quot;download apache tarball&amp;quot; do
-  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; curl -L -O http://apache.cs.utah.edu//httpd/httpd-2.2.29.tar.gz&amp;quot;
-  not_if &amp;quot;test -e /usr/local/src/httpd-2.2.29.tar.gz&amp;quot;
-end
-
-execute &amp;quot;tar apache tarball&amp;quot; do
-  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; tar xzvf httpd-2.2.29.tar.gz&amp;quot;
-  not_if &amp;quot;test -d /usr/local/src/httpd-2.2.29&amp;quot;
-end
-
-execute &amp;quot;install apache&amp;quot; do
-  command &amp;quot;
-  cd /usr/local/src/httpd-2.2.29 &amp;amp;&amp;amp; \
-  ./configure \
-    --prefix=/opt/apache2.2.29 \
-    --enable-mods-shared=all \
-    --enable-proxy \
-    --enable-ssl \
-    --with-ssl \
-    --with-mpm=prefork \
-    --with-pcre &amp;amp;&amp;amp; \
-  make &amp;amp;&amp;amp; \
-  make install
-  &amp;quot;
-  not_if &amp;quot;test -d /opt/apache2.2.29&amp;quot;
-end
-
-# Apache config
-sed_scripts_for_httpd_conf = [
-  &#39;s/^Listen 80/#&amp;amp;/&#39;,
-  &#39;s/^DocumentRoot/#&amp;amp;/&#39;,
-  &#39;/^&amp;lt;Directory/,/^&amp;lt;\/Directory/s/^/#/&#39;,
-  &#39;s;ScriptAlias /cgi-bin;#&amp;amp;;&#39;,
-  &#39;s;#\(Include conf/extra/httpd-mpm.conf\);\1;&#39;,
-  &#39;s;#\(Include conf/extra/httpd-default.conf\);\1;&#39;,
-  &#39;/^\s*DirectoryIndex/s/$/ index.php/&#39;, # DirectoryIndex; index.html precedes index.php
-  # Change User &amp;amp; Group
-  &#39;s;^\(User \)daemon$;\1apache;&#39;,
-  &#39;s;^\(Group \)daemon$;\1apache;&#39;
-]
-
-sed_scripts_for_httpd_conf.each do |sed_script_for_httpd_conf|
-  execute sed_script_for_httpd_conf do
-    command &#39;sed -i \&#39;&#39; + sed_script_for_httpd_conf + &#39;\&#39; /opt/apache2.2.29/conf/httpd.conf&#39;
-  end
-end
-
-execute &amp;quot;edit httpd.conf&amp;quot; do
-  command &#39;echo &amp;quot;Include /srv/apache/apache.conf&amp;quot; &amp;gt;&amp;gt; /opt/apache2.2.29/conf/httpd.conf&#39;
-  not_if &amp;quot;grep /srv/apache/apache.conf /opt/apache2.2.29/conf/httpd.conf&amp;quot;
-end
-
-execute &amp;quot;edit httpd-defaut.conf&amp;quot; do
-  command &#39;sed -i &amp;quot;s/\(ServerTokens \)Full/\1Prod/&amp;quot; /opt/apache2.2.29/conf/extra/httpd-default.conf&#39;
-end
-
-# Change User &amp;amp; Group
-#  useradd --system --shell /usr/sbin/nologin --user-group --home /dev/null apache; \
-execute &amp;quot;add apache user &amp;amp; group&amp;quot; do
-  command &amp;quot;useradd --system --shell /usr/sbin/nologin --user-group --home /dev/null apache&amp;quot;
-  not_if &amp;quot;grep &#39;^apache&#39; /etc/passwd&amp;quot;
-end
-
-execute &amp;quot;mkdir -p /srv/apache&amp;quot; do
-  command &amp;quot;mkdir -p /srv/apache&amp;quot;
-  not_if &amp;quot;test -d /srv/apache&amp;quot;
-end
-
-remote_file &amp;quot;/srv/apache/apache.conf&amp;quot; do
-  source &amp;quot;../templates/apache.conf&amp;quot;
-end
-
-execute &amp;quot;set apache CustomLog&amp;quot; do
-  command &#39;echo \&#39;CustomLog &amp;quot;|/opt/apache2.2.29/bin/rotatelogs /srv/www/logs/access/access.%Y%m%d.log 86400 540&amp;quot; combined\&#39; &amp;gt;&amp;gt; /srv/apache/apache.conf&#39;
-  not_if &amp;quot;grep &#39;^CustomLog&#39; /srv/apache/apache.conf&amp;quot;
-end
-
-execute &amp;quot;set apache ErrorLog&amp;quot; do
-  command &#39;echo \&#39;ErrorLog &amp;quot;|/opt/apache2.2.29/bin/rotatelogs /srv/www/logs/error/error.%Y%m%d.log 86400 540&amp;quot;\&#39; &amp;gt;&amp;gt; /srv/apache/apache.conf&#39;
-  not_if &amp;quot;grep &#39;^ErrorLog&#39; /srv/apache/apache.conf&amp;quot;
-end
-
-execute &amp;quot;make log dirs&amp;quot; do
-  command &amp;quot;mkdir -m 777 -p /srv/www/logs/{access,error,app}&amp;quot;
-  not_if &amp;quot;test -d /srv/www/logs/access&amp;quot;
-end
-
-execute &amp;quot;make Apache document root&amp;quot; do
-  command &amp;quot;mkdir -p /srv/www/htdocs/&amp;quot;
-  not_if &amp;quot;test -d /srv/www/htdocs/&amp;quot;
-end
-
-#
-# php
-#
-
-execute &amp;quot;download php tarball&amp;quot; do
-  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; curl -L -O http://php.net/distributions/php-5.6.7.tar.gz&amp;quot;
-  not_if &amp;quot;test -e /usr/local/src/php-5.6.7.tar.gz&amp;quot;
-end
-
-execute &amp;quot;tar php tarball&amp;quot; do
-  command &amp;quot;cd /usr/local/src &amp;amp;&amp;amp; tar xzvf php-5.6.7.tar.gz&amp;quot;
-  not_if &amp;quot;test -d /usr/local/src/php-5.6.7&amp;quot;
-end
-
-execute &amp;quot;install php&amp;quot; do
-  command &amp;quot;
-  cd /usr/local/src/php-5.6.7 &amp;amp;&amp;amp; \
-  ./configure \
-    --prefix=/opt/php-5.6.7 \
-    --with-config-file-path=/srv/php \
-    --with-apxs2=/opt/apache2.2.29/bin/apxs \
-    --with-libdir=lib64 \
-    --enable-mbstring \
-    --enable-intl \
-    --with-icu-dir=/usr \
-    --with-gettext=/usr \
-    --with-pcre-regex=/usr \
-    --with-pcre-dir=/usr \
-    --with-readline=/usr \
-    --with-libxml-dir=/usr/bin/xml2-config \
-    --with-zlib=/usr \
-    --with-zlib-dir=/usr \
-    --with-gd \
-    --with-jpeg-dir=/usr \
-    --with-png-dir=/usr \
-    --with-freetype-dir=/usr \
-    --enable-gd-native-ttf \
-    --enable-gd-jis-conv \
-    --with-openssl=/usr \
-    --with-mcrypt=/usr \
-    --enable-bcmath \
-    --with-curl \
-    --enable-exif &amp;amp;&amp;amp; \
-  make &amp;amp;&amp;amp; \
-  make install
-  &amp;quot;
-  not_if &amp;quot;test -d /opt/php-5.6.7&amp;quot;
-end
-
-#
-# xdebug
-#
-
-# set php PATH because using phpize for xdebug installation
-execute &amp;quot;set php PATH&amp;quot; do
-  command &amp;quot;echo &#39;export PATH=/opt/php-5.6.7/bin:$PATH&#39; &amp;gt;&amp;gt; ~/.bashrc&amp;quot;
-  not_if &amp;quot;grep /opt/php-5.6.7/bin ~/.bashrc&amp;quot;
-end
-
-execute &amp;quot;install xdebug&amp;quot; do
-  command &amp;quot;
-    cd /usr/local/src &amp;amp;&amp;amp; \
-    curl -L -O http://xdebug.org/files/xdebug-2.3.2.tgz &amp;amp;&amp;amp; \
-    tar -xzf xdebug-2.3.2.tgz &amp;amp;&amp;amp; \
-    cd xdebug-2.3.2 &amp;amp;&amp;amp; \
-    phpize &amp;amp;&amp;amp; \
-    ./configure --enable-xdebug &amp;amp;&amp;amp; \
-    make &amp;amp;&amp;amp; \
-    make install
-  &amp;quot;
-  not_if &amp;quot;test -e /opt/php-5.6.7/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so&amp;quot;
-end
-
-# php.ini
-execute &amp;quot;mkdir -p /srv/php&amp;quot; do
-  command &amp;quot;mkdir -p /srv/php&amp;quot;
-  not_if &amp;quot;test -d /srv/php&amp;quot;
-end
-remote_file &amp;quot;/srv/php/php.ini&amp;quot; do
-  source &amp;quot;../templates/php.ini&amp;quot;
-end
-execute &amp;quot;Add zend_extension directive&amp;quot; do
-  command &amp;quot;echo &#39;zend_extension = \&amp;quot;/opt/php-5.6.7/lib/php/extensions/no-debug-non-zts-20131226/xdebug.so\&amp;quot;&#39; &amp;gt;&amp;gt; /srv/php/php.ini&amp;quot;
-  not_if &amp;quot;grep ^zend_extension /srv/php/php.ini&amp;quot;
-end
-
-
-execute &amp;quot;start apache&amp;quot; do
-  command &amp;quot;/opt/apache2.2.29/bin/apachectl start&amp;quot;
-  not_if &amp;quot;ps aux | grep httpd | grep -v grep&amp;quot;
-end
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

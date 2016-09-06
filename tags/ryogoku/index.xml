@@ -26,7 +26,7 @@
 
 &lt;script async class=&#34;speakerdeck-embed&#34; data-id=&#34;a57e354b64c9494eb03f30e5a38afa27&#34; data-ratio=&#34;1.33333333333333&#34; src=&#34;//speakerdeck.com/assets/embed.js&#34;&gt;&lt;/script&gt;
 
-&lt;h2 id=&#34;発表を通じてわかったこと:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
+&lt;h2 id=&#34;発表を通じてわかったこと&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;発表の時間配分&lt;/strong&gt;&lt;/p&gt;
 
@@ -110,7 +110,7 @@
 
 &lt;p&gt;ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;
 
-&lt;h2 id=&#34;発表を通じてわかったこと-まとめ:7149dfda08329ddc55c18fd7a9f0c118&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
+&lt;h2 id=&#34;発表を通じてわかったこと-まとめ&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;勉強会は補欠になっていても、繰り上がって発表者になることもあるので笑、準備はしておくこと&lt;/li&gt;
@@ -133,7 +133,7 @@
 I made a deployment tool, &lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;ryogoku&lt;/a&gt;.&lt;br /&gt;
 It uses &lt;code&gt;rsync&lt;/code&gt; to deploy.&lt;/p&gt;
 
-&lt;h2 id=&#34;why:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;why&lt;/h2&gt;
+&lt;h2 id=&#34;why&#34;&gt;why&lt;/h2&gt;
 
 &lt;p&gt;会社でデプロイの自動化を進めており、何か良いツールはないか探していた。&lt;br /&gt;
 ちなみに自分の会社は以下の様な条件での仕事が多い。&lt;/p&gt;
@@ -187,22 +187,22 @@ That didn&amp;rsquo;t match my purpose.&lt;/li&gt;
 &lt;p&gt;So I decided to make my own one based on &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;.&lt;br /&gt;
 Thank you, &lt;a href=&#34;https://github.com/tj/deploy&#34;&gt;deploy&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;what-it-is-like-ryogoku:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;What it is like - ryogoku&lt;/h2&gt;
+&lt;h2 id=&#34;what-it-is-like-ryogoku&#34;&gt;What it is like - ryogoku&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;https://github.com/yutaf/ryogoku&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;installation:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Installation&lt;/h3&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
 
 &lt;p&gt;Clone the repository from github, and&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ make install
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;how-it-works:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;How it works&lt;/h3&gt;
+&lt;h3 id=&#34;how-it-works&#34;&gt;How it works&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/ryogoku-01.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;configuration:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Configuration&lt;/h3&gt;
+&lt;h3 id=&#34;configuration&#34;&gt;Configuration&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;ryogoku.conf&lt;/code&gt; を git レポジトリルートに作成し、以下の様な内容を書く。&lt;/p&gt;
 
@@ -242,7 +242,7 @@ This value can also be set by command line argument, which is prior to config on
 &lt;li&gt;&lt;code&gt;umask&lt;/code&gt; defines the file permissions.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;execution:a243d8c3cf1cd7d968aa0a338320bf50&#34;&gt;Execution&lt;/h3&gt;
+&lt;h3 id=&#34;execution&#34;&gt;Execution&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;$ ryogoku prod
 &lt;/code&gt;&lt;/pre&gt;

@@ -43,7 +43,7 @@ Jenkins can catch pull requests with its plugins.
 
 &lt;p&gt;しかし、GitBucket をしばらく運用し、プルリクエストを覚え、jenkins でテストを回そう、ということを進めていくうちに、&lt;code&gt;GitBucket&lt;/code&gt; + &lt;code&gt;Jenkins&lt;/code&gt; で案外ここに書いてあることと近いことができるのが分かってきた。&lt;/p&gt;
 
-&lt;h2 id=&#34;requirement:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;requirement&lt;/h2&gt;
+&lt;h2 id=&#34;requirement&#34;&gt;requirement&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket&#34;&gt;GitBucket&lt;/a&gt;&lt;/li&gt;
@@ -51,7 +51,7 @@ Jenkins can catch pull requests with its plugins.
 &lt;li&gt;&lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin&#34;&gt;GitHub pull request builder plugin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;github-pull-request-builder-plugin:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
+&lt;h2 id=&#34;github-pull-request-builder-plugin&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
 
 &lt;p&gt;github のプルリクエストを契機にJenkins に自動マージ、任意のジョブを実行させることができるプラグイン。&lt;br /&gt;
 実際にはgithub に限らず、GitBucket でも使うことが出来る。&lt;/p&gt;
@@ -77,7 +77,7 @@ The plugin makes some very useful environment variables available.
 ```
 --&gt;
 
-&lt;h2 id=&#34;settings:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Settings&lt;/h2&gt;
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&#34;&gt;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&lt;/a&gt;&lt;/p&gt;
 
@@ -136,13 +136,13 @@ testjob を作成&lt;br /&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
+&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
 
 &lt;p&gt;ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-05.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;test:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Test&lt;/h2&gt;
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
 
 &lt;p&gt;どのようなテストを行っているか。&lt;/p&gt;
 
@@ -153,7 +153,7 @@ testjob を作成&lt;br /&gt;
 &lt;p&gt;そうすることで pull request マージ後のソースコードがデプロイ対象ホストで正しく動くかを確認できる。&lt;br /&gt;
 自分は db のテストを中心に書いていて、各デプロイ先ホストで db テーブルが正しく作られているか等を確認している。&lt;/p&gt;
 
-&lt;h2 id=&#34;merged-or-closed-without-merge:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
+&lt;h2 id=&#34;merged-or-closed-without-merge&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
 
 &lt;p&gt;後はテストの結果を見て、&lt;/p&gt;
 
@@ -180,12 +180,12 @@ testjob を作成&lt;br /&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&#34;&gt;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;感想:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;感想&lt;/h2&gt;
+&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;
 
 &lt;p&gt;今まで、手元でたまに行っていたテストを pull request をきっかけに自動的に実行出来るようになったので、安心感が増した。&lt;br /&gt;
 これをきっかけにテストを今までよりちゃんと書こうと思う。&lt;/p&gt;
 
-&lt;h2 id=&#34;参考:ecdde15144661f1ec91b92fcff83e0bc&#34;&gt;参考&lt;/h2&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;
 </description>
