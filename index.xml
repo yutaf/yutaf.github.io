@@ -7,8 +7,54 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 06 Sep 2016 14:42:34 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 18 Oct 2016 18:15:41 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Run phpmyadmin in docker-compose</title>
+      <link>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</link>
+      <pubDate>Tue, 18 Oct 2016 18:15:41 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#34;&gt;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Set &lt;code&gt;PMA_HOST&lt;/code&gt;, &lt;code&gt;PMA_PORT&lt;/code&gt; as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&lt;/p&gt;
+
+&lt;p&gt;docker-compose.yml&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql:
+  build: mysql
+  environment:
+    MYSQL_USER: dbuser
+    MYSQL_PASSWORD: dbpassword
+    MYSQL_ROOT_PASSWORD: dbrootpassword
+    MYSQL_DATABASE: dbdatabase
+  volumes_from:
+    - datastore
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+    - mysql
+  environment:
+    PMA_HOST: mysql
+    PMA_PORT: 3306
+  ports:
+    - &#39;8080:80&#39;
+datastore:
+  image: busybox
+  volumes:
+    - /var/lib/mysql
+php:
+  build: php
+  ports:
+    - &#39;80:80&#39;
+  links:
+    - mysql
+  volumes:
+    - ./php/www:/srv/www
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Create tsv file with league csv</title>
@@ -1176,84 +1222,6 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
 32. Day Tripper (The Beatles song)&lt;br /&gt;
 33. Hi, Hi, Hi (Wings song)&lt;br /&gt;
 34. I Saw Her Standing There (The Beatles song)&lt;/p&gt;
-
-&lt;p&gt;Encore 2:&lt;br /&gt;
-35. Yesterday (The Beatles song)&lt;br /&gt;
-36. Helter Skelter (The Beatles song)&lt;br /&gt;
-37. Golden Slumbers (The Beatles song)&lt;br /&gt;
-38. Carry That Weight (The Beatles song)&lt;br /&gt;
-39. The End (The Beatles song)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Paul McCartney Japan Tour 04.25.15</title>
-      <link>http://yutaf.github.io/paul-mccartney-japan-tour-042515/</link>
-      <pubDate>Sun, 26 Apr 2015 00:37:21 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/paul-mccartney-japan-tour-042515/</guid>
-      <description>&lt;p&gt;2公演観に行くうちの一回目。&lt;br /&gt;
-チケットは安くはないので2回も行く必要なかったんじゃないかと思っていたが、そんなことはなかった!!&lt;/p&gt;
-
-&lt;p&gt;最高にロックしていて素晴らしかった。&lt;/p&gt;
-
-&lt;p&gt;そして、観客のノリの良さがライブを特別なものにしていた。&lt;br /&gt;
-会場全体からのポールに対する愛の強さが半端じゃない。&lt;/p&gt;
-
-&lt;p&gt;個人的に一番良かった曲は &amp;ldquo;Maybe I&amp;rsquo;m Amazed&amp;rdquo;&lt;br /&gt;
-2013年に聞けなかった &amp;ldquo;Jet&amp;rdquo; も聞けたので満足。&lt;/p&gt;
-
-&lt;p&gt;月曜も楽しみ。&lt;/p&gt;
-
-&lt;p&gt;&lt;style&gt;.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }&lt;/style&gt;&lt;div class=&#39;embed-container&#39;&gt;&lt;iframe src=&#39;http://www.youtube.com/embed/fOH7BCfY9DM&#39; frameborder=&#39;0&#39; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;style&gt;.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }&lt;/style&gt;&lt;div class=&#39;embed-container&#39;&gt;&lt;iframe src=&#39;http://www.youtube.com/embed/4qZsGnIoqug&#39; frameborder=&#39;0&#39; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;style&gt;.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }&lt;/style&gt;&lt;div class=&#39;embed-container&#39;&gt;&lt;iframe src=&#39;http://www.youtube.com/embed/dEyx7H1YXaA&#39; frameborder=&#39;0&#39; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/paul-01.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/paul-02.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/paul-03.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;Set list&lt;br /&gt;
-1.  Eight Days a Week (The Beatles song)&lt;br /&gt;
-2.  Save Us&lt;br /&gt;
-3.  All My Loving (The Beatles song)&lt;br /&gt;
-4.  Jet (Wings song)&lt;br /&gt;
-5.  Let Me Roll It (Wings song)&lt;br /&gt;
-6.  Paperback Writer (The Beatles song)&lt;br /&gt;
-7.  My Valentine&lt;br /&gt;
-8.  Nineteen Hundred and Eighty-Five (Wings song)&lt;br /&gt;
-9.  The Long and Winding Road (The Beatles song)&lt;br /&gt;
-10. Maybe I&amp;rsquo;m Amazed&lt;br /&gt;
-11. I&amp;rsquo;ve Just Seen a Face (The Beatles song)&lt;br /&gt;
-12. We Can Work It Out (The Beatles song)&lt;br /&gt;
-13. Another Day&lt;br /&gt;
-14. Hope for the Future&lt;br /&gt;
-15. And I Love Her (The Beatles song)&lt;br /&gt;
-16. Blackbird (The Beatles song)&lt;br /&gt;
-17. Here Today&lt;br /&gt;
-18. New&lt;br /&gt;
-19. Queenie Eye&lt;br /&gt;
-20. Lady Madonna (The Beatles song)&lt;br /&gt;
-21. All Together Now (The Beatles song)&lt;br /&gt;
-22. Lovely Rita (The Beatles song)&lt;br /&gt;
-23. Eleanor Rigby (The Beatles song)&lt;br /&gt;
-24. Being for the Benefit of Mr. Kite! (The Beatles song)&lt;br /&gt;
-25. Something (The Beatles song)&lt;br /&gt;
-26. Ob-La-Di, Ob-La-Da (The Beatles song)&lt;br /&gt;
-27. Band on the Run (Wings song)&lt;br /&gt;
-28. Back in the U.S.S.R. (The Beatles song)&lt;br /&gt;
-29. Let It Be (The Beatles song)&lt;br /&gt;
-30. Live and Let Die (Wings song)&lt;br /&gt;
-31. Hey Jude (The Beatles song)&lt;/p&gt;
-
-&lt;p&gt;Encore:&lt;br /&gt;
-32. Day Tripper (The Beatles song)&lt;br /&gt;
-33. Hi, Hi, Hi (Wings song)&lt;br /&gt;
-34. Can&amp;rsquo;t Buy Me Love (The Beatles song)&lt;/p&gt;
 
 &lt;p&gt;Encore 2:&lt;br /&gt;
 35. Yesterday (The Beatles song)&lt;br /&gt;

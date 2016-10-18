@@ -3,22 +3,24 @@
 <head prefix="og: http://ogp.me/ns#">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <meta property="og:title" content=" Create tsv file with league csv &middot;  yutaf blog" />
+  <meta property="og:title" content=" Run phpmyadmin in docker-compose &middot;  yutaf blog" />
   
   <meta property="og:site_name" content="yutaf blog" />
-  <meta property="og:url" content="http://yutaf.github.io/create_tsv_file_with_league_csv/" />
+  <meta property="og:url" content="http://yutaf.github.io/run-phpmyadmin-in-docker-compose/" />
   
   
   <meta property="og:type" content="article" />
   
-  <meta property="og:article:published_time" content="2016-09-06T14:42:34&#43;09:00" />
+  <meta property="og:article:published_time" content="2016-10-18T18:15:41&#43;09:00" />
   
-  <meta property="og:article:tag" content="php" />
+  <meta property="og:article:tag" content="docker" />
+  
+  <meta property="og:article:tag" content="mysql" />
   
   
 
   <title>
-     Create tsv file with league csv &middot;  yutaf blog
+     Run phpmyadmin in docker-compose &middot;  yutaf blog
   </title>
 
   <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
@@ -69,52 +71,61 @@
 
 <article>
   <header>
-    <h1 class="text-primary">Create tsv file with league csv</h1>
+    <h1 class="text-primary">Run phpmyadmin in docker-compose</h1>
     <div class="post-meta clearfix">
       <div class="post-date pull-left">
         Posted on
-        <time datetime="2016-09-06T14:42:34&#43;09:00">
-          Sep 6, 2016
+        <time datetime="2016-10-18T18:15:41&#43;09:00">
+          Oct 18, 2016
         </time>
       </div>
       <div class="pull-right">
         
-        <span class="post-tag small"><a href="http://yutaf.github.io//tags/php">#php</a></span>
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/docker">#docker</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/mysql">#mysql</a></span>
         
       </div>
     </div>
   </header>
   <section>
-    
+    <p><a href="https://hub.docker.com/r/phpmyadmin/phpmyadmin/">https://hub.docker.com/r/phpmyadmin/phpmyadmin/</a></p>
 
-<p>tsv = tab-separated values.<br />
-<a href="https://en.wikipedia.org/wiki/Tab-separated_values">https://en.wikipedia.org/wiki/Tab-separated_values</a></p>
+<p>Set <code>PMA_HOST</code>, <code>PMA_PORT</code> as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.</p>
 
-<p>It&rsquo;s super easy to create tsv file with league/csv.<br />
-<a href="http://csv.thephpleague.com/">http://csv.thephpleague.com/</a></p>
+<p>docker-compose.yml</p>
 
-<h2 id="install">Install</h2>
-
-<pre><code>$ composer require league/csv
+<pre><code>mysql:
+  build: mysql
+  environment:
+    MYSQL_USER: dbuser
+    MYSQL_PASSWORD: dbpassword
+    MYSQL_ROOT_PASSWORD: dbrootpassword
+    MYSQL_DATABASE: dbdatabase
+  volumes_from:
+    - datastore
+phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links:
+    - mysql
+  environment:
+    PMA_HOST: mysql
+    PMA_PORT: 3306
+  ports:
+    - '8080:80'
+datastore:
+  image: busybox
+  volumes:
+    - /var/lib/mysql
+php:
+  build: php
+  ports:
+    - '80:80'
+  links:
+    - mysql
+  volumes:
+    - ./php/www:/srv/www
 </code></pre>
-
-<p>php</p>
-
-<pre><code>use League\Csv\Writer;
-
-$tsv_list =[
-  [1, 2, 3],
-  ['foo', 'bar', 'baz'],
-];
-
-$writer = Writer::createFromFileObject(new SplTempFileObject());
-$writer-&gt;setDelimiter(&quot;\t&quot;);
-$writer-&gt;insertAll($tsv_list);
-
-file_put_contents(&quot;/path/to/data.tsv&quot;, $writer-&gt;__toString());
-</code></pre>
-
-<p>The point is <code>setDelimiter</code> method.</p>
 
   </section>
   <footer>
@@ -131,10 +142,10 @@ file_put_contents(&quot;/path/to/data.tsv&quot;, $writer-&gt;__toString());
     </section>
     <ul class="pager">
       
-      <li class="previous"><a href="http://yutaf.github.io/everydaymusic/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      <li class="previous"><a href="http://yutaf.github.io/create_tsv_file_with_league_csv/"><span aria-hidden="true">&larr;</span> Older</a></li>
       
       
-      <li class="next"><a href="http://yutaf.github.io/run-phpmyadmin-in-docker-compose/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
       
     </ul>
   </footer>
