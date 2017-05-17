@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Presentation on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/presentation/</link>
+    <link>http://yutaf.github.io/tags/presentation/index.xml</link>
     <description>Recent content in Presentation on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 30 Apr 2015 18:14:33 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/presentation/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,9 +15,8 @@
       <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-study-89/</guid>
-      <description>
-
-&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;
+      <description>&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;br /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
 結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
@@ -117,8 +115,7 @@
 &lt;li&gt;自作ツールは自分たちの仕事に合わせた細かい調整が利くが、メンテナンスやドキュメント整備を続ける責任がある&lt;/li&gt;
 &lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
 &lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

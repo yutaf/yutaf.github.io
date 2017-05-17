@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Twig on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/twig/</link>
+    <link>http://yutaf.github.io/tags/twig/index.xml</link>
     <description>Recent content in Twig on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Sun, 05 Jun 2016 14:47:30 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/twig/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,7 +15,9 @@
       <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;composer.json&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;{
   &amp;quot;require&amp;quot; : {
@@ -73,8 +74,7 @@ $twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
 &lt;p&gt;References:&lt;br /&gt;
 &lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

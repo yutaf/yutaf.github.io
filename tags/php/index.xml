@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Php on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/php/</link>
+    <link>http://yutaf.github.io/tags/php/index.xml</link>
     <description>Recent content in Php on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 06 Sep 2016 14:42:34 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,7 +15,7 @@
       <pubDate>Tue, 06 Sep 2016 14:42:34 +0900</pubDate>
       
       <guid>http://yutaf.github.io/create_tsv_file_with_league_csv/</guid>
-      <description>
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;tsv = tab-separated values.&lt;br /&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Tab-separated_values&#34;&gt;https://en.wikipedia.org/wiki/Tab-separated_values&lt;/a&gt;&lt;/p&gt;
@@ -45,8 +44,7 @@ $writer-&amp;gt;insertAll($tsv_list);
 file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toString());
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;
-</description>
+&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -55,7 +53,9 @@ file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toStr
       <pubDate>Fri, 24 Jun 2016 13:33:48 +0900</pubDate>
       
       <guid>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</guid>
-      <description>&lt;p&gt;I was stuck for a while.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I was stuck for a while.&lt;br /&gt;
 You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&lt;/p&gt;
 
 &lt;p&gt;php&lt;/p&gt;
@@ -100,8 +100,7 @@ $csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validato
 $formFactory = Forms::createFormFactoryBuilder()
   -&amp;gt;addExtensions([$csrfExtension, $validatorExtension])
   -&amp;gt;getFormFactory();
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -110,7 +109,9 @@ $formFactory = Forms::createFormFactoryBuilder()
       <pubDate>Fri, 24 Jun 2016 11:16:11 +0900</pubDate>
       
       <guid>http://yutaf.github.io/password-confirmation-form-with-symfony/</guid>
-      <description>&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
 &lt;em&gt;RepeatedType Field&lt;/em&gt; helps us to create password &amp;amp; password confirmation fields.&lt;br /&gt;
 &lt;a href=&#34;http://symfony.com/doc/current/reference/forms/types/repeated.html&#34;&gt;http://symfony.com/doc/current/reference/forms/types/repeated.html&lt;/a&gt;&lt;/p&gt;
 
@@ -147,8 +148,7 @@ $form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
   -&amp;gt;getForm();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;
-</description>
+&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -157,7 +157,9 @@ $form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
       <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
       
       <guid>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
 The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;composer.json&lt;/p&gt;
@@ -234,8 +236,7 @@ You already have form with internationalized validation messages.&lt;/p&gt;
 
 &lt;p&gt;References:&lt;br /&gt;
 &lt;a href=&#34;http://symfony.com/doc/current/components/form/introduction.html#translation&#34;&gt;http://symfony.com/doc/current/components/form/introduction.html#translation&lt;/a&gt;
-&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -244,7 +245,9 @@ You already have form with internationalized validation messages.&lt;/p&gt;
       <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;composer.json&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;{
   &amp;quot;require&amp;quot; : {
@@ -301,8 +304,7 @@ $twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
 &lt;p&gt;References:&lt;br /&gt;
 &lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -311,7 +313,9 @@ $twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
       <pubDate>Tue, 19 May 2015 14:55:52 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-max-input-vars/</guid>
-      <description>&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
 最初は js のバグかと思っていたが、php の設定が問題だった。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.softel.co.jp/blogs/tech/archives/3591&#34;&gt;【php】max_input_varsの影響でフォームの値を全部受け取れないことがある   at softelメモ&lt;/a&gt;&lt;/p&gt;
@@ -345,8 +349,7 @@ max_input_vars integer
 &lt;p&gt;&lt;a href=&#34;http://hack.aipo.com/archives/5998/&#34;&gt;inputタグのonclickでform.submit()を実行しているため、IEだけ二重にリクエストが送信される時の対処法&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;この対処法は自分の場合は有効でなかった。&lt;br /&gt;
-とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;
-</description>
+とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -355,9 +358,8 @@ max_input_vars integer
       <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-study-89/</guid>
-      <description>
-
-&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;
+      <description>&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;br /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
 結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
@@ -456,8 +458,7 @@ max_input_vars integer
 &lt;li&gt;自作ツールは自分たちの仕事に合わせた細かい調整が利くが、メンテナンスやドキュメント整備を続ける責任がある&lt;/li&gt;
 &lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
 &lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -466,9 +467,8 @@ max_input_vars integer
       <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
       
       <guid>http://yutaf.github.io/phpbrew-memo/</guid>
-      <description>
-
-&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。&lt;/p&gt;
+      <description>&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。
+&lt;/p&gt;
 
 &lt;h3 id=&#34;environment&#34;&gt;environment&lt;/h3&gt;
 
@@ -677,8 +677,7 @@ LoadModule php5_module        modules/libphp5.4.36.so
 
 &lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;
 
-&lt;p&gt;気持ち悪い所も多いが、osx でphpをビルドするならこれが一番楽な気がした。&lt;/p&gt;
-</description>
+&lt;p&gt;気持ち悪い所も多いが、osx でphpをビルドするならこれが一番楽な気がした。&lt;/p&gt;</description>
     </item>
     
   </channel>

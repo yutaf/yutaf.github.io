@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Music on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/music/</link>
+    <link>http://yutaf.github.io/tags/music/index.xml</link>
     <description>Recent content in Music on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Sat, 19 Dec 2015 17:59:44 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/music/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,7 +15,9 @@
       <pubDate>Sat, 19 Dec 2015 17:59:44 +0900</pubDate>
       
       <guid>http://yutaf.github.io/apple-music-playlist-001/</guid>
-      <description>&lt;p&gt;Mystery Jets 2&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Mystery Jets 2&lt;br /&gt;
 &lt;a href=&#34;https://t.co/p0urGDUeqk&#34;&gt;https://t.co/p0urGDUeqk&lt;/a&gt;&lt;/p&gt;
 
 &lt;ol&gt;
@@ -30,8 +31,7 @@
 &lt;li&gt;Diamonds In the Dark / Mystery Jets&lt;/li&gt;
 &lt;li&gt;Hideaway / Mystery Jets&lt;/li&gt;
 &lt;li&gt;Flakes / Mystery Jets&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -40,7 +40,9 @@
       <pubDate>Tue, 04 Aug 2015 23:27:11 +0900</pubDate>
       
       <guid>http://yutaf.github.io/fujirock-2015/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2027.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2027.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2028.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
@@ -174,8 +176,7 @@
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2277.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2280.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2280.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -184,7 +185,9 @@
       <pubDate>Wed, 29 Apr 2015 13:04:40 +0900</pubDate>
       
       <guid>http://yutaf.github.io/paul-mccartney-japan-tour-042715/</guid>
-      <description>&lt;p&gt;2公演観に行くうちの二回目。&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;2公演観に行くうちの二回目。&lt;br /&gt;
 この日は父と見に行った。&lt;br /&gt;
 父は1950年生まれで、ビートルズ世代。&lt;br /&gt;
 親孝行。笑&lt;/p&gt;
@@ -239,8 +242,7 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
 36. Helter Skelter (The Beatles song)&lt;br /&gt;
 37. Golden Slumbers (The Beatles song)&lt;br /&gt;
 38. Carry That Weight (The Beatles song)&lt;br /&gt;
-39. The End (The Beatles song)&lt;/p&gt;
-</description>
+39. The End (The Beatles song)&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -249,7 +251,9 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
       <pubDate>Sun, 26 Apr 2015 00:37:21 +0900</pubDate>
       
       <guid>http://yutaf.github.io/paul-mccartney-japan-tour-042515/</guid>
-      <description>&lt;p&gt;2公演観に行くうちの一回目。&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;2公演観に行くうちの一回目。&lt;br /&gt;
 チケットは安くはないので2回も行く必要なかったんじゃないかと思っていたが、そんなことはなかった!!&lt;/p&gt;
 
 &lt;p&gt;最高にロックしていて素晴らしかった。&lt;/p&gt;
@@ -317,8 +321,7 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
 36. Helter Skelter (The Beatles song)&lt;br /&gt;
 37. Golden Slumbers (The Beatles song)&lt;br /&gt;
 38. Carry That Weight (The Beatles song)&lt;br /&gt;
-39. The End (The Beatles song)&lt;/p&gt;
-</description>
+39. The End (The Beatles song)&lt;/p&gt;</description>
     </item>
     
   </channel>

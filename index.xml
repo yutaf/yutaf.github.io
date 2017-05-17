@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>yutaf blog</title>
-    <link>http://yutaf.github.io/</link>
+    <link>http://yutaf.github.io/index.xml</link>
     <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -16,7 +16,9 @@
       <pubDate>Tue, 18 Oct 2016 18:15:41 +0900</pubDate>
       
       <guid>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#34;&gt;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#34;&gt;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Set &lt;code&gt;PMA_HOST&lt;/code&gt;, &lt;code&gt;PMA_PORT&lt;/code&gt; as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&lt;/p&gt;
 
@@ -52,8 +54,7 @@ php:
     - mysql
   volumes:
     - ./php/www:/srv/www
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -62,7 +63,7 @@ php:
       <pubDate>Tue, 06 Sep 2016 14:42:34 +0900</pubDate>
       
       <guid>http://yutaf.github.io/create_tsv_file_with_league_csv/</guid>
-      <description>
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;tsv = tab-separated values.&lt;br /&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Tab-separated_values&#34;&gt;https://en.wikipedia.org/wiki/Tab-separated_values&lt;/a&gt;&lt;/p&gt;
@@ -91,8 +92,7 @@ $writer-&amp;gt;insertAll($tsv_list);
 file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toString());
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;
-</description>
+&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -101,7 +101,7 @@ file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toStr
       <pubDate>Thu, 14 Jul 2016 11:32:37 +0900</pubDate>
       
       <guid>http://yutaf.github.io/everydaymusic/</guid>
-      <description>
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;p style=&#34;text-align: center;&#34;&gt;Login page&lt;/p&gt;
 &lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_01.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
@@ -182,8 +182,7 @@ It really makes concurrency implemention easier.&lt;br /&gt;
 I used it for batch jobs sending emails to users.&lt;br /&gt;
 It also offers cool management dashbord.&lt;br /&gt;
 Awesome!&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -192,7 +191,9 @@ Awesome!&lt;/p&gt;&lt;/li&gt;
       <pubDate>Fri, 24 Jun 2016 13:33:48 +0900</pubDate>
       
       <guid>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</guid>
-      <description>&lt;p&gt;I was stuck for a while.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I was stuck for a while.&lt;br /&gt;
 You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&lt;/p&gt;
 
 &lt;p&gt;php&lt;/p&gt;
@@ -237,8 +238,7 @@ $csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validato
 $formFactory = Forms::createFormFactoryBuilder()
   -&amp;gt;addExtensions([$csrfExtension, $validatorExtension])
   -&amp;gt;getFormFactory();
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -247,7 +247,9 @@ $formFactory = Forms::createFormFactoryBuilder()
       <pubDate>Fri, 24 Jun 2016 11:16:11 +0900</pubDate>
       
       <guid>http://yutaf.github.io/password-confirmation-form-with-symfony/</guid>
-      <description>&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
 &lt;em&gt;RepeatedType Field&lt;/em&gt; helps us to create password &amp;amp; password confirmation fields.&lt;br /&gt;
 &lt;a href=&#34;http://symfony.com/doc/current/reference/forms/types/repeated.html&#34;&gt;http://symfony.com/doc/current/reference/forms/types/repeated.html&lt;/a&gt;&lt;/p&gt;
 
@@ -284,8 +286,7 @@ $form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
   -&amp;gt;getForm();
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;
-</description>
+&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -294,7 +295,9 @@ $form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
       <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
       
       <guid>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
 The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;composer.json&lt;/p&gt;
@@ -371,8 +374,7 @@ You already have form with internationalized validation messages.&lt;/p&gt;
 
 &lt;p&gt;References:&lt;br /&gt;
 &lt;a href=&#34;http://symfony.com/doc/current/components/form/introduction.html#translation&#34;&gt;http://symfony.com/doc/current/components/form/introduction.html#translation&lt;/a&gt;
-&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -381,7 +383,9 @@ You already have form with internationalized validation messages.&lt;/p&gt;
       <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;composer.json&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;{
   &amp;quot;require&amp;quot; : {
@@ -438,8 +442,7 @@ $twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
 &lt;p&gt;References:&lt;br /&gt;
 &lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -448,7 +451,9 @@ $twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
       <pubDate>Thu, 28 Jan 2016 16:24:41 +0900</pubDate>
       
       <guid>http://yutaf.github.io/domain-status-clienthold/</guid>
-      <description>&lt;p&gt;Route 53 でdnsの設定をした後、何度 &lt;code&gt;dig&lt;/code&gt; や &lt;code&gt;nslookup&lt;/code&gt; をやっても反映されないのでおかしいと思ったが、ドメインステータスに問題があるらしい。&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Route 53 でdnsの設定をした後、何度 &lt;code&gt;dig&lt;/code&gt; や &lt;code&gt;nslookup&lt;/code&gt; をやっても反映されないのでおかしいと思ったが、ドメインステータスに問題があるらしい。&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ whois everydaymusic.net | grep Status
    Status: clientHold https://www.icann.org/epp#clientHold
@@ -648,8 +653,7 @@ https://muumuu-domain.com/?mode=inq
 GMOペパボ株式会社 http://pepabo.com/company/overview/
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;はっきり言って、こういうメールは広告かスパムかだと思って自分のメールフィルターから全く外れてしまっている。。&lt;/p&gt;
-</description>
+&lt;p&gt;はっきり言って、こういうメールは広告かスパムかだと思って自分のメールフィルターから全く外れてしまっている。。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -658,9 +662,10 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
       <pubDate>Mon, 21 Dec 2015 20:21:43 -0800</pubDate>
       
       <guid>http://yutaf.github.io/how-to-change-facebook-timezone-setting/</guid>
-      <description>&lt;p&gt;You have to change the timezone of your computer.&lt;br /&gt;
-&lt;a href=&#34;https://www.facebook.com/help/community/question/?id=4570099785144&#34;&gt;https://www.facebook.com/help/community/question/?id=4570099785144&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;You have to change the timezone of your computer.&lt;br /&gt;
+&lt;a href=&#34;https://www.facebook.com/help/community/question/?id=4570099785144&#34;&gt;https://www.facebook.com/help/community/question/?id=4570099785144&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -669,7 +674,9 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
       <pubDate>Sat, 19 Dec 2015 17:59:44 +0900</pubDate>
       
       <guid>http://yutaf.github.io/apple-music-playlist-001/</guid>
-      <description>&lt;p&gt;Mystery Jets 2&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;Mystery Jets 2&lt;br /&gt;
 &lt;a href=&#34;https://t.co/p0urGDUeqk&#34;&gt;https://t.co/p0urGDUeqk&lt;/a&gt;&lt;/p&gt;
 
 &lt;ol&gt;
@@ -683,8 +690,7 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
 &lt;li&gt;Diamonds In the Dark / Mystery Jets&lt;/li&gt;
 &lt;li&gt;Hideaway / Mystery Jets&lt;/li&gt;
 &lt;li&gt;Flakes / Mystery Jets&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -693,7 +699,9 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
       <pubDate>Tue, 04 Aug 2015 23:27:11 +0900</pubDate>
       
       <guid>http://yutaf.github.io/fujirock-2015/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2027.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2027.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2028.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
@@ -827,8 +835,7 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
 
 &lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2277.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2280.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2280.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -837,9 +844,7 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
       <pubDate>Thu, 11 Jun 2015 13:10:53 +0900</pubDate>
       
       <guid>http://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</guid>
-      <description>
-
-&lt;!--
+      <description>&lt;!--
 Have you ever thought of these kind of things ?  
 
 - **We want to develop with github, but our codes must be placed in private network...**  
@@ -854,6 +859,8 @@ But I found that we can do almost same things all in your private zone with `Git
 GitBucket is OSS almost like GitHub, easy to use and free.  
 Jenkins can catch pull requests with its plugins.  
 --&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;伊藤直也さんが書いた &lt;a href=&#34;http://d.hatena.ne.jp/naoya/20140502/1399027655&#34;&gt;GitHub 時代のデプロイ戦略&lt;/a&gt; という記事がある。&lt;/p&gt;
 
@@ -1008,8 +1015,7 @@ testjob を作成&lt;br /&gt;
 
 &lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1018,7 +1024,9 @@ testjob を作成&lt;br /&gt;
       <pubDate>Tue, 19 May 2015 14:55:52 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-max-input-vars/</guid>
-      <description>&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
 最初は js のバグかと思っていたが、php の設定が問題だった。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://www.softel.co.jp/blogs/tech/archives/3591&#34;&gt;【php】max_input_varsの影響でフォームの値を全部受け取れないことがある   at softelメモ&lt;/a&gt;&lt;/p&gt;
@@ -1052,8 +1060,7 @@ max_input_vars integer
 &lt;p&gt;&lt;a href=&#34;http://hack.aipo.com/archives/5998/&#34;&gt;inputタグのonclickでform.submit()を実行しているため、IEだけ二重にリクエストが送信される時の対処法&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;この対処法は自分の場合は有効でなかった。&lt;br /&gt;
-とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;
-</description>
+とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -1062,9 +1069,8 @@ max_input_vars integer
       <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
       
       <guid>http://yutaf.github.io/php-study-89/</guid>
-      <description>
-
-&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;
+      <description>&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;br /&gt;
+&lt;/p&gt;
 
 &lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
 結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
@@ -1163,8 +1169,7 @@ max_input_vars integer
 &lt;li&gt;自作ツールは自分たちの仕事に合わせた細かい調整が利くが、メンテナンスやドキュメント整備を続ける責任がある&lt;/li&gt;
 &lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
 &lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -1173,7 +1178,9 @@ max_input_vars integer
       <pubDate>Wed, 29 Apr 2015 13:04:40 +0900</pubDate>
       
       <guid>http://yutaf.github.io/paul-mccartney-japan-tour-042715/</guid>
-      <description>&lt;p&gt;2公演観に行くうちの二回目。&lt;br /&gt;
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;2公演観に行くうちの二回目。&lt;br /&gt;
 この日は父と見に行った。&lt;br /&gt;
 父は1950年生まれで、ビートルズ世代。&lt;br /&gt;
 親孝行。笑&lt;/p&gt;
@@ -1228,8 +1235,7 @@ My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
 36. Helter Skelter (The Beatles song)&lt;br /&gt;
 37. Golden Slumbers (The Beatles song)&lt;br /&gt;
 38. Carry That Weight (The Beatles song)&lt;br /&gt;
-39. The End (The Beatles song)&lt;/p&gt;
-</description>
+39. The End (The Beatles song)&lt;/p&gt;</description>
     </item>
     
   </channel>

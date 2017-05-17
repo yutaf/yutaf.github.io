@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Portfolio on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/portfolio/</link>
+    <link>http://yutaf.github.io/tags/portfolio/index.xml</link>
     <description>Recent content in Portfolio on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 14 Jul 2016 11:32:37 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/portfolio/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,7 +15,7 @@
       <pubDate>Thu, 14 Jul 2016 11:32:37 +0900</pubDate>
       
       <guid>http://yutaf.github.io/everydaymusic/</guid>
-      <description>
+      <description>&lt;p&gt;&lt;/p&gt;
 
 &lt;p style=&#34;text-align: center;&#34;&gt;Login page&lt;/p&gt;
 &lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_01.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
@@ -97,8 +96,7 @@ It really makes concurrency implemention easier.&lt;br /&gt;
 I used it for batch jobs sending emails to users.&lt;br /&gt;
 It also offers cool management dashbord.&lt;br /&gt;
 Awesome!&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+&lt;/ul&gt;</description>
     </item>
     
   </channel>

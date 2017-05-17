@@ -2,12 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jenkins on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/jenkins/</link>
+    <link>http://yutaf.github.io/tags/jenkins/index.xml</link>
     <description>Recent content in Jenkins on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 11 Jun 2015 13:10:53 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -16,9 +15,7 @@
       <pubDate>Thu, 11 Jun 2015 13:10:53 +0900</pubDate>
       
       <guid>http://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</guid>
-      <description>
-
-&lt;!--
+      <description>&lt;!--
 Have you ever thought of these kind of things ?  
 
 - **We want to develop with github, but our codes must be placed in private network...**  
@@ -33,6 +30,8 @@ But I found that we can do almost same things all in your private zone with `Git
 GitBucket is OSS almost like GitHub, easy to use and free.  
 Jenkins can catch pull requests with its plugins.  
 --&gt;
+
+&lt;p&gt;&lt;/p&gt;
 
 &lt;p&gt;伊藤直也さんが書いた &lt;a href=&#34;http://d.hatena.ne.jp/naoya/20140502/1399027655&#34;&gt;GitHub 時代のデプロイ戦略&lt;/a&gt; という記事がある。&lt;/p&gt;
 
@@ -187,8 +186,7 @@ testjob を作成&lt;br /&gt;
 
 &lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;
-</description>
+&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

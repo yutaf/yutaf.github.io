@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yutaf.github.io/</loc>
-    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</loc>
     <lastmod>2016-10-18T18:15:41+09:00</lastmod>
   </url>
@@ -99,6 +94,155 @@
   <url>
     <loc>http://yutaf.github.io/phpbrew-memo/</loc>
     <lastmod>2015-02-17T12:32:23+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/bash/</loc>
+    <lastmod>2015-03-25T23:11:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/deploy/</loc>
+    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/dns/</loc>
+    <lastmod>2016-01-28T16:24:41+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/docker/</loc>
+    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/facebook/</loc>
+    <lastmod>2015-12-21T20:21:43-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/gitbucket/</loc>
+    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/i18n/</loc>
+    <lastmod>2016-06-24T13:33:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/itamae/</loc>
+    <lastmod>2015-04-07T22:42:50+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/jenkins/</loc>
+    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/meetup/</loc>
+    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/music/</loc>
+    <lastmod>2015-12-19T17:59:44+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/mysql/</loc>
+    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/osx/</loc>
+    <lastmod>2015-02-17T12:32:23+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/php/</loc>
+    <lastmod>2016-09-06T14:42:34+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/phpbrew/</loc>
+    <lastmod>2015-02-17T12:32:23+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/portfolio/</loc>
+    <lastmod>2016-07-14T11:32:37+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/presentation/</loc>
+    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/provisioning/</loc>
+    <lastmod>2015-04-07T22:42:50+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/route53/</loc>
+    <lastmod>2016-01-28T16:24:41+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/rsync/</loc>
+    <lastmod>2015-03-25T23:11:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/ryogoku/</loc>
+    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/symfony/</loc>
+    <lastmod>2016-06-24T13:33:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/twig/</loc>
+    <lastmod>2016-06-05T14:47:30+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/</loc>
+    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
