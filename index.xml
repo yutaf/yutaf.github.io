@@ -7,8 +7,115 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 18 Oct 2016 18:15:41 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 17 May 2017 12:19:16 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Xdebug remote cli debugging with vagrant and PhpStorm</title>
+      <link>http://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</link>
+      <pubDate>Wed, 17 May 2017 12:19:16 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;There are three points to set xdebug&amp;rsquo;s remote cli debugging correctly.&lt;br /&gt;
+- &lt;a href=&#34;#php-ini-for-cli&#34;&gt;php.ini for cli&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;#php-ide-config-environment-variable&#34;&gt;PHP_IDE_CONFIG environment variable&lt;/a&gt;&lt;br /&gt;
+- &lt;a href=&#34;#phpstorm-setting&#34;&gt;Phpstorm setting&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;php-ini-for-cli&#34;&gt;php.ini for cli&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;xdebug.remote_host&lt;/code&gt; means the host where phpstorm runs.(= client)&lt;br /&gt;
+You should specify the host ip from the guest machine, vagrant.&lt;br /&gt;
+You can use &lt;code&gt;10.0.2.2&lt;/code&gt; as it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;zend_extension = /usr/lib/php5/20100525/xdebug.so
+xdebug.remote_enable  = on
+xdebug.remote_autostart = 1
+xdebug.remote_host = 10.0.2.2
+xdebug.remote_port=9000
+xdebug.remote_handler = dbgp
+xdebug.var_display_max_depth = -1
+xdebug.var_display_max_children = -1
+xdebug.var_display_max_data = -1
+xdebug.idekey = PHPSTORM
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;tl-dr&#34;&gt;(TL;DR)&lt;/h3&gt;
+
+&lt;p&gt;You will see below when you hit &lt;code&gt;ifconfig&lt;/code&gt; command in vagrant&amp;rsquo;s shell.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;eth0      Link encap:Ethernet  HWaddr 08:00:27:88:0c:a6  
+          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe88:ca6/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:267539 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:154775 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:259150497 (259.1 MB)  TX bytes:26565361 (26.5 MB)
+
+eth1      Link encap:Ethernet  HWaddr 08:00:27:10:94:c7  
+          inet addr:192.168.55.2  Bcast:192.168.55.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe10:94c7/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:28705 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:21756 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:2879409 (2.8 MB)  TX bytes:21317169 (21.3 MB)
+
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:4853 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:4853 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:948041 (948.0 KB)  TX bytes:948041 (948.0 KB)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;10.0.2.2&lt;/code&gt; is not there, but you can spcify the host of vm with it.&lt;br /&gt;
+&lt;a href=&#34;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&#34;&gt;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;10.0.2.2 always points to the local host when you are running emulator or vm. So in virtual machine , it refers to the local host (127.0.0.1) as 10.0.2.2. That is the reason you can&amp;rsquo;t see it in ifconfig in your host.&amp;rdquo;&lt;/p&gt;
+
+&lt;h2 id=&#34;php-ide-config-environment-variable&#34;&gt;PHP_IDE_CONFIG environment variable&lt;/h2&gt;
+
+&lt;p&gt;You need to set this for phpstorm&amp;rsquo;s path mapping.&lt;/p&gt;
+
+&lt;p&gt;&amp;ldquo;To tell PhpStorm which path mapping configuration it should use for a connection from a certain machine you need to set the value of the “PHP_IDE_CONFIG” environment variable to “serverName=SomeName”, where ‘SomeName’ is the name of the server configured in ‘Project Settings | PHP | Servers’&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;From &lt;a href=&#34;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&#34;&gt;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;My application uses supervisor to execute php cli command, so I passed the environment variable to supervisor.&lt;/p&gt;
+
+&lt;p&gt;supervisor config file&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[program:my_worker]
+directory={{API_PATH}}
+command={{API_PATH}}/my_worker.php &amp;quot;verificationWorker.php&amp;quot;
+environment=PHP_IDE_CONFIG=&amp;quot;serverName=vagrant&amp;quot;
+user=www-data
+autostart=false
+autorestart=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;serverName&lt;/code&gt; value should correspond to phpstorm&amp;rsquo;s server value in &lt;code&gt;Project Settings | PHP | Servers&lt;/code&gt;.&lt;br /&gt;
+See below.&lt;/p&gt;
+
+&lt;h2 id=&#34;phpstorm-setting&#34;&gt;Phpstorm setting&lt;/h2&gt;
+
+&lt;p&gt;Specify &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Path mappings&lt;/code&gt; correctly.&lt;br /&gt;
+&lt;code&gt;Host&lt;/code&gt; and &lt;code&gt;Port&lt;/code&gt; values don&amp;rsquo;t affect anything. You can set them as anything.&lt;br /&gt;
+This setting is just for relating &lt;code&gt;serverName&lt;/code&gt; in PHP_IDE_CONFIG with &lt;code&gt;Path mappings&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://yutaf.github.io/images/xdebug-remote-cli-debug-with-vagrant-01.png&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/xdebug-remote-cli-debug-with-vagrant-01.png&#34; class=&#34;image&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&#34;&gt;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://stackoverflow.com/questions/19917148/tell-vagrant-the-ip-of-the-host-machine&#34;&gt;http://stackoverflow.com/questions/19917148/tell-vagrant-the-ip-of-the-host-machine&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://xdebug.org/docs/remote&#34;&gt;https://xdebug.org/docs/remote&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.1x1.jp/blog/2014/08/how-to-setup-php-remote-debug-with-vagrant-vm.html&#34;&gt;http://www.1x1.jp/blog/2014/08/how-to-setup-php-remote-debug-with-vagrant-vm.html&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Run phpmyadmin in docker-compose</title>
@@ -1170,72 +1277,6 @@ max_input_vars integer
 &lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
 &lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
 &lt;/ul&gt;</description>
-    </item>
-    
-    <item>
-      <title>Paul Mccartney Japan Tour 04.27.15</title>
-      <link>http://yutaf.github.io/paul-mccartney-japan-tour-042715/</link>
-      <pubDate>Wed, 29 Apr 2015 13:04:40 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/paul-mccartney-japan-tour-042715/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;2公演観に行くうちの二回目。&lt;br /&gt;
-この日は父と見に行った。&lt;br /&gt;
-父は1950年生まれで、ビートルズ世代。&lt;br /&gt;
-親孝行。笑&lt;/p&gt;
-
-&lt;p&gt;I went with my father this day.&lt;br /&gt;
-Paul played &amp;ldquo;I Saw Her Standing There&amp;rdquo; !!&lt;br /&gt;
-I danced to it.&lt;br /&gt;
-My father never danced, but he seemed to enjoy it very much.&lt;/p&gt;
-
-&lt;p&gt;&lt;style&gt;.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }&lt;/style&gt;&lt;div class=&#39;embed-container&#39;&gt;&lt;iframe src=&#39;http://www.youtube.com/embed/VjzUWsgB4kk&#39; frameborder=&#39;0&#39; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;Set List&lt;br /&gt;
-1. Magical Mystery Tour (The Beatles song)&lt;br /&gt;
-2. Save Us&lt;br /&gt;
-3. Can&amp;rsquo;t Buy Me Love (The Beatles song)&lt;br /&gt;
-4. Listen to What the Man Said (Wings song)&lt;br /&gt;
-5. Let Me Roll It (Wings song)&lt;br /&gt;
-6. Paperback Writer (The Beatles song)&lt;br /&gt;
-7. My Valentine&lt;br /&gt;
-8. Nineteen Hundred and Eighty-Five (Wings song)&lt;br /&gt;
-9. The Long and Winding Road (The Beatles song)&lt;br /&gt;
-10. Maybe I&amp;rsquo;m Amazed&lt;br /&gt;
-11. I&amp;rsquo;ve Just Seen a Face (The Beatles song)&lt;br /&gt;
-12. We Can Work It Out (The Beatles song)&lt;br /&gt;
-13. Another Day&lt;br /&gt;
-14. Hope for the Future&lt;br /&gt;
-15. And I Love Her (The Beatles song)&lt;br /&gt;
-16. Blackbird (The Beatles song)&lt;br /&gt;
-17. Here Today&lt;br /&gt;
-18. New&lt;br /&gt;
-19. Queenie Eye&lt;br /&gt;
-20. Lady Madonna (The Beatles song)&lt;br /&gt;
-21. All Together Now (The Beatles song)&lt;br /&gt;
-22. Lovely Rita (The Beatles song)&lt;br /&gt;
-23. Eleanor Rigby (The Beatles song)&lt;br /&gt;
-24. Being for the Benefit of Mr. Kite! (The Beatles song)&lt;br /&gt;
-25. Something (The Beatles song)&lt;br /&gt;
-26. Ob-La-Di, Ob-La-Da (The Beatles song)&lt;br /&gt;
-27. Band on the Run (Wings song)&lt;br /&gt;
-28. Back in the U.S.S.R. (The Beatles song)&lt;br /&gt;
-29. Let It Be (The Beatles song)&lt;br /&gt;
-30. Live and Let Die (Wings song)&lt;br /&gt;
-31. Hey Jude&lt;/p&gt;
-
-&lt;p&gt;Encore:&lt;br /&gt;
-32. Day Tripper (The Beatles song)&lt;br /&gt;
-33. Hi, Hi, Hi (Wings song)&lt;br /&gt;
-34. I Saw Her Standing There (The Beatles song)&lt;/p&gt;
-
-&lt;p&gt;Encore 2:&lt;br /&gt;
-35. Yesterday (The Beatles song)&lt;br /&gt;
-36. Helter Skelter (The Beatles song)&lt;br /&gt;
-37. Golden Slumbers (The Beatles song)&lt;br /&gt;
-38. Carry That Weight (The Beatles song)&lt;br /&gt;
-39. The End (The Beatles song)&lt;/p&gt;</description>
     </item>
     
   </channel>
