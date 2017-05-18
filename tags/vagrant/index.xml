@@ -72,7 +72,7 @@ lo        Link encap:Local Loopback
           RX bytes:948041 (948.0 KB)  TX bytes:948041 (948.0 KB)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;10.0.2.2&lt;/code&gt; is not there, but you can spcify the host of vm with it.&lt;br /&gt;
+&lt;p&gt;&lt;code&gt;10.0.2.2&lt;/code&gt; is not there, but you can specify the host of vm with it.&lt;br /&gt;
 &lt;a href=&#34;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&#34;&gt;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&amp;ldquo;10.0.2.2 always points to the local host when you are running emulator or vm. So in virtual machine , it refers to the local host (127.0.0.1) as 10.0.2.2. That is the reason you can&amp;rsquo;t see it in ifconfig in your host.&amp;rdquo;&lt;/p&gt;
