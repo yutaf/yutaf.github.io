@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Decrypt gpg data in salt masterless &middot;  yutaf blog" />
+  
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2017-07-05T10:49:38&#43;09:00" />
+  
+  <meta property="og:article:tag" content="salt" />
+  
+  <meta property="og:article:tag" content="encryption" />
+  
+  
+
+  <title>
+     Decrypt gpg data in salt masterless &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+      
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Decrypt gpg data in salt masterless</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2017-07-05T10:49:38&#43;09:00">
+          Jul 5, 2017
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/salt">#salt</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/encryption">#encryption</a></span>
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p></p>
+
+<p>You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.</p>
+
+<hr />
+
+<p>If gpgkeys is located in <code>/etc/salt/gpgkeys/</code> in the salt master(default),<br />
+you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.</p>
+
+<pre><code>root@salt-master:~# ll /etc/salt/gpgkeys/
+total 28
+drwx------ 2 root root 4096 Sep  4  2015 ./
+drwxr-xr-x 9 root root 4096 Jun 22 23:31 ../
+-rw------- 1 root root 1194 Sep  4  2015 pubring.gpg
+-rw------- 1 root root  600 Jun 30 03:33 random_seed
+-rw------- 1 root root 2495 Sep  4  2015 secring.gpg
+-rw------- 1 root root 1280 Sep  4  2015 trustdb.gpg
+</code></pre>
+
+<p>And you also have to be careful about the permisson when you download it.<br />
+If ssh user is not root, <code>/etc/salt/gpgkeys/</code> is owned by root and you use sftp to download it, you can&rsquo;t download the directory.</p>
+
+<pre><code>$ sftp salt_master
+Connected to salt_master.
+sftp&gt; get -r /etc/salt/gpgkeys
+Fetching /etc/salt/gpgkeys/ to gpgkeys
+Retrieving /etc/salt/gpgkeys
+remote readdir(&quot;/etc/salt/gpgkeys&quot;): Permission denied
+/etc/salt/gpgkeys: Failed to get directory contents
+</code></pre>
+
+<p>So I copied the directory to a temporary directory which permisson is appropriate for the ssh user to download, and change the owner of the copied directory to the ssh user to download it correctly.<br />
+Then I could download it successfully with sftp.</p>
+  </section>
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

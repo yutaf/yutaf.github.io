@@ -7,8 +7,293 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Wed, 17 May 2017 12:19:16 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 13 Mar 2018 10:44:36 +0900</lastBuildDate>
     <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aes encryption in android, decryption in php</title>
+      <link>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
+      <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0
+&lt;a href=&#34;http://php.net/manual/en/intro.mcrypt.php&#34;&gt;http://php.net/manual/en/intro.mcrypt.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I could not decrypt in alternative way(&lt;a href=&#34;http://php.net/manual/en/function.openssl-decrypt.php&#34;&gt;openssl_decrypt&lt;/a&gt;) instead of Mcrypt.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&#34;&gt;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stevenholder/PHP-Java-AES-Encrypt&#34;&gt;https://github.com/stevenholder/PHP-Java-AES-Encrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;class Encryption {
+
+    ...
+
+    /**
+     * Decrypt AES encrypted data by Android
+     *
+     * @param $sStr
+     * @param $sKey
+     * @return bool|string
+     */
+    public static function decryptAesAndroid($sStr, $sKey) {
+      // Replace strings escaped by Android&#39;s Base64.URL_SAFE
+      // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE
+      $sStr = str_replace(array(&#39;-&#39;, &#39;_&#39;), array(&#39;+&#39;, &#39;/&#39;), $sStr);
+
+      // Borrowed from https://github.com/stevenholder/PHP-Java-AES-Encrypt
+      $decrypted= mcrypt_decrypt(
+        MCRYPT_RIJNDAEL_128,
+        $sKey,
+        base64_decode($sStr),
+        MCRYPT_MODE_ECB
+      );
+      $dec_s = strlen($decrypted);
+      $padding = ord($decrypted[$dec_s-1]);
+      $decrypted = substr($decrypted, 0, -$padding);
+      return $decrypted;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Decrypt gpg data in salt masterless</title>
+      <link>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</link>
+      <pubDate>Wed, 05 Jul 2017 10:49:38 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;If gpgkeys is located in &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; in the salt master(default),&lt;br /&gt;
+you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@salt-master:~# ll /etc/salt/gpgkeys/
+total 28
+drwx------ 2 root root 4096 Sep  4  2015 ./
+drwxr-xr-x 9 root root 4096 Jun 22 23:31 ../
+-rw------- 1 root root 1194 Sep  4  2015 pubring.gpg
+-rw------- 1 root root  600 Jun 30 03:33 random_seed
+-rw------- 1 root root 2495 Sep  4  2015 secring.gpg
+-rw------- 1 root root 1280 Sep  4  2015 trustdb.gpg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And you also have to be careful about the permisson when you download it.&lt;br /&gt;
+If ssh user is not root, &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; is owned by root and you use sftp to download it, you can&amp;rsquo;t download the directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sftp salt_master
+Connected to salt_master.
+sftp&amp;gt; get -r /etc/salt/gpgkeys
+Fetching /etc/salt/gpgkeys/ to gpgkeys
+Retrieving /etc/salt/gpgkeys
+remote readdir(&amp;quot;/etc/salt/gpgkeys&amp;quot;): Permission denied
+/etc/salt/gpgkeys: Failed to get directory contents
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I copied the directory to a temporary directory which permisson is appropriate for the ssh user to download, and change the owner of the copied directory to the ssh user to download it correctly.&lt;br /&gt;
+Then I could download it successfully with sftp.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Do not remove instance when packer build fails</title>
+      <link>http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</link>
+      <pubDate>Tue, 04 Jul 2017 13:00:56 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I want to run commands manually inside the instance built by packer for investigation when packer build fails.&lt;br /&gt;
+Packer remove the instance by default when the build fails.&lt;br /&gt;
+We can change the behavior by &lt;code&gt;-on-error=abort&lt;/code&gt; option.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you can ssh to the instance after packer build exited with error.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ssh-into-ec2-instance-built-by-packer&#34;&gt;ssh into EC2 instance built by packer&lt;/h3&gt;
+
+&lt;p&gt;This time I use &lt;code&gt;AMI Builder (EBS backed)&lt;/code&gt; as builder.&lt;br /&gt;
+Packer allocates ssh key randomly by default and I don&amp;rsquo;t know where it is.&lt;br /&gt;
+So I can&amp;rsquo;t ssh into the instance.&lt;br /&gt;
+To avoid this, we can specify ssh keys by &lt;code&gt;ssh_keypair_name&lt;/code&gt; and &lt;code&gt;ssh_private_key_file&lt;/code&gt; in the packer config file.&lt;br /&gt;
+&lt;a href=&#34;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&#34;&gt;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;variables&amp;quot;: {
+    &amp;quot;aws_access_key&amp;quot;: &amp;quot;&amp;quot;,
+    &amp;quot;aws_secret_key&amp;quot;: &amp;quot;&amp;quot;
+  },
+  &amp;quot;builders&amp;quot;: [{
+    &amp;quot;type&amp;quot;: &amp;quot;amazon-ebs&amp;quot;,
+    &amp;quot;access_key&amp;quot;: &amp;quot;{{user `aws_access_key`}}&amp;quot;,
+    &amp;quot;secret_key&amp;quot;: &amp;quot;{{user `aws_secret_key`}}&amp;quot;,
+    &amp;quot;region&amp;quot;: &amp;quot;us-east-1&amp;quot;,
+    &amp;quot;vpc_id&amp;quot;: &amp;quot;***&amp;quot;,
+    &amp;quot;subnet_id&amp;quot;: &amp;quot;***&amp;quot;,
+    &amp;quot;source_ami&amp;quot;: &amp;quot;ami-427a392a&amp;quot;,
+    &amp;quot;instance_type&amp;quot;: &amp;quot;c3.large&amp;quot;,
+    &amp;quot;ssh_username&amp;quot;: &amp;quot;ubuntu&amp;quot;,
+    &amp;quot;ssh_keypair_name&amp;quot;: &amp;quot;salt&amp;quot;,
+    &amp;quot;ssh_private_key_file&amp;quot;: &amp;quot;/Users/me/.ssh/salt.pem&amp;quot;,
+    &amp;quot;ami_name&amp;quot;: &amp;quot;image-app {{timestamp}}&amp;quot;
+  }],
+  &amp;quot;provisioners&amp;quot;: [
+    ...
+    {
+      &amp;quot;type&amp;quot;: &amp;quot;shell&amp;quot;,
+      &amp;quot;inline&amp;quot;: [
+        &amp;quot;sudo curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com&amp;quot;,
+        &amp;quot;sudo sh bootstrap-salt.sh -P git v2016.11.6&amp;quot;
+      ]
+    },
+    {
+      &amp;quot;type&amp;quot;: &amp;quot;salt-masterless&amp;quot;,
+      &amp;quot;skip_bootstrap&amp;quot;: true,
+      &amp;quot;local_state_tree&amp;quot;: &amp;quot;../file_roots&amp;quot;,
+      &amp;quot;local_pillar_roots&amp;quot;: &amp;quot;../pillar_roots&amp;quot;,
+      &amp;quot;minion_config&amp;quot;: &amp;quot;minion-app&amp;quot;
+    },
+    ...
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I can ssh into the instance with the key I specified.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>supervisord&#39;s PATH</title>
+      <link>http://yutaf.github.io/supervisords-path/</link>
+      <pubDate>Sat, 10 Jun 2017 21:15:28 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/supervisords-path/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;environment&#34;&gt;Environment&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OS: Ubuntu 12.04 LTS&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;supervisor version: 3.0a8-1.1&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;what-happned&#34;&gt;What happned&lt;/h2&gt;
+
+&lt;p&gt;When I executed php programme through supervisor, I got an error log below.&lt;/p&gt;
+
+&lt;p&gt;supervisor config file&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+[program:worker_verification]
+directory=/srv/local/api
+command=/srv/local/api/rcWorkerManager.php &amp;quot;rcVerificationWorker.php&amp;quot; &amp;quot;rabbit_queue&amp;quot; --env=prod
+environment=PARAM5=&amp;quot;dev&amp;quot;,PHP_IDE_CONFIG=&amp;quot;serverName=vagrant&amp;quot;
+user=www-data
+autostart=false
+autorestart=true
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/usr/bin/env: php: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But php was already installed by source compile and I set a PATH to &lt;code&gt;/etc/environment&lt;/code&gt; like below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATH=&amp;quot;/opt/php-5.4.45/bin:/opt/php-5.4.45/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I checked the PATH value by showing it through supervisor, too.&lt;br /&gt;
+This is the part of the supervisor setting file to show PATH.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[program:show_path]
+command=printenv
+user=www-data
+autostart=false
+autorestart=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I got log like below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SUPERVISOR_GROUP_NAME=show_path
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PATH value was different from the previous one.&lt;br /&gt;
+Then I investigated which file defined this PATH value.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/$ sudo find /etc -type f -exec grep -l &#39;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#39; {} \;
+/etc/crontab
+/etc/init.d/unattended-upgrades
+/etc/init.d/networking
+/etc/init.d/nginx
+/etc/init.d/supervisor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I found &lt;code&gt;/etc/init.d/supervisor&lt;/code&gt;.&lt;br /&gt;
+Take a closer look at it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+### BEGIN INIT INFO
+# Provides:          supervisor
+# Required-Start:    $remote_fs $network $named
+# Required-Stop:     $remote_fs $network $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop supervisor
+# Description:       Start/stop supervisor daemon and its configured
+#                    subprocesses.
+### END INIT INFO
+
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/supervisord
+NAME=supervisord
+DESC=supervisor
+
+test -x $DAEMON || exit 0
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file specified PATH value as&lt;br /&gt;
+&lt;code&gt;PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&lt;/code&gt;.&lt;br /&gt;
+Maybe this was why I got the PATH when I executed supervisor.&lt;/p&gt;
+
+&lt;h2 id=&#34;workaround&#34;&gt;Workaround&lt;/h2&gt;
+
+&lt;p&gt;This version of supervisor(3.0a8-1.1) didn&amp;rsquo;t support to append paths to PATH unfortunately.&lt;br /&gt;
+&lt;a href=&#34;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&#34;&gt;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/Supervisor/supervisor/issues/599&#34;&gt;https://github.com/Supervisor/supervisor/issues/599&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So I decided to locate php executables to &lt;code&gt;/usr/local/bin&lt;/code&gt; where supervisord could see.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./configure \
+  --prefix=/opt/php-5.4.45 \
+...
+  --bindir=/usr/local/bin \
+  --sbindir=/usr/local/bin \
+...
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     
     <item>
       <title>Xdebug remote cli debugging with vagrant and PhpStorm</title>
@@ -798,485 +1083,6 @@ GMOペパボ株式会社 http://pepabo.com/company/overview/
 &lt;li&gt;Hideaway / Mystery Jets&lt;/li&gt;
 &lt;li&gt;Flakes / Mystery Jets&lt;/li&gt;
 &lt;/ol&gt;</description>
-    </item>
-    
-    <item>
-      <title>fujirock 2015</title>
-      <link>http://yutaf.github.io/fujirock-2015/</link>
-      <pubDate>Tue, 04 Aug 2015 23:27:11 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/fujirock-2015/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2027.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2028.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2035.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2036.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2037.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2038.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2041.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2044.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2045.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2046.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2047.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2049.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2052.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2058.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2061.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2062.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2063.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2064.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2068.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2069.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2080.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2082.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2083.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2086.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2089.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2094.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2095.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2098.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2104.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2107.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2108.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2112.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2113.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2115.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2117.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2128.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2130.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2132.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2133.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2137.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2140.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2145.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2151.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2174.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2178.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2180.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2184.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2188.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2211.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2215.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2218.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2222.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2228.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2235.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2238.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2239.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2240.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2241.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2243.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2244.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2245.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2254.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2264.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2265.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2268.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2275.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2277.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/fujirock-2015/IMG_2280.jpg&#34; class=&#34;image&#34;&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Continuous integration with gitbucket and jenkins</title>
-      <link>http://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</link>
-      <pubDate>Thu, 11 Jun 2015 13:10:53 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</guid>
-      <description>&lt;!--
-Have you ever thought of these kind of things ?  
-
-- **We want to develop with github, but our codes must be placed in private network...**  
-- **Github Enterprise is too expensive...**  
-- **We want to run continuous integration with Travis CI or CircleCI to catch `pull request` events and build. But github is needed to use those services...**
-
-I have no idea to bring your team github.  
-But I found that we can do almost same things all in your private zone with `GitBucket` + `jenkins`.  
---&gt;
-
-&lt;!--
-GitBucket is OSS almost like GitHub, easy to use and free.  
-Jenkins can catch pull requests with its plugins.  
---&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;伊藤直也さんが書いた &lt;a href=&#34;http://d.hatena.ne.jp/naoya/20140502/1399027655&#34;&gt;GitHub 時代のデプロイ戦略&lt;/a&gt; という記事がある。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;GitHub のイベントを契機に CI as a Service にデプロイを担当させる&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;去年この記事を読んだときは、先端を行っている会社はこんなことをやっているのか、すごい、としか思えなかった。&lt;br /&gt;
-そもそも &lt;code&gt;GitBucket&lt;/code&gt; を使っている自分の会社では無理だろうと。&lt;/p&gt;
-
-&lt;p&gt;しかし、GitBucket をしばらく運用し、プルリクエストを覚え、jenkins でテストを回そう、ということを進めていくうちに、&lt;code&gt;GitBucket&lt;/code&gt; + &lt;code&gt;Jenkins&lt;/code&gt; で案外ここに書いてあることと近いことができるのが分かってきた。&lt;/p&gt;
-
-&lt;h2 id=&#34;requirement&#34;&gt;requirement&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket&#34;&gt;GitBucket&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://jenkins-ci.org/&#34;&gt;Jenkins&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin&#34;&gt;GitHub pull request builder plugin&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;github-pull-request-builder-plugin&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
-
-&lt;p&gt;github のプルリクエストを契機にJenkins に自動マージ、任意のジョブを実行させることができるプラグイン。&lt;br /&gt;
-実際にはgithub に限らず、GitBucket でも使うことが出来る。&lt;/p&gt;
-
-&lt;!--
-また、Jenkins の Job 設定の際に使用できる `Environment Variables` があり、どのブランチからどのブランチに pull request が送られたかもわかるようになっている。  
-以下、プラグインのドキュメントより引用。  
-
-```
-Environment Variables
-The plugin makes some very useful environment variables available.
-
-・ ghprbActualCommit
-・ ghprbActualCommitAuthor
-・ ghprbActualCommitAuthorEmail
-・ ghprbPullDescription
-・ ghprbPullId
-・ ghprbPullLink
-・ ghprbPullTitle
-・ ghprbSourceBranch
-・ ghprbTargetBranch
-・ sha1
-```
---&gt;
-
-&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&#34;&gt;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;リンクに従って、設定を行う。&lt;/p&gt;
-
-&lt;p&gt;GitBucket と Jenkins の url は以下。&lt;br /&gt;
-GitBucket url : &lt;code&gt;http://gitbucket.sample.co.jp/&lt;/code&gt;&lt;br /&gt;
-Jenkins url : &lt;code&gt;http://192.168.10.11:8080&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;jenkinsbot ユーザーを gitbucket に作成&lt;br /&gt;
-jenkinsbot ユーザーが対象のレポジトリにアクセスできるように、Group に入れたり、Collaborators に入れたりしておく&lt;/li&gt;
-&lt;li&gt;gitbucket レポジトリ &lt;code&gt;http://gitbucket.sample.co.jp/root/test&lt;/code&gt; を作成&lt;/li&gt;
-&lt;li&gt;gitbucket レポジトリのwebhook url に &lt;code&gt;http://192.168.10.11:8080/ghprbhook/&lt;/code&gt; を設定。&lt;br /&gt;
-&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-01.png&#34; class=&#34;image&#34;&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;http://gitbucket.sample.co.jp/jenkinsbot/_application&lt;/code&gt; で Personal access tokens を作成&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Jenkins の設定ページで GitHub Pull Request Builder のセクションを設定する&lt;br /&gt;
-&lt;code&gt;http://192.168.10.11:8080/configure&lt;/code&gt;&lt;br /&gt;
-&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-02.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GitHub server api URL: &lt;code&gt;http://gitbucket.sample.co.jp/api/v3&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Access Token: 上で取得したものを入力&lt;/li&gt;
-&lt;li&gt;保存&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Jenkins でジョブを作成&lt;br /&gt;
-testjob を作成&lt;br /&gt;
-&lt;code&gt;http://192.168.10.11:8080/job/testjob/&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;ジョブの設定&lt;br /&gt;
-&lt;code&gt;http://192.168.10.11:8080/job/testjob/configure&lt;/code&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;GitHub project : &lt;code&gt;http://gitbucket.sample.co.jp/root/test&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;ソースコード管理&lt;br /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Git&lt;/li&gt;
-&lt;li&gt;Repository URL: ssh://jenkinsbot@gitbucket.sample.co.jp/root/test.git&lt;/li&gt;
-&lt;li&gt;Credentials : 有効なSSH キーを設定&lt;br /&gt;
-高度な設定を開く&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Refspec : &lt;code&gt;+refs/pull/*:refs/remotes/origin/pr/*&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Branch Specifier (blank for &amp;lsquo;any&amp;rsquo;) : &lt;code&gt;${sha1}&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;Build trigger
-
-&lt;ul&gt;
-&lt;li&gt;GitHub Pull Request Builder&lt;/li&gt;
-&lt;li&gt;Admin list = &lt;code&gt;root&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;保存する
-&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-03.png&#34; class=&#34;image&#34;&gt;&lt;br /&gt;
-&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-04.png&#34; class=&#34;image&#34;&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
-
-&lt;p&gt;ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-05.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
-
-&lt;p&gt;どのようなテストを行っているか。&lt;/p&gt;
-
-&lt;p&gt;Jenkins に、自動マージされたブランチのソースコードをデプロイ対象ホストの適当なディレクトリにデプロイさせる。&lt;br /&gt;
-もちろん、本来のデプロイのパスではない、影響のないパスに。&lt;br /&gt;
-その後、デプロイ対象ホストで unit テストを実行する。&lt;/p&gt;
-
-&lt;p&gt;そうすることで pull request マージ後のソースコードがデプロイ対象ホストで正しく動くかを確認できる。&lt;br /&gt;
-自分は db のテストを中心に書いていて、各デプロイ先ホストで db テーブルが正しく作られているか等を確認している。&lt;/p&gt;
-
-&lt;h2 id=&#34;merged-or-closed-without-merge&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
-
-&lt;p&gt;後はテストの結果を見て、&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;成功したらpull request をマージして Jenkins から自動デプロイする&lt;/li&gt;
-&lt;li&gt;マージされずに close されたら Jenkins は何もしない&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;というふうに進めたい。&lt;br /&gt;
-しかし、そこまで出来ていない。&lt;br /&gt;
-なぜなら、GitBucket で pull request がマージされたか、マージされずに close されたかが Jenkins 側で判別できない為。(2015.06 時点)&lt;/p&gt;
-
-&lt;p&gt;GitBucket で pull request がマージ、もしくは close されたタイミングで Jenkins に通知を送ることは可能で、GitBucket のレポジトリに以下の様な webhook url を設定すればできる。&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;http://192.168.10.11:8080/job/testjob/buildWithParameters&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;通知はjson 形式で Jenkins にPOST送信され、その中にはレポジトリやブランチ、git のsha 1 等が含まている。&lt;br /&gt;
-しかし、肝心の pull request がマージされたのか、マージされず close されたのかが分かる情報が含まれていない。。&lt;/p&gt;
-
-&lt;p&gt;その為、今はマージした後にブランチを手元に pull してから デプロイを行っている。&lt;/p&gt;
-
-&lt;p&gt;GitBucket のソースコードを調べてみると、マージを判定する値の部分がコメントアウトされていた。&lt;br /&gt;
-いずれのアップデートで含まれるようになるのだろうか。。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&#34;&gt;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;
-
-&lt;p&gt;今まで、手元でたまに行っていたテストを pull request をきっかけに自動的に実行出来るようになったので、安心感が増した。&lt;br /&gt;
-これをきっかけにテストを今までよりちゃんと書こうと思う。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>php max_input_vars makes you lose form values</title>
-      <link>http://yutaf.github.io/php-max-input-vars/</link>
-      <pubDate>Tue, 19 May 2015 14:55:52 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/php-max-input-vars/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&lt;br /&gt;
-最初は js のバグかと思っていたが、php の設定が問題だった。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.softel.co.jp/blogs/tech/archives/3591&#34;&gt;【php】max_input_varsの影響でフォームの値を全部受け取れないことがある   at softelメモ&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;問題
-フォームから送信した値が、サーバー側（php）で取得できない。
-
-プログラムは動いてるみたいなんだけど、あるはずの $_REQUEST[‘hoge’] などがないみたい。
-
-どうなってるのこれ？
-
-答え
-以下の条件に当てはまるようなら、phpのmax_input_varsの設定値の影響かもしれない。
-
-...
-
-max_input_vars integer
-
-入力変数を最大で何個まで受け付けるかを指定します 
-(この制限は、スーパーグローバル $_GET、$_POST そして $_COOKIE にそれぞれ個別に適用されます)。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;対象サーバーの &lt;code&gt;max_input_vars&lt;/code&gt; は 150 だったので、300 まで上げた。&lt;br /&gt;
-解決した。&lt;/p&gt;
-
-&lt;p&gt;それにしても ie(11) だけで起こった理由がわからない。&lt;br /&gt;
-他のブラウザよりも多くのフォーム値を送信しているということ？&lt;/p&gt;
-
-&lt;p&gt;同じ実装ではないが、次のような記事を見つけた。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://hack.aipo.com/archives/5998/&#34;&gt;inputタグのonclickでform.submit()を実行しているため、IEだけ二重にリクエストが送信される時の対処法&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;この対処法は自分の場合は有効でなかった。&lt;br /&gt;
-とりあえず、&lt;code&gt;max_input_vars&lt;/code&gt; の値には気をつける。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>第89回 PHP勉強会＠東京</title>
-      <link>http://yutaf.github.io/php-study-89/</link>
-      <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/php-study-89/</guid>
-      <description>&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;br /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
-結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
-ちなみに、これは自分にとって初めての社外の人に向けた発表だった。&lt;/p&gt;
-
-&lt;script async class=&#34;speakerdeck-embed&#34; data-id=&#34;a57e354b64c9494eb03f30e5a38afa27&#34; data-ratio=&#34;1.33333333333333&#34; src=&#34;//speakerdeck.com/assets/embed.js&#34;&gt;&lt;/script&gt;
-
-&lt;h2 id=&#34;発表を通じてわかったこと&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;発表の時間配分&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;本題に入る前に時間が終わるというひどい体たらくだった。&lt;br /&gt;
-今後、リハーサルはしっかりやろう、自分。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;参加者のデプロイツール使用状況&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;参加者の方のデプロイ状況を知りたかったので、発表中に聞いてみた。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;デプロイツールを使っている人数&lt;br /&gt;
-20-30 / 60 人&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;内訳&lt;br /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;capistrano 95 %&lt;/li&gt;
-&lt;li&gt;fabric 1人?&lt;/li&gt;
-&lt;li&gt;rocketeer 1人?&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;なんだかんだ capistrano 人気の根強さに驚いた。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;質問&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;発表に対する質問も受けた。そのおかげで、デプロイに関してのポイントや自分が気づいていないところに気づけたので、質問者の方には感謝したい。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「既存のツールを使わないで、自分たちで作ったツールを使うメリットは？」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;その時は上手く答えられなかったので、ここに書こうと思う。&lt;/p&gt;
-
-&lt;p&gt;メリットは、自分たちの仕事に最適化したツールが作れるということ。&lt;br /&gt;
-既存のツールの不要な機能をそぎ落として、自分たちに必要な最低限のものを作れる。&lt;/p&gt;
-
-&lt;p&gt;デメリットは、しっかりメンテナンスをしなければならないこと。&lt;br /&gt;
-スライド中にある、フロントツールのビルドに時間がかかるといった問題のように、時間の経過とともに出てくる問題に対処出来なければ使い続けていけるツールにならない。&lt;/p&gt;
-
-&lt;p&gt;また、既存のツールと違い、ネット上に情報が集積されていないので、作成者以外の人間が理解できるようドキュメントの整備は既存のツール以上にしっかりやらなければならない。&lt;/p&gt;
-
-&lt;p&gt;この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;恥ずかしながら、APC, OPcache について知らなかった。&lt;br /&gt;
-&lt;a href=&#34;https://www.xserver.ne.jp/manual/man_server_php_apc.php&#34;&gt;https://www.xserver.ne.jp/manual/man_server_php_apc.php&lt;/a&gt;&lt;br /&gt;
-&lt;code&gt;「APC」や「OPcache」とは、PHPの高速化、CPU負荷を軽減するための拡張モジュールです。&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;これらの拡張機能においては、PHPの初回実行時に、PHPの内容を最適化した状態でキャッシュしておき、次回以降、同じPHPにアクセスがあった際にキャッシュを利用することで、PHP実行時のCPU負荷の軽減や、PHPの大幅な高速化を図ることが可能です。&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;おそらくこの質問者の方が聞きたかったことに関連する記事もあった。&lt;br /&gt;
-&lt;a href=&#34;http://kohkimakimoto.hatenablog.com/entry/2014/09/13/154342&#34;&gt;http://kohkimakimoto.hatenablog.com/entry/2014/09/13/154342&lt;/a&gt;&lt;br /&gt;
-&lt;code&gt;OPcacheはシンボリックを解決して、実ファイルパスの状態でキャッシュする。&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;よってシンボリックリンクを更新しても、実ファイルパスのキャッシュが保持されてしまう。&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;つまり、capistrano のようなシンボリックリンクを切り替えることでデプロイを実現しているツールでは、OPcache のキャッシュの影響で最新のファイルが実行・表示されないという問題があるらしい。&lt;br /&gt;
-もちろん、上記ブログではその解決策も記されている。&lt;br /&gt;
-こういった問題があることは全く知らなかったので勉強になった。&lt;/p&gt;
-
-&lt;p&gt;ryogoku に関して言えば、シンボリックリンクを張り替えず、実ファイルを上書きする作りになっているので、OPcache を使っていても問題にならない。&lt;/p&gt;
-
-&lt;p&gt;一方で考えたことは、OPcache を使うような高いパフォーマンスが求められるアプリケーションでは、シンボリックリンクを切り替えるタイプのゼロダウンタイムなデプロイが求められるのではないかということ。&lt;br /&gt;
-そういったアプリケーションには ryogoku は不向きだと思った。&lt;/p&gt;
-
-&lt;p&gt;逆にどんなものが向いているか考えると、静的なコンテンツやブログ、CMSなど、コンマ何秒間のダウンタイムが問題にならないものかと思う。&lt;br /&gt;
-言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「ロールバックはどうしている？」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;ryogoku には revert というコマンドがあり、それでロールバックを実現している。&lt;br /&gt;
-このコマンドの実際の動作がどうなっているかというと、戻りたいgit の commit id を指定してデプロイしている。&lt;br /&gt;
-つまり、バックアップからの復元でない。&lt;br /&gt;
-大抵はこれで上手くロールバックできるが、正直、上手くいかなかったこともある。&lt;/p&gt;
-
-&lt;p&gt;細かい話になるので簡単に言いたいが、あるデプロイを境に rsync の除外リストから外されたファイル(転送対象になったファイル)があると、ロールバックしたときに不要なファイルがデプロイ先サーバーに残ってしまうことがある。&lt;br /&gt;
-これは今後改善しなくてはと思っている。&lt;/p&gt;
-
-&lt;p&gt;ちなみに capistrano であれば、デプロイごとにアプリケーションをまるまるディレクトリごと作成して、シンボリックリンクを張り替えて対応しているので、ロールバックも過去のディレクトリにリンクを張り替えればいいだけなので、確実。&lt;/p&gt;
-
-&lt;p&gt;ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;
-
-&lt;h2 id=&#34;発表を通じてわかったこと-まとめ&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;勉強会は補欠になっていても、繰り上がって発表者になることもあるので笑、準備はしておくこと&lt;/li&gt;
-&lt;li&gt;自作ツールは自分たちの仕事に合わせた細かい調整が利くが、メンテナンスやドキュメント整備を続ける責任がある&lt;/li&gt;
-&lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
-&lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
-&lt;/ul&gt;</description>
     </item>
     
   </channel>

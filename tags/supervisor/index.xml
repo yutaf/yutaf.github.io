@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Supervisor on yutaf blog</title>
+    <link>http://yutaf.github.io/tags/supervisor/index.xml</link>
+    <description>Recent content in Supervisor on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <atom:link href="http://yutaf.github.io/tags/supervisor/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>supervisord&#39;s PATH</title>
+      <link>http://yutaf.github.io/supervisords-path/</link>
+      <pubDate>Sat, 10 Jun 2017 21:15:28 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/supervisords-path/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;environment&#34;&gt;Environment&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OS: Ubuntu 12.04 LTS&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;supervisor version: 3.0a8-1.1&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;what-happned&#34;&gt;What happned&lt;/h2&gt;
+
+&lt;p&gt;When I executed php programme through supervisor, I got an error log below.&lt;/p&gt;
+
+&lt;p&gt;supervisor config file&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+[program:worker_verification]
+directory=/srv/local/api
+command=/srv/local/api/rcWorkerManager.php &amp;quot;rcVerificationWorker.php&amp;quot; &amp;quot;rabbit_queue&amp;quot; --env=prod
+environment=PARAM5=&amp;quot;dev&amp;quot;,PHP_IDE_CONFIG=&amp;quot;serverName=vagrant&amp;quot;
+user=www-data
+autostart=false
+autorestart=true
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/usr/bin/env: php: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But php was already installed by source compile and I set a PATH to &lt;code&gt;/etc/environment&lt;/code&gt; like below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATH=&amp;quot;/opt/php-5.4.45/bin:/opt/php-5.4.45/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I checked the PATH value by showing it through supervisor, too.&lt;br /&gt;
+This is the part of the supervisor setting file to show PATH.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[program:show_path]
+command=printenv
+user=www-data
+autostart=false
+autorestart=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I got log like below.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SUPERVISOR_GROUP_NAME=show_path
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PATH value was different from the previous one.&lt;br /&gt;
+Then I investigated which file defined this PATH value.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/$ sudo find /etc -type f -exec grep -l &#39;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#39; {} \;
+/etc/crontab
+/etc/init.d/unattended-upgrades
+/etc/init.d/networking
+/etc/init.d/nginx
+/etc/init.d/supervisor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I found &lt;code&gt;/etc/init.d/supervisor&lt;/code&gt;.&lt;br /&gt;
+Take a closer look at it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+### BEGIN INIT INFO
+# Provides:          supervisor
+# Required-Start:    $remote_fs $network $named
+# Required-Stop:     $remote_fs $network $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start/stop supervisor
+# Description:       Start/stop supervisor daemon and its configured
+#                    subprocesses.
+### END INIT INFO
+
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/bin/supervisord
+NAME=supervisord
+DESC=supervisor
+
+test -x $DAEMON || exit 0
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file specified PATH value as&lt;br /&gt;
+&lt;code&gt;PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&lt;/code&gt;.&lt;br /&gt;
+Maybe this was why I got the PATH when I executed supervisor.&lt;/p&gt;
+
+&lt;h2 id=&#34;workaround&#34;&gt;Workaround&lt;/h2&gt;
+
+&lt;p&gt;This version of supervisor(3.0a8-1.1) didn&amp;rsquo;t support to append paths to PATH unfortunately.&lt;br /&gt;
+&lt;a href=&#34;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&#34;&gt;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/Supervisor/supervisor/issues/599&#34;&gt;https://github.com/Supervisor/supervisor/issues/599&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So I decided to locate php executables to &lt;code&gt;/usr/local/bin&lt;/code&gt; where supervisord could see.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./configure \
+  --prefix=/opt/php-5.4.45 \
+...
+  --bindir=/usr/local/bin \
+  --sbindir=/usr/local/bin \
+...
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

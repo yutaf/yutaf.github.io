@@ -10,6 +10,61 @@
     <atom:link href="http://yutaf.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Aes encryption in android, decryption in php</title>
+      <link>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
+      <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0
+&lt;a href=&#34;http://php.net/manual/en/intro.mcrypt.php&#34;&gt;http://php.net/manual/en/intro.mcrypt.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I could not decrypt in alternative way(&lt;a href=&#34;http://php.net/manual/en/function.openssl-decrypt.php&#34;&gt;openssl_decrypt&lt;/a&gt;) instead of Mcrypt.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&#34;&gt;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stevenholder/PHP-Java-AES-Encrypt&#34;&gt;https://github.com/stevenholder/PHP-Java-AES-Encrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;class Encryption {
+
+    ...
+
+    /**
+     * Decrypt AES encrypted data by Android
+     *
+     * @param $sStr
+     * @param $sKey
+     * @return bool|string
+     */
+    public static function decryptAesAndroid($sStr, $sKey) {
+      // Replace strings escaped by Android&#39;s Base64.URL_SAFE
+      // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE
+      $sStr = str_replace(array(&#39;-&#39;, &#39;_&#39;), array(&#39;+&#39;, &#39;/&#39;), $sStr);
+
+      // Borrowed from https://github.com/stevenholder/PHP-Java-AES-Encrypt
+      $decrypted= mcrypt_decrypt(
+        MCRYPT_RIJNDAEL_128,
+        $sKey,
+        base64_decode($sStr),
+        MCRYPT_MODE_ECB
+      );
+      $dec_s = strlen($decrypted);
+      $padding = ord($decrypted[$dec_s-1]);
+      $decrypted = substr($decrypted, 0, -$padding);
+      return $decrypted;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
       <title>Xdebug remote cli debugging with vagrant and PhpStorm</title>
       <link>http://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</link>
       <pubDate>Wed, 17 May 2017 12:19:16 +0900</pubDate>

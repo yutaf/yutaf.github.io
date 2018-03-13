@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Salt on yutaf blog</title>
+    <link>http://yutaf.github.io/tags/salt/index.xml</link>
+    <description>Recent content in Salt on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <atom:link href="http://yutaf.github.io/tags/salt/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Decrypt gpg data in salt masterless</title>
+      <link>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</link>
+      <pubDate>Wed, 05 Jul 2017 10:49:38 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;If gpgkeys is located in &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; in the salt master(default),&lt;br /&gt;
+you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@salt-master:~# ll /etc/salt/gpgkeys/
+total 28
+drwx------ 2 root root 4096 Sep  4  2015 ./
+drwxr-xr-x 9 root root 4096 Jun 22 23:31 ../
+-rw------- 1 root root 1194 Sep  4  2015 pubring.gpg
+-rw------- 1 root root  600 Jun 30 03:33 random_seed
+-rw------- 1 root root 2495 Sep  4  2015 secring.gpg
+-rw------- 1 root root 1280 Sep  4  2015 trustdb.gpg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And you also have to be careful about the permisson when you download it.&lt;br /&gt;
+If ssh user is not root, &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; is owned by root and you use sftp to download it, you can&amp;rsquo;t download the directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sftp salt_master
+Connected to salt_master.
+sftp&amp;gt; get -r /etc/salt/gpgkeys
+Fetching /etc/salt/gpgkeys/ to gpgkeys
+Retrieving /etc/salt/gpgkeys
+remote readdir(&amp;quot;/etc/salt/gpgkeys&amp;quot;): Permission denied
+/etc/salt/gpgkeys: Failed to get directory contents
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I copied the directory to a temporary directory which permisson is appropriate for the ssh user to download, and change the owner of the copied directory to the ssh user to download it correctly.&lt;br /&gt;
+Then I could download it successfully with sftp.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

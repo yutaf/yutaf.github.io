@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" Do not remove instance when packer build fails &middot;  yutaf blog" />
+  
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2017-07-04T13:00:56&#43;09:00" />
+  
+  <meta property="og:article:tag" content="packer" />
+  
+  <meta property="og:article:tag" content="aws" />
+  
+  <meta property="og:article:tag" content="ec2" />
+  
+  
+
+  <title>
+     Do not remove instance when packer build fails &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+      
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">Do not remove instance when packer build fails</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2017-07-04T13:00:56&#43;09:00">
+          Jul 4, 2017
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/packer">#packer</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/aws">#aws</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/ec2">#ec2</a></span>
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p></p>
+
+<p>I want to run commands manually inside the instance built by packer for investigation when packer build fails.<br />
+Packer remove the instance by default when the build fails.<br />
+We can change the behavior by <code>-on-error=abort</code> option.</p>
+
+<pre><code>$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json
+</code></pre>
+
+<p>Then you can ssh to the instance after packer build exited with error.</p>
+
+<hr />
+
+<h3 id="ssh-into-ec2-instance-built-by-packer">ssh into EC2 instance built by packer</h3>
+
+<p>This time I use <code>AMI Builder (EBS backed)</code> as builder.<br />
+Packer allocates ssh key randomly by default and I don&rsquo;t know where it is.<br />
+So I can&rsquo;t ssh into the instance.<br />
+To avoid this, we can specify ssh keys by <code>ssh_keypair_name</code> and <code>ssh_private_key_file</code> in the packer config file.<br />
+<a href="https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name">https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name</a></p>
+
+<pre><code>{
+  &quot;variables&quot;: {
+    &quot;aws_access_key&quot;: &quot;&quot;,
+    &quot;aws_secret_key&quot;: &quot;&quot;
+  },
+  &quot;builders&quot;: [{
+    &quot;type&quot;: &quot;amazon-ebs&quot;,
+    &quot;access_key&quot;: &quot;{{user `aws_access_key`}}&quot;,
+    &quot;secret_key&quot;: &quot;{{user `aws_secret_key`}}&quot;,
+    &quot;region&quot;: &quot;us-east-1&quot;,
+    &quot;vpc_id&quot;: &quot;***&quot;,
+    &quot;subnet_id&quot;: &quot;***&quot;,
+    &quot;source_ami&quot;: &quot;ami-427a392a&quot;,
+    &quot;instance_type&quot;: &quot;c3.large&quot;,
+    &quot;ssh_username&quot;: &quot;ubuntu&quot;,
+    &quot;ssh_keypair_name&quot;: &quot;salt&quot;,
+    &quot;ssh_private_key_file&quot;: &quot;/Users/me/.ssh/salt.pem&quot;,
+    &quot;ami_name&quot;: &quot;image-app {{timestamp}}&quot;
+  }],
+  &quot;provisioners&quot;: [
+    ...
+    {
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;inline&quot;: [
+        &quot;sudo curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com&quot;,
+        &quot;sudo sh bootstrap-salt.sh -P git v2016.11.6&quot;
+      ]
+    },
+    {
+      &quot;type&quot;: &quot;salt-masterless&quot;,
+      &quot;skip_bootstrap&quot;: true,
+      &quot;local_state_tree&quot;: &quot;../file_roots&quot;,
+      &quot;local_pillar_roots&quot;: &quot;../pillar_roots&quot;,
+      &quot;minion_config&quot;: &quot;minion-app&quot;
+    },
+    ...
+  ]
+}
+</code></pre>
+
+<p>Then I can ssh into the instance with the key I specified.</p>
+  </section>
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://yutaf.github.io/supervisords-path/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next"><a href="http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+
