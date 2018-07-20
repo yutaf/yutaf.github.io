@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yutaf.github.io/composer-update-is-slow/</loc>
+    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/phpbrew-note2/</loc>
+    <lastmod>2018-07-20T13:09:19+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</loc>
     <lastmod>2018-03-13T10:44:36+09:00</lastmod>
   </url>
@@ -117,7 +127,7 @@
   </url>
   
   <url>
-    <loc>http://yutaf.github.io/phpbrew-memo/</loc>
+    <loc>http://yutaf.github.io/phpbrew-note/</loc>
     <lastmod>2015-02-17T12:32:23+09:00</lastmod>
   </url>
   
@@ -136,6 +146,12 @@
   <url>
     <loc>http://yutaf.github.io/tags/bash/</loc>
     <lastmod>2015-03-25T23:11:48+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://yutaf.github.io/tags/composer/</loc>
+    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -231,13 +247,13 @@
   
   <url>
     <loc>http://yutaf.github.io/tags/php/</loc>
-    <lastmod>2018-03-13T10:44:36+09:00</lastmod>
+    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://yutaf.github.io/tags/phpbrew/</loc>
-    <lastmod>2015-02-17T12:32:23+09:00</lastmod>
+    <lastmod>2018-07-20T13:09:19+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -326,7 +342,7 @@
   
   <url>
     <loc>http://yutaf.github.io/</loc>
-    <lastmod>2018-03-13T10:44:36+09:00</lastmod>
+    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
     <priority>0</priority>
   </url>
   

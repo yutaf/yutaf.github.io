@@ -10,11 +10,11 @@
     <atom:link href="http://yutaf.github.io/tags/osx/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>phpbrew memo</title>
-      <link>http://yutaf.github.io/phpbrew-memo/</link>
+      <title>phpbrew note</title>
+      <link>http://yutaf.github.io/phpbrew-note/</link>
       <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
       
-      <guid>http://yutaf.github.io/phpbrew-memo/</guid>
+      <guid>http://yutaf.github.io/phpbrew-note/</guid>
       <description>&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。
 &lt;/p&gt;
 

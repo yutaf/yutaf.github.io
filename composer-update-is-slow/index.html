@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <meta property="og:title" content=" composer update is slow &middot;  yutaf blog" />
+  
+  <meta property="og:site_name" content="yutaf blog" />
+  <meta property="og:url" content="http://yutaf.github.io/composer-update-is-slow/" />
+  
+  
+  <meta property="og:type" content="article" />
+  
+  <meta property="og:article:published_time" content="2018-07-20T13:09:20&#43;09:00" />
+  
+  <meta property="og:article:tag" content="php" />
+  
+  <meta property="og:article:tag" content="composer" />
+  
+  
+
+  <title>
+     composer update is slow &middot;  yutaf blog
+  </title>
+
+  <link rel="stylesheet" href="http://yutaf.github.io/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/main.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="http://yutaf.github.io/css/github.css" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400" type="text/css">
+  <link rel="shortcut icon" href="http://yutaf.github.io/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="http://yutaf.github.io/images/apple-touch-icon.png" />
+  
+</head>
+<body>
+    <header class="global-header"  style="background-image:url( /images/bg.jpg )">
+    <section class="header-text">
+      <h1><a href="http://yutaf.github.io/">yutaf blog</a></h1>
+      
+      <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+      
+      <a href="http://yutaf.github.io/" class="btn-header btn-back hidden-xs">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+        &nbsp;Home
+      </a>
+      
+      
+    </section>
+  </header>
+  <main class="container">
+
+
+<article>
+  <header>
+    <h1 class="text-primary">composer update is slow</h1>
+    <div class="post-meta clearfix">
+      <div class="post-date pull-left">
+        Posted on
+        <time datetime="2018-07-20T13:09:20&#43;09:00">
+          Jul 20, 2018
+        </time>
+      </div>
+      <div class="pull-right">
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/php">#php</a></span>
+        
+        <span class="post-tag small"><a href="http://yutaf.github.io//tags/composer">#composer</a></span>
+        
+      </div>
+    </div>
+  </header>
+  <section>
+    <p></p>
+
+<h2 id="tl-dr">TL;DR</h2>
+
+<ul>
+<li>Executing <code>compser update &lt;package name&gt;</code> on Vagrant is so slow.<br /></li>
+<li>Execute it on your local machine directly</li>
+<li><code>compser update</code> seems comsuming a lot of computer resources like CPU or Memory.<br /></li>
+</ul>
+
+<hr />
+
+<p><code>compser update &lt;package name&gt;</code> is so slow when I execute it on Vagrant.<br />
+This is caused because Vangrant has the limited computer resources like CPU or Memory.<br />
+And <code>compser update</code> seems comsuming a lot of computer resources.<br />
+<a href="https://github.com/composer/composer/issues/1805">https://github.com/composer/composer/issues/1805</a></p>
+
+<p>A workaround for this is executing it on your local machine directly, not on Vagrant.<br />
+Because it should have more powerful cpu and bigger memory.</p>
+
+<h3 id="so-slow-on-vagrant">So slow on Vagrant</h3>
+
+<p>My Vagrant spec is;</p>
+
+<p><code>Vagrantfile</code></p>
+
+<pre><code>...
+config.vm.provider :virtualbox do |vb|
+  vb.customize [&quot;modifyvm&quot;, :id, &quot;--memory&quot;, &quot;512&quot;]
+  vb.customize [&quot;modifyvm&quot;, :id, &quot;--cpus&quot;, 2]
+end
+...
+</code></pre>
+
+<p>I added a swap in order to prevent the termination caused by Out of Memory.</p>
+
+<pre><code>vagrant@sandbox:/srv/local/panel$ swapon -s
+Filename				Type		Size	Used	Priority
+/dev/mapper/precise64-swap_1            partition	786428	565820	-1
+/swapfile                               file		16785404	0	-2
+</code></pre>
+
+<p>I executed the below command.</p>
+
+<pre><code>vagrant@sandbox:/srv/local/panel$ composer --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+Checked CA file /etc/ssl/certs/ca-certificates.crt: valid
+Executing command (/srv/local/panel): git branch --no-color --no-abbrev -v
+Reading /home/vagrant/.composer/composer.json
+Loading config file /home/vagrant/.composer/composer.json
+Reading /srv/local/panel/vendor/composer/installed.json
+Reading /home/vagrant/.composer/vendor/composer/installed.json
+Loading plugin Hirak\Prestissimo\Plugin
+Downloading https://packagist.org/packages.json
+Writing /home/vagrant/.composer/cache/repo/https---packagist.org/packages.json into cache
+    1/4:	http://packagist.org/p/provider-2018-07$b7d1972f4b5592672d3041c6fc96759395b5d6a233e3244c49ef1fa0aa89d0b0.json
+    2/4:	http://packagist.org/p/provider-latest$672c0071fa698a90e507dd61adb926774c7c19bdaa1284b198861bc6cf4de78f.json
+
+...
+
+[567.5MB/2546.62s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[567.4MB/2546.77s] Memory usage: 567.42MB (peak: 2135.2MB), time: 2546.77s
+</code></pre>
+
+<p>It took <code>2546.77s</code>, 42 minutes.</p>
+
+<h3 id="execute-it-on-your-local-machine-directly">Execute it on your local machine directly</h3>
+
+<p>My machine is Mac.<br />
+So this is a workaround for Mac.</p>
+
+<ul>
+<li>My Mac Specs<br /></li>
+</ul>
+
+<pre><code>macOS Sierra
+Version 10.12.6 (16G1408)
+MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)
+Processor 2 GHz Intel Core i5
+Memory 8 GB 1867 MHz LPDDR3
+</code></pre>
+
+<p>I logged out Vagrant and executed the command in Vagrant synced folder on my Mac.</p>
+
+<pre><code>yuta:~/dev/ringcaptcha/panel
+$ COMPOSER_MEMORY_LIMIT=-1 php composer.phar --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+
+...
+
+[568.5MB/200.31s] Installing assets as hard copies.
+Installing assets for Symfony\Bundle\FrameworkBundle into web/bundles/framework
+[568.5MB/200.32s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[568.5MB/200.38s] Memory usage: 568.45MB (peak: 2135.72MB), time: 200.38s
+</code></pre>
+
+<p>It took <code>200.38s</code>, less than 4 minutes.</p>
+
+<p>By the way, <code>COMPOSER_MEMORY_LIMIT=-1</code> in the command is for;<br />
+<a href="https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors">https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors</a></p>
+  </section>
+  <footer>
+    
+    <section class="author-info row">
+      <div class="author-avatar col-md-2">
+        
+      </div>
+      <div class="author-meta col-md-6">
+        
+        
+      </div>
+      
+    </section>
+    <ul class="pager">
+      
+      <li class="previous"><a href="http://yutaf.github.io/phpbrew-note2/"><span aria-hidden="true">&larr;</span> Older</a></li>
+      
+      
+      <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      
+    </ul>
+  </footer>
+</article>
+
+  </main>
+  <footer class="container global-footer">
+    <div class="copyright-note pull-left">
+      &copy; Copyright Yuta Fujishiro
+    </div>
+    <div class="sns-links hidden-print">
+  
+  
+  <a href="https://twitter.com/janjonjan" target="_blank">
+    <i class="fa fa-twitter"></i>
+  </a>
+  
+  
+  
+  
+  
+  <a href="https://github.com/yutaf" target="_blank">
+    <i class="fa fa-github"></i>
+  </a>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <script src="http://yutaf.github.io/js/highlight.pack.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+  
+  
+</body>
+</html>
+

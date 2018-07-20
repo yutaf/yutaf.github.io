@@ -10,11 +10,135 @@
     <atom:link href="http://yutaf.github.io/tags/phpbrew/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>phpbrew memo</title>
-      <link>http://yutaf.github.io/phpbrew-memo/</link>
+      <title>phpbrew note2</title>
+      <link>http://yutaf.github.io/phpbrew-note2/</link>
+      <pubDate>Fri, 20 Jul 2018 13:09:19 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/phpbrew-note2/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a note for building php by phpbrew on Mac.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Restore icu4c to the old version to build php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
+$ git checkout ab72fee8166749231036a4476aaba30df9619800 icu4c.rb
+$ brew unlink icu4c
+$ HOMEBREW_NO_AUTO_UPDATE=1 brew reinstall icu4c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References;&lt;br /&gt;
+&lt;a href=&#34;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&#34;&gt;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/php-build/php-build/pull/463&#34;&gt;https://github.com/php-build/php-build/pull/463&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://qiita.com/KyoheiG3/items/912bcc27462871487845&#34;&gt;https://qiita.com/KyoheiG3/items/912bcc27462871487845&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install other dependencies to build php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install \
+libxml2 \
+jpeg \
+gd \
+mcrypt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Setting up Configuration for phpbrew&lt;br /&gt;
+~/local/etc/phpbrew.yaml&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;variants:
+  dev:
+    mbstring:
+    intl:
+    icu:
+    gettext:
+    pcre:
+    readline:
+    xml:
+    soap:
+    mysql:
+    my-without-pdo-sqlite:
+      - --without-pdo-sqlite
+    my-without-sqlite3:
+      - --without-sqlite3
+    zlib:
+    openssl:
+    mcrypt:
+    bcmath:
+    curl:
+    zip:
+    my-disable-cgi:
+      - --disable-cgi
+    calendar:
+    my-disable-short-tags:
+      - --disable-short-tags
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phpbrew init -c ~/local/etc/phpbrew.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&#34;&gt;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Dryrun&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpbrew -d install -d 5.4.45 +neutral +dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpbrew -d install --stdout 5.4.45 +neutral +dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Switch php version&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phpbrew list
+* (system)
+  php-5.4.45
+$ phpbrew use php-5.4.45
+$ php -v
+PHP 5.4.45 (cli) (built: Jul 20 2018 12:46:03)
+Copyright (c) 1997-2014 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2014 Zend Technologies
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set php timezone to avoid Exception&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ php -i | grep Loaded
+Loaded Configuration File =&amp;gt; /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Update this part&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+;date.timezone =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+date.timezone = UTC
+
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>phpbrew note</title>
+      <link>http://yutaf.github.io/phpbrew-note/</link>
       <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
       
-      <guid>http://yutaf.github.io/phpbrew-memo/</guid>
+      <guid>http://yutaf.github.io/phpbrew-note/</guid>
       <description>&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。
 &lt;/p&gt;
 

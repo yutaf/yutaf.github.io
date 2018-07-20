@@ -10,6 +10,240 @@
     <atom:link href="http://yutaf.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>composer update is slow</title>
+      <link>http://yutaf.github.io/composer-update-is-slow/</link>
+      <pubDate>Fri, 20 Jul 2018 13:09:20 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/composer-update-is-slow/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tl-dr&#34;&gt;TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Executing &lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; on Vagrant is so slow.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Execute it on your local machine directly&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources like CPU or Memory.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; is so slow when I execute it on Vagrant.&lt;br /&gt;
+This is caused because Vangrant has the limited computer resources like CPU or Memory.&lt;br /&gt;
+And &lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources.&lt;br /&gt;
+&lt;a href=&#34;https://github.com/composer/composer/issues/1805&#34;&gt;https://github.com/composer/composer/issues/1805&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A workaround for this is executing it on your local machine directly, not on Vagrant.&lt;br /&gt;
+Because it should have more powerful cpu and bigger memory.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-slow-on-vagrant&#34;&gt;So slow on Vagrant&lt;/h3&gt;
+
+&lt;p&gt;My Vagrant spec is;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Vagrantfile&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+config.vm.provider :virtualbox do |vb|
+  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--memory&amp;quot;, &amp;quot;512&amp;quot;]
+  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--cpus&amp;quot;, 2]
+end
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I added a swap in order to prevent the termination caused by Out of Memory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ swapon -s
+Filename				Type		Size	Used	Priority
+/dev/mapper/precise64-swap_1            partition	786428	565820	-1
+/swapfile                               file		16785404	0	-2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I executed the below command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ composer --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+Checked CA file /etc/ssl/certs/ca-certificates.crt: valid
+Executing command (/srv/local/panel): git branch --no-color --no-abbrev -v
+Reading /home/vagrant/.composer/composer.json
+Loading config file /home/vagrant/.composer/composer.json
+Reading /srv/local/panel/vendor/composer/installed.json
+Reading /home/vagrant/.composer/vendor/composer/installed.json
+Loading plugin Hirak\Prestissimo\Plugin
+Downloading https://packagist.org/packages.json
+Writing /home/vagrant/.composer/cache/repo/https---packagist.org/packages.json into cache
+    1/4:	http://packagist.org/p/provider-2018-07$b7d1972f4b5592672d3041c6fc96759395b5d6a233e3244c49ef1fa0aa89d0b0.json
+    2/4:	http://packagist.org/p/provider-latest$672c0071fa698a90e507dd61adb926774c7c19bdaa1284b198861bc6cf4de78f.json
+
+...
+
+[567.5MB/2546.62s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[567.4MB/2546.77s] Memory usage: 567.42MB (peak: 2135.2MB), time: 2546.77s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It took &lt;code&gt;2546.77s&lt;/code&gt;, 42 minutes.&lt;/p&gt;
+
+&lt;h3 id=&#34;execute-it-on-your-local-machine-directly&#34;&gt;Execute it on your local machine directly&lt;/h3&gt;
+
+&lt;p&gt;My machine is Mac.&lt;br /&gt;
+So this is a workaround for Mac.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;My Mac Specs&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;macOS Sierra
+Version 10.12.6 (16G1408)
+MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)
+Processor 2 GHz Intel Core i5
+Memory 8 GB 1867 MHz LPDDR3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I logged out Vagrant and executed the command in Vagrant synced folder on my Mac.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;yuta:~/dev/ringcaptcha/panel
+$ COMPOSER_MEMORY_LIMIT=-1 php composer.phar --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+
+...
+
+[568.5MB/200.31s] Installing assets as hard copies.
+Installing assets for Symfony\Bundle\FrameworkBundle into web/bundles/framework
+[568.5MB/200.32s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[568.5MB/200.38s] Memory usage: 568.45MB (peak: 2135.72MB), time: 200.38s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It took &lt;code&gt;200.38s&lt;/code&gt;, less than 4 minutes.&lt;/p&gt;
+
+&lt;p&gt;By the way, &lt;code&gt;COMPOSER_MEMORY_LIMIT=-1&lt;/code&gt; in the command is for;&lt;br /&gt;
+&lt;a href=&#34;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&#34;&gt;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>phpbrew note2</title>
+      <link>http://yutaf.github.io/phpbrew-note2/</link>
+      <pubDate>Fri, 20 Jul 2018 13:09:19 +0900</pubDate>
+      
+      <guid>http://yutaf.github.io/phpbrew-note2/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a note for building php by phpbrew on Mac.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Restore icu4c to the old version to build php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
+$ git checkout ab72fee8166749231036a4476aaba30df9619800 icu4c.rb
+$ brew unlink icu4c
+$ HOMEBREW_NO_AUTO_UPDATE=1 brew reinstall icu4c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References;&lt;br /&gt;
+&lt;a href=&#34;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&#34;&gt;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/php-build/php-build/pull/463&#34;&gt;https://github.com/php-build/php-build/pull/463&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://qiita.com/KyoheiG3/items/912bcc27462871487845&#34;&gt;https://qiita.com/KyoheiG3/items/912bcc27462871487845&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install other dependencies to build php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install \
+libxml2 \
+jpeg \
+gd \
+mcrypt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Setting up Configuration for phpbrew&lt;br /&gt;
+~/local/etc/phpbrew.yaml&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;variants:
+  dev:
+    mbstring:
+    intl:
+    icu:
+    gettext:
+    pcre:
+    readline:
+    xml:
+    soap:
+    mysql:
+    my-without-pdo-sqlite:
+      - --without-pdo-sqlite
+    my-without-sqlite3:
+      - --without-sqlite3
+    zlib:
+    openssl:
+    mcrypt:
+    bcmath:
+    curl:
+    zip:
+    my-disable-cgi:
+      - --disable-cgi
+    calendar:
+    my-disable-short-tags:
+      - --disable-short-tags
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phpbrew init -c ~/local/etc/phpbrew.yaml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&#34;&gt;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Dryrun&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpbrew -d install -d 5.4.45 +neutral +dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpbrew -d install --stdout 5.4.45 +neutral +dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Switch php version&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phpbrew list
+* (system)
+  php-5.4.45
+$ phpbrew use php-5.4.45
+$ php -v
+PHP 5.4.45 (cli) (built: Jul 20 2018 12:46:03)
+Copyright (c) 1997-2014 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2014 Zend Technologies
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set php timezone to avoid Exception&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ php -i | grep Loaded
+Loaded Configuration File =&amp;gt; /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Update this part&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+;date.timezone =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+date.timezone = UTC
+
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
       <title>Aes encryption in android, decryption in php</title>
       <link>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
       <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
@@ -624,11 +858,11 @@ max_input_vars integer
     </item>
     
     <item>
-      <title>phpbrew memo</title>
-      <link>http://yutaf.github.io/phpbrew-memo/</link>
+      <title>phpbrew note</title>
+      <link>http://yutaf.github.io/phpbrew-note/</link>
       <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
       
-      <guid>http://yutaf.github.io/phpbrew-memo/</guid>
+      <guid>http://yutaf.github.io/phpbrew-note/</guid>
       <description>&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。
 &lt;/p&gt;
 
