@@ -1,1294 +1,216 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>yutaf blog</title>
-    <link>http://yutaf.github.io/index.xml</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
     <lastBuildDate>Fri, 20 Jul 2018 13:09:20 +0900</lastBuildDate>
-    <atom:link href="http://yutaf.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>composer update is slow</title>
-      <link>http://yutaf.github.io/composer-update-is-slow/</link>
+      <link>http://localhost:1313/composer-update-is-slow/</link>
       <pubDate>Fri, 20 Jul 2018 13:09:20 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/composer-update-is-slow/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;tl-dr&#34;&gt;TL;DR&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Executing &lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; on Vagrant is so slow.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Execute it on your local machine directly&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources like CPU or Memory.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; is so slow when I execute it on Vagrant.&lt;br /&gt;
-This is caused because Vangrant has the limited computer resources like CPU or Memory.&lt;br /&gt;
-And &lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources.&lt;br /&gt;
-&lt;a href=&#34;https://github.com/composer/composer/issues/1805&#34;&gt;https://github.com/composer/composer/issues/1805&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;A workaround for this is executing it on your local machine directly, not on Vagrant.&lt;br /&gt;
-Because it should have more powerful cpu and bigger memory.&lt;/p&gt;
-
-&lt;h3 id=&#34;so-slow-on-vagrant&#34;&gt;So slow on Vagrant&lt;/h3&gt;
-
-&lt;p&gt;My Vagrant spec is;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Vagrantfile&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-config.vm.provider :virtualbox do |vb|
-  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--memory&amp;quot;, &amp;quot;512&amp;quot;]
-  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--cpus&amp;quot;, 2]
-end
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I added a swap in order to prevent the termination caused by Out of Memory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ swapon -s
-Filename				Type		Size	Used	Priority
-/dev/mapper/precise64-swap_1            partition	786428	565820	-1
-/swapfile                               file		16785404	0	-2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I executed the below command.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ composer --no-dev -vvv --profile update ringcaptcha/app-lookup
-Reading ./composer.json
-Loading config file ./composer.json
-Checked CA file /etc/ssl/certs/ca-certificates.crt: valid
-Executing command (/srv/local/panel): git branch --no-color --no-abbrev -v
-Reading /home/vagrant/.composer/composer.json
-Loading config file /home/vagrant/.composer/composer.json
-Reading /srv/local/panel/vendor/composer/installed.json
-Reading /home/vagrant/.composer/vendor/composer/installed.json
-Loading plugin Hirak\Prestissimo\Plugin
-Downloading https://packagist.org/packages.json
-Writing /home/vagrant/.composer/cache/repo/https---packagist.org/packages.json into cache
-    1/4:	http://packagist.org/p/provider-2018-07$b7d1972f4b5592672d3041c6fc96759395b5d6a233e3244c49ef1fa0aa89d0b0.json
-    2/4:	http://packagist.org/p/provider-latest$672c0071fa698a90e507dd61adb926774c7c19bdaa1284b198861bc6cf4de78f.json
-
-...
-
-[567.5MB/2546.62s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
-[567.4MB/2546.77s] Memory usage: 567.42MB (peak: 2135.2MB), time: 2546.77s
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It took &lt;code&gt;2546.77s&lt;/code&gt;, 42 minutes.&lt;/p&gt;
-
-&lt;h3 id=&#34;execute-it-on-your-local-machine-directly&#34;&gt;Execute it on your local machine directly&lt;/h3&gt;
-
-&lt;p&gt;My machine is Mac.&lt;br /&gt;
-So this is a workaround for Mac.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;My Mac Specs&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;macOS Sierra
-Version 10.12.6 (16G1408)
-MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)
-Processor 2 GHz Intel Core i5
-Memory 8 GB 1867 MHz LPDDR3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Requirements&lt;br /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;composer &lt;a href=&#34;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&#34;&gt;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I logged out Vagrant and executed the command in Vagrant synced folder on my Mac.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;yuta:~/dev/ringcaptcha/panel
-$ COMPOSER_MEMORY_LIMIT=-1 php composer.phar --no-dev -vvv --profile update ringcaptcha/app-lookup
-Reading ./composer.json
-Loading config file ./composer.json
-
-...
-
-[568.5MB/200.31s] Installing assets as hard copies.
-Installing assets for Symfony\Bundle\FrameworkBundle into web/bundles/framework
-[568.5MB/200.32s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
-[568.5MB/200.38s] Memory usage: 568.45MB (peak: 2135.72MB), time: 200.38s
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It took &lt;code&gt;200.38s&lt;/code&gt;, less than 4 minutes.&lt;/p&gt;
-
-&lt;p&gt;By the way, &lt;code&gt;COMPOSER_MEMORY_LIMIT=-1&lt;/code&gt; in the command is for;&lt;br /&gt;
-&lt;a href=&#34;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&#34;&gt;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&lt;/a&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/composer-update-is-slow/</guid>
+      <description>TL;DR Executing compser update &amp;lt;package name&amp;gt; on Vagrant is so slow. Execute it on your local machine directly compser update seems comsuming a lot of computer resources like CPU or Memory. compser update &amp;lt;package name&amp;gt; is so slow when I execute it on Vagrant.&#xA;This is caused because Vangrant has the limited computer resources like CPU or Memory.&#xA;And compser update seems comsuming a lot of computer resources.&#xA;https://github.com/composer/composer/issues/1805&#xA;A workaround for this is executing it on your local machine directly, not on Vagrant.</description>
     </item>
-    
     <item>
       <title>phpbrew note2</title>
-      <link>http://yutaf.github.io/phpbrew-note2/</link>
+      <link>http://localhost:1313/phpbrew-note2/</link>
       <pubDate>Fri, 20 Jul 2018 13:09:19 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/phpbrew-note2/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;This is a note for building php by phpbrew on Mac.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Restore icu4c to the old version to build php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula
-$ git checkout ab72fee8166749231036a4476aaba30df9619800 icu4c.rb
-$ brew unlink icu4c
-$ HOMEBREW_NO_AUTO_UPDATE=1 brew reinstall icu4c
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;References;&lt;br /&gt;
-&lt;a href=&#34;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&#34;&gt;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://github.com/php-build/php-build/pull/463&#34;&gt;https://github.com/php-build/php-build/pull/463&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://qiita.com/KyoheiG3/items/912bcc27462871487845&#34;&gt;https://qiita.com/KyoheiG3/items/912bcc27462871487845&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install other dependencies to build php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ brew install \
-libxml2 \
-jpeg \
-gd \
-mcrypt
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Setting up Configuration for phpbrew&lt;br /&gt;
-~/local/etc/phpbrew.yaml&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;variants:
-  dev:
-    mbstring:
-    intl:
-    icu:
-    gettext:
-    pcre:
-    readline:
-    xml:
-    soap:
-    mysql:
-    my-without-pdo-sqlite:
-      - --without-pdo-sqlite
-    my-without-sqlite3:
-      - --without-sqlite3
-    zlib:
-    openssl:
-    mcrypt:
-    bcmath:
-    curl:
-    zip:
-    my-disable-cgi:
-      - --disable-cgi
-    calendar:
-    my-disable-short-tags:
-      - --disable-short-tags
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;$ phpbrew init -c ~/local/etc/phpbrew.yaml
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;References;&lt;br /&gt;
-&lt;a href=&#34;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&#34;&gt;https://github.com/phpbrew/phpbrew/wiki/Setting-up-Configuration&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Dryrun&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;phpbrew -d install -d 5.4.45 +neutral +dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;phpbrew -d install --stdout 5.4.45 +neutral +dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Switch php version&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ phpbrew list
-* (system)
-  php-5.4.45
-$ phpbrew use php-5.4.45
-$ php -v
-PHP 5.4.45 (cli) (built: Jul 20 2018 12:46:03)
-Copyright (c) 1997-2014 The PHP Group
-Zend Engine v2.4.0, Copyright (c) 1998-2014 Zend Technologies
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Set php timezone to avoid Exception&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;$ php -i | grep Loaded
-Loaded Configuration File =&amp;gt; /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;$ vim /Users/yuta/.phpbrew/php/php-5.4.45/etc/php.ini
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Update this part&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Date]
-; Defines the default timezone used by the date functions
-; http://php.net/date.timezone
-;date.timezone =
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[Date]
-; Defines the default timezone used by the date functions
-; http://php.net/date.timezone
-date.timezone = UTC
-
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/phpbrew-note2/</guid>
+      <description>This is a note for building php by phpbrew on Mac.&#xA;Restore icu4c to the old version to build php $ cd /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Formula $ git checkout ab72fee8166749231036a4476aaba30df9619800 icu4c.rb $ brew unlink icu4c $ HOMEBREW_NO_AUTO_UPDATE=1 brew reinstall icu4c References;&#xA;https://qiita.com/sizuhiko/items/aebdbb05f0824cae4bdd&#xA;https://github.com/php-build/php-build/pull/463&#xA;https://qiita.com/KyoheiG3/items/912bcc27462871487845&#xA;Install other dependencies to build php $ brew install \ libxml2 \ jpeg \ gd \ mcrypt Setting up Configuration for phpbrew&#xA;~/local/etc/phpbrew.yaml variants: dev: mbstring: intl: icu: gettext: pcre: readline: xml: soap: mysql: my-without-pdo-sqlite: - --without-pdo-sqlite my-without-sqlite3: - --without-sqlite3 zlib: openssl: mcrypt: bcmath: curl: zip: my-disable-cgi: - --disable-cgi calendar: my-disable-short-tags: - --disable-short-tags $ phpbrew init -c ~/local/etc/phpbrew.</description>
     </item>
-    
     <item>
       <title>Aes encryption in android, decryption in php</title>
-      <link>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
+      <link>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</link>
       <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0
-&lt;a href=&#34;http://php.net/manual/en/intro.mcrypt.php&#34;&gt;http://php.net/manual/en/intro.mcrypt.php&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;I could not decrypt in alternative way(&lt;a href=&#34;http://php.net/manual/en/function.openssl-decrypt.php&#34;&gt;openssl_decrypt&lt;/a&gt;) instead of Mcrypt.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&#34;&gt;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/stevenholder/PHP-Java-AES-Encrypt&#34;&gt;https://github.com/stevenholder/PHP-Java-AES-Encrypt&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;class Encryption {
-
-    ...
-
-    /**
-     * Decrypt AES encrypted data by Android
-     *
-     * @param $sStr
-     * @param $sKey
-     * @return bool|string
-     */
-    public static function decryptAesAndroid($sStr, $sKey) {
-      // Replace strings escaped by Android&#39;s Base64.URL_SAFE
-      // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE
-      $sStr = str_replace(array(&#39;-&#39;, &#39;_&#39;), array(&#39;+&#39;, &#39;/&#39;), $sStr);
-
-      // Borrowed from https://github.com/stevenholder/PHP-Java-AES-Encrypt
-      $decrypted= mcrypt_decrypt(
-        MCRYPT_RIJNDAEL_128,
-        $sKey,
-        base64_decode($sStr),
-        MCRYPT_MODE_ECB
-      );
-      $dec_s = strlen($decrypted);
-      $padding = ord($decrypted[$dec_s-1]);
-      $decrypted = substr($decrypted, 0, -$padding);
-      return $decrypted;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</guid>
+      <description>Notes PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0 http://php.net/manual/en/intro.mcrypt.php I could not decrypt in alternative way(openssl_decrypt) instead of Mcrypt. References https://developer.android.com/reference/android/util/Base64.html#URL_SAFE https://github.com/stevenholder/PHP-Java-AES-Encrypt class Encryption { ... /** * Decrypt AES encrypted data by Android * * @param $sStr * @param $sKey * @return bool|string */ public static function decryptAesAndroid($sStr, $sKey) { // Replace strings escaped by Android&amp;#39;s Base64.URL_SAFE // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE $sStr = str_replace(array(&amp;#39;-&amp;#39;, &amp;#39;_&amp;#39;), array(&amp;#39;+&amp;#39;, &amp;#39;/&amp;#39;), $sStr); // Borrowed from https://github.</description>
     </item>
-    
+    <item>
+      <title>ringcaptcha auto scaling</title>
+      <link>http://localhost:1313/ringcaptcha-auto-scaling/</link>
+      <pubDate>Fri, 21 Jul 2017 17:27:30 +0900</pubDate>
+      <guid>http://localhost:1313/ringcaptcha-auto-scaling/</guid>
+      <description>This wiki covers&#xA;Updating AMI image in Auto Scaling group Build AMI Create Launch Configuration Update Launch Configuration in Auto Scaling group Caveats &amp;ldquo;Monitoring&amp;rdquo; and &amp;ldquo;User data&amp;rdquo; in Launch Configuration Health Check Type in Auto Scaling Group Scaling Policies Add auto scaling group to Load Balancer How a new autoscaled instance is registered to salt master Updating AMI image in Auto Scaling group This is a step-by-step guide for updating an AMI image in Auto Scaling group.</description>
+    </item>
     <item>
       <title>Decrypt gpg data in salt masterless</title>
-      <link>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</link>
+      <link>http://localhost:1313/decrypt-gpg-data-in-salt-masterless/</link>
       <pubDate>Wed, 05 Jul 2017 10:49:38 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;If gpgkeys is located in &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; in the salt master(default),&lt;br /&gt;
-you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;root@salt-master:~# ll /etc/salt/gpgkeys/
-total 28
-drwx------ 2 root root 4096 Sep  4  2015 ./
-drwxr-xr-x 9 root root 4096 Jun 22 23:31 ../
--rw------- 1 root root 1194 Sep  4  2015 pubring.gpg
--rw------- 1 root root  600 Jun 30 03:33 random_seed
--rw------- 1 root root 2495 Sep  4  2015 secring.gpg
--rw------- 1 root root 1280 Sep  4  2015 trustdb.gpg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And you also have to be careful about the permisson when you download it.&lt;br /&gt;
-If ssh user is not root, &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; is owned by root and you use sftp to download it, you can&amp;rsquo;t download the directory.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sftp salt_master
-Connected to salt_master.
-sftp&amp;gt; get -r /etc/salt/gpgkeys
-Fetching /etc/salt/gpgkeys/ to gpgkeys
-Retrieving /etc/salt/gpgkeys
-remote readdir(&amp;quot;/etc/salt/gpgkeys&amp;quot;): Permission denied
-/etc/salt/gpgkeys: Failed to get directory contents
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So I copied the directory to a temporary directory which permisson is appropriate for the ssh user to download, and change the owner of the copied directory to the ssh user to download it correctly.&lt;br /&gt;
-Then I could download it successfully with sftp.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/decrypt-gpg-data-in-salt-masterless/</guid>
+      <description>You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&#xA;If gpgkeys is located in /etc/salt/gpgkeys/ in the salt master(default),&#xA;you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&#xA;root@salt-master:~# ll /etc/salt/gpgkeys/ total 28 drwx------ 2 root root 4096 Sep 4 2015 ./ drwxr-xr-x 9 root root 4096 Jun 22 23:31 .</description>
     </item>
-    
     <item>
       <title>Do not remove instance when packer build fails</title>
-      <link>http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</link>
+      <link>http://localhost:1313/do-not-remove-instance-when-packer-build-fails/</link>
       <pubDate>Tue, 04 Jul 2017 13:00:56 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;I want to run commands manually inside the instance built by packer for investigation when packer build fails.&lt;br /&gt;
-Packer remove the instance by default when the build fails.&lt;br /&gt;
-We can change the behavior by &lt;code&gt;-on-error=abort&lt;/code&gt; option.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then you can ssh to the instance after packer build exited with error.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;ssh-into-ec2-instance-built-by-packer&#34;&gt;ssh into EC2 instance built by packer&lt;/h3&gt;
-
-&lt;p&gt;This time I use &lt;code&gt;AMI Builder (EBS backed)&lt;/code&gt; as builder.&lt;br /&gt;
-Packer allocates ssh key randomly by default and I don&amp;rsquo;t know where it is.&lt;br /&gt;
-So I can&amp;rsquo;t ssh into the instance.&lt;br /&gt;
-To avoid this, we can specify ssh keys by &lt;code&gt;ssh_keypair_name&lt;/code&gt; and &lt;code&gt;ssh_private_key_file&lt;/code&gt; in the packer config file.&lt;br /&gt;
-&lt;a href=&#34;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&#34;&gt;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;variables&amp;quot;: {
-    &amp;quot;aws_access_key&amp;quot;: &amp;quot;&amp;quot;,
-    &amp;quot;aws_secret_key&amp;quot;: &amp;quot;&amp;quot;
-  },
-  &amp;quot;builders&amp;quot;: [{
-    &amp;quot;type&amp;quot;: &amp;quot;amazon-ebs&amp;quot;,
-    &amp;quot;access_key&amp;quot;: &amp;quot;{{user `aws_access_key`}}&amp;quot;,
-    &amp;quot;secret_key&amp;quot;: &amp;quot;{{user `aws_secret_key`}}&amp;quot;,
-    &amp;quot;region&amp;quot;: &amp;quot;us-east-1&amp;quot;,
-    &amp;quot;vpc_id&amp;quot;: &amp;quot;***&amp;quot;,
-    &amp;quot;subnet_id&amp;quot;: &amp;quot;***&amp;quot;,
-    &amp;quot;source_ami&amp;quot;: &amp;quot;ami-427a392a&amp;quot;,
-    &amp;quot;instance_type&amp;quot;: &amp;quot;c3.large&amp;quot;,
-    &amp;quot;ssh_username&amp;quot;: &amp;quot;ubuntu&amp;quot;,
-    &amp;quot;ssh_keypair_name&amp;quot;: &amp;quot;salt&amp;quot;,
-    &amp;quot;ssh_private_key_file&amp;quot;: &amp;quot;/Users/me/.ssh/salt.pem&amp;quot;,
-    &amp;quot;ami_name&amp;quot;: &amp;quot;image-app {{timestamp}}&amp;quot;
-  }],
-  &amp;quot;provisioners&amp;quot;: [
-    ...
-    {
-      &amp;quot;type&amp;quot;: &amp;quot;shell&amp;quot;,
-      &amp;quot;inline&amp;quot;: [
-        &amp;quot;sudo curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com&amp;quot;,
-        &amp;quot;sudo sh bootstrap-salt.sh -P git v2016.11.6&amp;quot;
-      ]
-    },
-    {
-      &amp;quot;type&amp;quot;: &amp;quot;salt-masterless&amp;quot;,
-      &amp;quot;skip_bootstrap&amp;quot;: true,
-      &amp;quot;local_state_tree&amp;quot;: &amp;quot;../file_roots&amp;quot;,
-      &amp;quot;local_pillar_roots&amp;quot;: &amp;quot;../pillar_roots&amp;quot;,
-      &amp;quot;minion_config&amp;quot;: &amp;quot;minion-app&amp;quot;
-    },
-    ...
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I can ssh into the instance with the key I specified.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/do-not-remove-instance-when-packer-build-fails/</guid>
+      <description>I want to run commands manually inside the instance built by packer for investigation when packer build fails.&#xA;Packer remove the instance by default when the build fails.&#xA;We can change the behavior by -on-error=abort option.&#xA;$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json Then you can ssh to the instance after packer build exited with error.&#xA;ssh into EC2 instance built by packer This time I use AMI Builder (EBS backed) as builder.</description>
     </item>
-    
     <item>
       <title>supervisord&#39;s PATH</title>
-      <link>http://yutaf.github.io/supervisords-path/</link>
+      <link>http://localhost:1313/supervisords-path/</link>
       <pubDate>Sat, 10 Jun 2017 21:15:28 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/supervisords-path/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;environment&#34;&gt;Environment&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;OS: Ubuntu 12.04 LTS&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;supervisor version: 3.0a8-1.1&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;what-happned&#34;&gt;What happned&lt;/h2&gt;
-
-&lt;p&gt;When I executed php programme through supervisor, I got an error log below.&lt;/p&gt;
-
-&lt;p&gt;supervisor config file&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-
-[program:worker_verification]
-directory=/srv/local/api
-command=/srv/local/api/rcWorkerManager.php &amp;quot;rcVerificationWorker.php&amp;quot; &amp;quot;rabbit_queue&amp;quot; --env=prod
-environment=PARAM5=&amp;quot;dev&amp;quot;,PHP_IDE_CONFIG=&amp;quot;serverName=vagrant&amp;quot;
-user=www-data
-autostart=false
-autorestart=true
-
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;log&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;/usr/bin/env: php: No such file or directory
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;But php was already installed by source compile and I set a PATH to &lt;code&gt;/etc/environment&lt;/code&gt; like below.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;PATH=&amp;quot;/opt/php-5.4.45/bin:/opt/php-5.4.45/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;So I checked the PATH value by showing it through supervisor, too.&lt;br /&gt;
-This is the part of the supervisor setting file to show PATH.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[program:show_path]
-command=printenv
-user=www-data
-autostart=false
-autorestart=true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then I got log like below.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;SUPERVISOR_GROUP_NAME=show_path
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;PATH value was different from the previous one.&lt;br /&gt;
-Then I investigated which file defined this PATH value.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/$ sudo find /etc -type f -exec grep -l &#39;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#39; {} \;
-/etc/crontab
-/etc/init.d/unattended-upgrades
-/etc/init.d/networking
-/etc/init.d/nginx
-/etc/init.d/supervisor
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;I found &lt;code&gt;/etc/init.d/supervisor&lt;/code&gt;.&lt;br /&gt;
-Take a closer look at it.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-
-### BEGIN INIT INFO
-# Provides:          supervisor
-# Required-Start:    $remote_fs $network $named
-# Required-Stop:     $remote_fs $network $named
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: Start/stop supervisor
-# Description:       Start/stop supervisor daemon and its configured
-#                    subprocesses.
-### END INIT INFO
-
-
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/usr/bin/supervisord
-NAME=supervisord
-DESC=supervisor
-
-test -x $DAEMON || exit 0
-
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This file specified PATH value as&lt;br /&gt;
-&lt;code&gt;PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&lt;/code&gt;.&lt;br /&gt;
-Maybe this was why I got the PATH when I executed supervisor.&lt;/p&gt;
-
-&lt;h2 id=&#34;workaround&#34;&gt;Workaround&lt;/h2&gt;
-
-&lt;p&gt;This version of supervisor(3.0a8-1.1) didn&amp;rsquo;t support to append paths to PATH unfortunately.&lt;br /&gt;
-&lt;a href=&#34;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&#34;&gt;https://serverfault.com/questions/331027/supervisord-how-to-append-to-path&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://github.com/Supervisor/supervisor/issues/599&#34;&gt;https://github.com/Supervisor/supervisor/issues/599&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;So I decided to locate php executables to &lt;code&gt;/usr/local/bin&lt;/code&gt; where supervisord could see.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;./configure \
-  --prefix=/opt/php-5.4.45 \
-...
-  --bindir=/usr/local/bin \
-  --sbindir=/usr/local/bin \
-...
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/supervisords-path/</guid>
+      <description>Environment OS: Ubuntu 12.04 LTS supervisor version: 3.0a8-1.1 What happned When I executed php programme through supervisor, I got an error log below.&#xA;supervisor config file&#xA;... [program:worker_verification] directory=/srv/local/api command=/srv/local/api/rcWorkerManager.php &amp;#34;rcVerificationWorker.php&amp;#34; &amp;#34;rabbit_queue&amp;#34; --env=prod environment=PARAM5=&amp;#34;dev&amp;#34;,PHP_IDE_CONFIG=&amp;#34;serverName=vagrant&amp;#34; user=www-data autostart=false autorestart=true ... log&#xA;/usr/bin/env: php: No such file or directory But php was already installed by source compile and I set a PATH to /etc/environment like below.&#xA;PATH=&amp;#34;/opt/php-5.4.45/bin:/opt/php-5.4.45/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games&amp;#34; So I checked the PATH value by showing it through supervisor, too.</description>
     </item>
-    
+    <item>
+      <title>RingCaptcha Android development</title>
+      <link>http://localhost:1313/ringcaptcha-android-development/</link>
+      <pubDate>Thu, 25 May 2017 10:48:21 +0900</pubDate>
+      <guid>http://localhost:1313/ringcaptcha-android-development/</guid>
+      <description>This article covers&#xA;Install Android Studio Create a sample project which installs RingCaptcha SDK Setup an emulator Test SDK in the sample project Create SDK project Create aar file Publish updated SDK Test SDK in the sample project again Commit changes and push Update guideline documents Software Versions&#xA;macOS 10.12.4 Android Studio: 2.3.2 Install Android Studio https://developer.android.com/studio/index.html&#xA;This takes a while.&#xA;Key in password when you are asked.&#xA;Create a sample project which installs RingCaptcha SDK Create a project Choose &amp;ldquo;Start a new Android Studio project&amp;rdquo; in the startup prompt.</description>
+    </item>
     <item>
       <title>Xdebug remote cli debugging with vagrant and PhpStorm</title>
-      <link>http://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</link>
+      <link>http://localhost:1313/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</link>
       <pubDate>Wed, 17 May 2017 12:19:16 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;There are three points to set xdebug&amp;rsquo;s remote cli debugging correctly.&lt;br /&gt;
-- &lt;a href=&#34;#php-ini-for-cli&#34;&gt;php.ini for cli&lt;/a&gt;&lt;br /&gt;
-- &lt;a href=&#34;#php-ide-config-environment-variable&#34;&gt;PHP_IDE_CONFIG environment variable&lt;/a&gt;&lt;br /&gt;
-- &lt;a href=&#34;#phpstorm-setting&#34;&gt;Phpstorm setting&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;php-ini-for-cli&#34;&gt;php.ini for cli&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;xdebug.remote_host&lt;/code&gt; means the host where phpstorm runs.(= client)&lt;br /&gt;
-You should specify the host ip from the guest machine, vagrant.&lt;br /&gt;
-You can use &lt;code&gt;10.0.2.2&lt;/code&gt; as it.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;zend_extension = /usr/lib/php5/20100525/xdebug.so
-xdebug.remote_enable  = on
-xdebug.remote_autostart = 1
-xdebug.remote_host = 10.0.2.2
-xdebug.remote_port=9000
-xdebug.remote_handler = dbgp
-xdebug.var_display_max_depth = -1
-xdebug.var_display_max_children = -1
-xdebug.var_display_max_data = -1
-xdebug.idekey = PHPSTORM
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;tl-dr&#34;&gt;(TL;DR)&lt;/h3&gt;
-
-&lt;p&gt;You will see below when you hit &lt;code&gt;ifconfig&lt;/code&gt; command in vagrant&amp;rsquo;s shell.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;eth0      Link encap:Ethernet  HWaddr 08:00:27:88:0c:a6  
-          inet addr:10.0.2.15  Bcast:10.0.2.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:fe88:ca6/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:267539 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:154775 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:259150497 (259.1 MB)  TX bytes:26565361 (26.5 MB)
-
-eth1      Link encap:Ethernet  HWaddr 08:00:27:10:94:c7  
-          inet addr:192.168.55.2  Bcast:192.168.55.255  Mask:255.255.255.0
-          inet6 addr: fe80::a00:27ff:fe10:94c7/64 Scope:Link
-          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
-          RX packets:28705 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:21756 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:1000 
-          RX bytes:2879409 (2.8 MB)  TX bytes:21317169 (21.3 MB)
-
-lo        Link encap:Local Loopback  
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:16436  Metric:1
-          RX packets:4853 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:4853 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
-          RX bytes:948041 (948.0 KB)  TX bytes:948041 (948.0 KB)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;10.0.2.2&lt;/code&gt; is not there, but you can specify the host of vm with it.&lt;br /&gt;
-&lt;a href=&#34;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&#34;&gt;http://stackoverflow.com/questions/33777041/why-10-0-2-2-was-not-there-with-running-ifconfig&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;10.0.2.2 always points to the local host when you are running emulator or vm. So in virtual machine , it refers to the local host (127.0.0.1) as 10.0.2.2. That is the reason you can&amp;rsquo;t see it in ifconfig in your host.&amp;rdquo;&lt;/p&gt;
-
-&lt;h2 id=&#34;php-ide-config-environment-variable&#34;&gt;PHP_IDE_CONFIG environment variable&lt;/h2&gt;
-
-&lt;p&gt;You need to set this for phpstorm&amp;rsquo;s path mapping.&lt;/p&gt;
-
-&lt;p&gt;&amp;ldquo;To tell PhpStorm which path mapping configuration it should use for a connection from a certain machine you need to set the value of the “PHP_IDE_CONFIG” environment variable to “serverName=SomeName”, where ‘SomeName’ is the name of the server configured in ‘Project Settings | PHP | Servers’&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;From &lt;a href=&#34;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&#34;&gt;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;My application uses supervisor to execute php cli command, so I passed the environment variable to supervisor.&lt;/p&gt;
-
-&lt;p&gt;supervisor config file&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[program:my_worker]
-directory={{API_PATH}}
-command={{API_PATH}}/my_worker.php &amp;quot;verificationWorker.php&amp;quot;
-environment=PHP_IDE_CONFIG=&amp;quot;serverName=vagrant&amp;quot;
-user=www-data
-autostart=false
-autorestart=true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;serverName&lt;/code&gt; value should correspond to phpstorm&amp;rsquo;s server value in &lt;code&gt;Project Settings | PHP | Servers&lt;/code&gt;.&lt;br /&gt;
-See below.&lt;/p&gt;
-
-&lt;h2 id=&#34;phpstorm-setting&#34;&gt;Phpstorm setting&lt;/h2&gt;
-
-&lt;p&gt;Specify &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Path mappings&lt;/code&gt; correctly.&lt;br /&gt;
-&lt;code&gt;Host&lt;/code&gt; and &lt;code&gt;Port&lt;/code&gt; values don&amp;rsquo;t affect anything. You can set them as anything.&lt;br /&gt;
-This setting is just for relating &lt;code&gt;serverName&lt;/code&gt; in PHP_IDE_CONFIG with &lt;code&gt;Path mappings&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://yutaf.github.io/images/xdebug-remote-cli-debug-with-vagrant-01.png&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/xdebug-remote-cli-debug-with-vagrant-01.png&#34; class=&#34;image&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;References:&lt;br /&gt;
-&lt;a href=&#34;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&#34;&gt;https://blog.jetbrains.com/phpstorm/2012/03/new-in-4-0-easier-debugging-of-remote-php-command-line-scripts/&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://stackoverflow.com/questions/19917148/tell-vagrant-the-ip-of-the-host-machine&#34;&gt;http://stackoverflow.com/questions/19917148/tell-vagrant-the-ip-of-the-host-machine&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://xdebug.org/docs/remote&#34;&gt;https://xdebug.org/docs/remote&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://www.1x1.jp/blog/2014/08/how-to-setup-php-remote-debug-with-vagrant-vm.html&#34;&gt;http://www.1x1.jp/blog/2014/08/how-to-setup-php-remote-debug-with-vagrant-vm.html&lt;/a&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</guid>
+      <description>There are three points to set xdebug&amp;rsquo;s remote cli debugging correctly.&#xA;php.ini for cli PHP_IDE_CONFIG environment variable Phpstorm setting php.ini for cli xdebug.remote_host means the host where phpstorm runs.(= client)&#xA;You should specify the host ip from the guest machine, vagrant.&#xA;You can use 10.0.2.2 as it.&#xA;zend_extension = /usr/lib/php5/20100525/xdebug.so xdebug.remote_enable = on xdebug.remote_autostart = 1 xdebug.remote_host = 10.0.2.2 xdebug.remote_port=9000 xdebug.remote_handler = dbgp xdebug.var_display_max_depth = -1 xdebug.var_display_max_children = -1 xdebug.var_display_max_data = -1 xdebug.</description>
     </item>
-    
     <item>
       <title>Run phpmyadmin in docker-compose</title>
-      <link>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</link>
+      <link>http://localhost:1313/run-phpmyadmin-in-docker-compose/</link>
       <pubDate>Tue, 18 Oct 2016 18:15:41 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#34;&gt;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Set &lt;code&gt;PMA_HOST&lt;/code&gt;, &lt;code&gt;PMA_PORT&lt;/code&gt; as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&lt;/p&gt;
-
-&lt;p&gt;docker-compose.yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mysql:
-  build: mysql
-  environment:
-    MYSQL_USER: dbuser
-    MYSQL_PASSWORD: dbpassword
-    MYSQL_ROOT_PASSWORD: dbrootpassword
-    MYSQL_DATABASE: dbdatabase
-  volumes_from:
-    - datastore
-phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  links:
-    - mysql
-  environment:
-    PMA_HOST: mysql
-    PMA_PORT: 3306
-  ports:
-    - &#39;8080:80&#39;
-datastore:
-  image: busybox
-  volumes:
-    - /var/lib/mysql
-php:
-  build: php
-  ports:
-    - &#39;80:80&#39;
-  links:
-    - mysql
-  volumes:
-    - ./php/www:/srv/www
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/run-phpmyadmin-in-docker-compose/</guid>
+      <description>https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#xA;Set PMA_HOST, PMA_PORT as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&#xA;docker-compose.yml&#xA;mysql: build: mysql environment: MYSQL_USER: dbuser MYSQL_PASSWORD: dbpassword MYSQL_ROOT_PASSWORD: dbrootpassword MYSQL_DATABASE: dbdatabase volumes_from: - datastore phpmyadmin: image: phpmyadmin/phpmyadmin links: - mysql environment: PMA_HOST: mysql PMA_PORT: 3306 ports: - &amp;#39;8080:80&amp;#39; datastore: image: busybox volumes: - /var/lib/mysql php: build: php ports: - &amp;#39;80:80&amp;#39; links: - mysql volumes: - ./php/www:/srv/www </description>
     </item>
-    
     <item>
       <title>Create tsv file with league csv</title>
-      <link>http://yutaf.github.io/create_tsv_file_with_league_csv/</link>
+      <link>http://localhost:1313/create_tsv_file_with_league_csv/</link>
       <pubDate>Tue, 06 Sep 2016 14:42:34 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/create_tsv_file_with_league_csv/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;tsv = tab-separated values.&lt;br /&gt;
-&lt;a href=&#34;https://en.wikipedia.org/wiki/Tab-separated_values&#34;&gt;https://en.wikipedia.org/wiki/Tab-separated_values&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s super easy to create tsv file with league/csv.&lt;br /&gt;
-&lt;a href=&#34;http://csv.thephpleague.com/&#34;&gt;http://csv.thephpleague.com/&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;$ composer require league/csv
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;use League\Csv\Writer;
-
-$tsv_list =[
-  [1, 2, 3],
-  [&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;],
-];
-
-$writer = Writer::createFromFileObject(new SplTempFileObject());
-$writer-&amp;gt;setDelimiter(&amp;quot;\t&amp;quot;);
-$writer-&amp;gt;insertAll($tsv_list);
-
-file_put_contents(&amp;quot;/path/to/data.tsv&amp;quot;, $writer-&amp;gt;__toString());
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The point is &lt;code&gt;setDelimiter&lt;/code&gt; method.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/create_tsv_file_with_league_csv/</guid>
+      <description>tsv = tab-separated values.&#xA;https://en.wikipedia.org/wiki/Tab-separated_values&#xA;It&amp;rsquo;s super easy to create tsv file with league/csv.&#xA;http://csv.thephpleague.com/&#xA;Install $ composer require league/csv php&#xA;use League\Csv\Writer; $tsv_list =[ [1, 2, 3], [&amp;#39;foo&amp;#39;, &amp;#39;bar&amp;#39;, &amp;#39;baz&amp;#39;], ]; $writer = Writer::createFromFileObject(new SplTempFileObject()); $writer-&amp;gt;setDelimiter(&amp;#34;\t&amp;#34;); $writer-&amp;gt;insertAll($tsv_list); file_put_contents(&amp;#34;/path/to/data.tsv&amp;#34;, $writer-&amp;gt;__toString()); The point is setDelimiter method.</description>
     </item>
-    
     <item>
       <title>everydaymusic</title>
-      <link>http://yutaf.github.io/everydaymusic/</link>
+      <link>http://localhost:1313/everydaymusic/</link>
       <pubDate>Thu, 14 Jul 2016 11:32:37 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/everydaymusic/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p style=&#34;text-align: center;&#34;&gt;Login page&lt;/p&gt;
-&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_01.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
-　  
-&lt;p style=&#34;text-align: center;&#34;&gt;List page&lt;/p&gt;
-&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_02.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
-　  
-&lt;p style=&#34;text-align: center;&#34;&gt;Video page&lt;/p&gt;
-&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;http://yutaf.github.io/images/everydaymusic/everydaymusic_03.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;info&#34;&gt;Info&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://everydaymusic.net/&#34;&gt;http://everydaymusic.net/&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;released&#34;&gt;Released&lt;/h4&gt;
-
-&lt;p&gt;February 2016&lt;/p&gt;
-
-&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
-
-&lt;p&gt;This web app searches a music video you might prefer from youtube once a day.&lt;br /&gt;
-Then it notifies you of the update by email.&lt;/p&gt;
-
-&lt;h4 id=&#34;github&#34;&gt;github&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;technology-stacks&#34;&gt;Technology stacks&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;DigitalOcean (IaaS)&lt;/li&gt;
-&lt;li&gt;SendGrid (Mail service)&lt;/li&gt;
-&lt;li&gt;Docker Compose&lt;/li&gt;
-&lt;li&gt;nginx&lt;/li&gt;
-&lt;li&gt;Ruby On Rails 4.2&lt;/li&gt;
-&lt;li&gt;php 5.6&lt;/li&gt;
-&lt;li&gt;CoffeeScript&lt;/li&gt;
-&lt;li&gt;mysql 5.6&lt;/li&gt;
-&lt;li&gt;Redis&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;technical-insights&#34;&gt;Technical insights&lt;/h4&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;em&gt;How it searches music&lt;/em&gt;&lt;br /&gt;
-The app knows users&amp;rsquo; prefernces from facebook likes or users&amp;rsquo; manual inputs.&lt;br /&gt;
-Then it requests to Youtube search API with the data and find music.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Find music outside user&amp;rsquo;s prefernce list&lt;/em&gt;&lt;br /&gt;
-I think finding new music is a great joy.&lt;br /&gt;
-This app has a trick to find new music/artists with &lt;a href=&#34;https://developer.spotify.com/web-api/get-related-artists/&#34;&gt;Spotify&amp;rsquo;s Related Artists API&lt;/a&gt;.&lt;br /&gt;
-The API helps the app find other artists related to users&amp;rsquo; prefernce list.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;em&gt;Microsevices&lt;/em&gt;&lt;br /&gt;
-I tried microsevices for the first time with this app development.&lt;br /&gt;
-It is built with &lt;em&gt;Ruby On Rails&lt;/em&gt; and &lt;em&gt;php&lt;/em&gt;.&lt;br /&gt;
-&lt;em&gt;php&lt;/em&gt; is only used for facebook login part.&lt;br /&gt;
-The other parts were developed with &lt;em&gt;Ruby On Rails&lt;/em&gt;.&lt;br /&gt;
-It was just because I wanted to develop with official facebook&amp;rsquo;s php sdk.&lt;br /&gt;
-Of course we can build facebook login with Rails adequately.
-So it&amp;rsquo;s nonsense, I know.&lt;br /&gt;
-But I just wanted to try.&lt;br /&gt;
-　&lt;br /&gt;
-However, Looking back the development process, I didn&amp;rsquo;t get much profits from it.&lt;br /&gt;
-I wasted too much time for the jobs made from microsevices architecture.&lt;br /&gt;
-　&lt;br /&gt;
-A lesson I got is that &lt;em&gt;microsevices&lt;/em&gt; makes a lot of duplicated works.&lt;br /&gt;
-I mean, If I implement model jobs like fetching records from MySql in Rails service, I should implement another same model jobs in php.&lt;br /&gt;
-This made me feel like the code I should implement getting twice.&lt;br /&gt;
-Besides, there was a context switch when I moved from php to rails and vice versa.&lt;br /&gt;
-&lt;em&gt;Microsevices&lt;/em&gt; might be a good architecture for scaling, though this app apparently doesn&amp;rsquo;t need it.&lt;br /&gt;
-Because this app is very small and just started.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;http://sidekiq.org/&#34;&gt;Sidekiq&lt;/a&gt;&lt;/em&gt;&lt;br /&gt;
-This is a great concurrency job tool offered by ruby gems.&lt;br /&gt;
-It really makes concurrency implemention easier.&lt;br /&gt;
-I used it for batch jobs sending emails to users.&lt;br /&gt;
-It also offers cool management dashbord.&lt;br /&gt;
-Awesome!&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <guid>http://localhost:1313/everydaymusic/</guid>
+      <description>Info http://everydaymusic.net/&#xA;Released February 2016&#xA;Overview This web app searches a music video you might prefer from youtube once a day.&#xA;Then it notifies you of the update by email.&#xA;github https://github.com/yutaf/everydaymusic&#xA;https://github.com/yutaf/everydaymusic-facebook-service&#xA;Technology stacks DigitalOcean (IaaS) SendGrid (Mail service) Docker Compose nginx Ruby On Rails 4.2 php 5.6 CoffeeScript mysql 5.6 Redis Technical insights How it searches music&#xA;The app knows users&amp;rsquo; prefernces from facebook likes or users&amp;rsquo; manual inputs.</description>
     </item>
-    
     <item>
       <title>Translate csrf validation message in symfony form component</title>
-      <link>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</link>
+      <link>http://localhost:1313/translate-csrf-validation-message-in-symfony-form-component/</link>
       <pubDate>Fri, 24 Jun 2016 13:33:48 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;I was stuck for a while.&lt;br /&gt;
-You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&lt;/p&gt;
-
-&lt;p&gt;php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
-use Symfony\Component\Form\Forms;
-
-...
-
-$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
-
-$formFactory = Forms::createFormFactoryBuilder()
-  -&amp;gt;addExtensions([$csrfExtension])
-  -&amp;gt;getFormFactory();
-
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;　&lt;/p&gt;
-
-&lt;p&gt;I wrote about internationalization of symfony validation component in &lt;a href=&#34;http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/&#34;&gt;older post&lt;/a&gt;,&lt;br /&gt;
-however it seems each form extensions should be passed the Translator instance individually.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
-use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-use Symfony\Component\Form\Forms;
-use Symfony\Component\Security\Csrf\CsrfTokenManager;
-use Symfony\Component\Translation\Translator;
-use Symfony\Component\Validator\Validation;
-
-...
-
-$validator = Validation::createValidatorBuilder()
-  -&amp;gt;setTranslator($translator)
-  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
-  -&amp;gt;getValidator();
-
-// extensions
-$validatorExtension = new ValidatorExtension($validator);
-$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
-
-$formFactory = Forms::createFormFactoryBuilder()
-  -&amp;gt;addExtensions([$csrfExtension, $validatorExtension])
-  -&amp;gt;getFormFactory();
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/translate-csrf-validation-message-in-symfony-form-component/</guid>
+      <description>I was stuck for a while.&#xA;You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&#xA;php&#xA;use Symfony\Component\Form\Extension\Csrf\CsrfExtension; use Symfony\Component\Form\Forms; ... $csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &amp;#39;validators&amp;#39;); $formFactory = Forms::createFormFactoryBuilder() -&amp;gt;addExtensions([$csrfExtension]) -&amp;gt;getFormFactory(); ... I wrote about internationalization of symfony validation component in older post,&#xA;however it seems each form extensions should be passed the Translator instance individually.&#xA;use Symfony\Component\Form\Extension\Csrf\CsrfExtension; use Symfony\Component\Form\Extension\Validator\ValidatorExtension; use Symfony\Component\Form\Forms; use Symfony\Component\Security\Csrf\CsrfTokenManager; use Symfony\Component\Translation\Translator; use Symfony\Component\Validator\Validation; .</description>
     </item>
-    
     <item>
       <title>Password confirmation form with symfony</title>
-      <link>http://yutaf.github.io/password-confirmation-form-with-symfony/</link>
+      <link>http://localhost:1313/password-confirmation-form-with-symfony/</link>
       <pubDate>Fri, 24 Jun 2016 11:16:11 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/password-confirmation-form-with-symfony/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;I was so impressed it goes very easy.&lt;br /&gt;
-&lt;em&gt;RepeatedType Field&lt;/em&gt; helps us to create password &amp;amp; password confirmation fields.&lt;br /&gt;
-&lt;a href=&#34;http://symfony.com/doc/current/reference/forms/types/repeated.html&#34;&gt;http://symfony.com/doc/current/reference/forms/types/repeated.html&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;...
-
-$validator = Validation::createValidatorBuilder()
-  -&amp;gt;setTranslator($translator)
-  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
-  -&amp;gt;getValidator();
-
-$formFactory = Forms::createFormFactoryBuilder()
-  -&amp;gt;addExtensions([new ValidatorExtension($validator)])
-  -&amp;gt;getFormFactory();
-
-$form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
-  -&amp;gt;add(&#39;email&#39;, TextType::class, array(
-        &#39;constraints&#39; =&amp;gt; array(
-          new NotBlank(),
-          new Length(array(&#39;min&#39; =&amp;gt; 4)),
-          ),
-        ))
-  -&amp;gt;add(&#39;password&#39;, RepeatedType::class, array(
-        &#39;type&#39; =&amp;gt; PasswordType::class,
-        &#39;required&#39; =&amp;gt; true,
-        &#39;constraints&#39; =&amp;gt; array(
-          new NotBlank(),
-          new Length(array(&#39;min&#39; =&amp;gt; 6)),
-          ),
-        &#39;first_options&#39;  =&amp;gt; array(&#39;label&#39; =&amp;gt; &#39;label.password&#39;),
-        &#39;second_options&#39; =&amp;gt; array(&#39;label&#39; =&amp;gt; &#39;label.passwordConfirmation&#39;),
-        ))
-  -&amp;gt;getForm();
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then you will have password confirmation fields with their matching validation.&lt;/p&gt;</description>
+      <guid>http://localhost:1313/password-confirmation-form-with-symfony/</guid>
+      <description>I was so impressed it goes very easy.&#xA;RepeatedType Field helps us to create password &amp;amp; password confirmation fields.&#xA;http://symfony.com/doc/current/reference/forms/types/repeated.html&#xA;php&#xA;... $validator = Validation::createValidatorBuilder() -&amp;gt;setTranslator($translator) -&amp;gt;setTranslationDomain(&amp;#39;validators&amp;#39;) -&amp;gt;getValidator(); $formFactory = Forms::createFormFactoryBuilder() -&amp;gt;addExtensions([new ValidatorExtension($validator)]) -&amp;gt;getFormFactory(); $form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder() -&amp;gt;add(&amp;#39;email&amp;#39;, TextType::class, array( &amp;#39;constraints&amp;#39; =&amp;gt; array( new NotBlank(), new Length(array(&amp;#39;min&amp;#39; =&amp;gt; 4)), ), )) -&amp;gt;add(&amp;#39;password&amp;#39;, RepeatedType::class, array( &amp;#39;type&amp;#39; =&amp;gt; PasswordType::class, &amp;#39;required&amp;#39; =&amp;gt; true, &amp;#39;constraints&amp;#39; =&amp;gt; array( new NotBlank(), new Length(array(&amp;#39;min&amp;#39; =&amp;gt; 6)), ), &amp;#39;first_options&amp;#39; =&amp;gt; array(&amp;#39;label&amp;#39; =&amp;gt; &amp;#39;label.</description>
     </item>
-    
     <item>
       <title>Internationalize symfony validation component outside of symfony framework</title>
-      <link>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</link>
+      <link>http://localhost:1313/internationalize-symfony-validation-component-outside-of-symfony-framework/</link>
       <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
-The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;composer.json&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;require&amp;quot; : {
-    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
-    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/form&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/validator&amp;quot;: &amp;quot;^3.1&amp;quot;,
-  },
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\Translation\Loader\XliffFileLoader
-use Symfony\Component\Validator\Validation;
-use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
-
-$translator = new Translator($locale, new MessageSelector());
-
-$vendorDir = realpath(__DIR__.&#39;/../vendor&#39;);
-$vendorFormDir = $vendorDir.&#39;/symfony/form&#39;;
-$vendorValidatorDir = $vendorDir.&#39;/symfony/validator&#39;;
-
-$translator-&amp;gt;addLoader(&#39;xlf&#39;, new XliffFileLoader());
-// there are built-in translations for the core error messages
-$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
-$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
-$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
-$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
-
-$validator = Validation::createValidatorBuilder()
-  -&amp;gt;setTranslator($translator)
-  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
-  -&amp;gt;getValidator();
-
-$formFactory = Forms::createFormFactoryBuilder()
-  -&amp;gt;addExtensions([new ValidatorExtension($validator)])
-  -&amp;gt;getFormFactory();
-
-$form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
-  -&amp;gt;add(&#39;email&#39;, TextType::class, array(
-        &#39;constraints&#39; =&amp;gt; array(
-          new NotBlank(),
-          new Length(array(&#39;min&#39; =&amp;gt; 4)),
-          ),
-        ))
-  -&amp;gt;add(&#39;password&#39;, PasswordType::class, array(
-        &#39;constraints&#39; =&amp;gt; array(
-          new NotBlank(),
-          new Length(array(&#39;min&#39; =&amp;gt; 6)),
-          ),
-        ))
-  -&amp;gt;getForm();
-
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;It is important that you specify &lt;code&gt;validators&lt;/code&gt; as the domain, 4th argument of &lt;code&gt;addResource&lt;/code&gt; method.&lt;br /&gt;
-And it should correspond to the validator&amp;rsquo;s domain, which is specified with &lt;code&gt;setTranslationDomain&lt;/code&gt; method.&lt;br /&gt;
-You have to pass translator instance to the validator, too.&lt;/p&gt;
-
-&lt;p&gt;Please see the documentation if you want further explanation for domain.
-&lt;a href=&#34;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&#34;&gt;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;That&amp;rsquo;s it!&lt;br /&gt;
-You already have form with internationalized validation messages.&lt;/p&gt;
-
-&lt;p&gt;References:&lt;br /&gt;
-&lt;a href=&#34;http://symfony.com/doc/current/components/form/introduction.html#translation&#34;&gt;http://symfony.com/doc/current/components/form/introduction.html#translation&lt;/a&gt;
-&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
+      <description>It took me several hours to make it, Symfony validation component Internationalization.&#xA;The point is instantiation of translator and validator.&#xA;composer.json&#xA;{ &amp;#34;require&amp;#34; : { &amp;#34;twig/twig&amp;#34;: &amp;#34;~1.0&amp;#34;, &amp;#34;symfony/translation&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/twig-bridge&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/config&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/form&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/validator&amp;#34;: &amp;#34;^3.1&amp;#34;, }, } php&#xA;use Symfony\Component\Translation\Translator; use Symfony\Component\Translation\MessageSelector; use Symfony\Component\Translation\Loader\XliffFileLoader use Symfony\Component\Validator\Validation; use Symfony\Component\Form\Extension\Validator\ValidatorExtension; $translator = new Translator($locale, new MessageSelector()); $vendorDir = realpath(__DIR__.&amp;#39;/../vendor&amp;#39;); $vendorFormDir = $vendorDir.&amp;#39;/symfony/form&amp;#39;; $vendorValidatorDir = $vendorDir.&amp;#39;/symfony/validator&amp;#39;; $translator-&amp;gt;addLoader(&amp;#39;xlf&amp;#39;, new XliffFileLoader()); // there are built-in translations for the core error messages $translator-&amp;gt;addResource(&amp;#39;xlf&amp;#39;, $vendorFormDir.</description>
     </item>
-    
     <item>
       <title>php i18n with twig and symfony translation component outside of symfony framework</title>
-      <link>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</link>
+      <link>http://localhost:1313/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</link>
       <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;composer.json&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{
-  &amp;quot;require&amp;quot; : {
-    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
-    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
-    &amp;quot;symfony/yaml&amp;quot;: &amp;quot;^3.1&amp;quot;
-  },
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;php&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$loader = new Twig_Loader_Filesystem(__DIR__.&#39;/../templates&#39;);
-$twig = new Twig_Environment($loader);
-
-$locale = &#39;en&#39;;
-if(isset($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;]) &amp;amp;&amp;amp; strlen($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;])&amp;gt;0) {
-  $locale = substr($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;], 0, 2);
-}
-$translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector());
-$translator-&amp;gt;setFallbackLocales([&#39;en&#39;]);
-$translator-&amp;gt;addLoader(&#39;yaml&#39;, new Symfony\Component\Translation\Loader\YamlFileLoader());
-$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/en.yml&#39;, &#39;en&#39;);
-$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/ja.yml&#39;, &#39;ja&#39;);
-
-$twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator));
-$data = [&#39;somethig&#39; =&amp;gt; &#39;abcd&#39;];
-$twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;foo: FOO
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;html&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html&amp;gt;
-&amp;lt;body&amp;gt;
-&amp;lt;p&amp;gt;{{ &#39;foo&#39;|trans }}&amp;lt;/p&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;output&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;FOO
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;References:&lt;br /&gt;
-&lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
+      <description>composer.json&#xA;{ &amp;#34;require&amp;#34; : { &amp;#34;twig/twig&amp;#34;: &amp;#34;~1.0&amp;#34;, &amp;#34;symfony/translation&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/twig-bridge&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/config&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/yaml&amp;#34;: &amp;#34;^3.1&amp;#34; }, } php&#xA;$loader = new Twig_Loader_Filesystem(__DIR__.&amp;#39;/../templates&amp;#39;); $twig = new Twig_Environment($loader); $locale = &amp;#39;en&amp;#39;; if(isset($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;]) &amp;amp;&amp;amp; strlen($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;])&amp;gt;0) { $locale = substr($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;], 0, 2); } $translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector()); $translator-&amp;gt;setFallbackLocales([&amp;#39;en&amp;#39;]); $translator-&amp;gt;addLoader(&amp;#39;yaml&amp;#39;, new Symfony\Component\Translation\Loader\YamlFileLoader()); $translator-&amp;gt;addResource(&amp;#39;yaml&amp;#39;, __DIR__.&amp;#39;/../locales/en.yml&amp;#39;, &amp;#39;en&amp;#39;); $translator-&amp;gt;addResource(&amp;#39;yaml&amp;#39;, __DIR__.&amp;#39;/../locales/ja.yml&amp;#39;, &amp;#39;ja&amp;#39;); $twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator)); $data = [&amp;#39;somethig&amp;#39; =&amp;gt; &amp;#39;abcd&amp;#39;]; $twig-&amp;gt;render(&amp;#34;hello.html&amp;#34;, $data); yml&#xA;foo: FOO html&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;{{ &amp;#39;foo&amp;#39;|trans }}&amp;lt;/p&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; output</description>
     </item>
-    
     <item>
       <title>Domain Status: clientHold</title>
-      <link>http://yutaf.github.io/domain-status-clienthold/</link>
+      <link>http://localhost:1313/domain-status-clienthold/</link>
       <pubDate>Thu, 28 Jan 2016 16:24:41 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/domain-status-clienthold/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;Route 53 でdnsの設定をした後、何度 &lt;code&gt;dig&lt;/code&gt; や &lt;code&gt;nslookup&lt;/code&gt; をやっても反映されないのでおかしいと思ったが、ドメインステータスに問題があるらしい。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ whois everydaymusic.net | grep Status
-   Status: clientHold https://www.icann.org/epp#clientHold
-   Status: clientTransferProhibited https://www.icann.org/epp#clientTransferProhibited
-Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
-Domain Status: clientHold https://icann.org/epp#clientHold
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;Domain Status: clientHold&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://dev.classmethod.jp/cloud/aws/onamae-to-route53/&#34;&gt;参考にしていたページ&lt;/a&gt;だとここが&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Domain Status: ok
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;と表示されている。&lt;br /&gt;
-調べた所、以下のように書いてあった。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://muumuu-domain.com/?mode=faq&amp;amp;state=answer&amp;amp;id=000717&#34;&gt;https://muumuu-domain.com/?mode=faq&amp;amp;state=answer&amp;amp;id=000717&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Ｑ．【clientHoldとは？】ドメインが急に利用できなくなりました。
-取得されているドメインのご契約やネームサーバ設定に問題がないのに、
-ホームページの表示や、メールアドレスがご利用いただけなくなった場合、
-上位機関による『利用制限(clientHold)』が行われている可能性があります。
-
-・・・
-
-利用制限の解除は、ドメインのWHOIS情報・ムームーIDにご登録の
-メールアドレスをご確認いただき、上位機関より送信される、
-『 ドメイン情報認証 』へのご対応が必要です。
-
-・・・
-
-■WHOIS情報に「弊社の情報を代理公開する」を設定されている場合
-
-コントロールパネルへログイン後、左方メニュー項目の
-「[その他]個人設定 &amp;gt; ユーザー登録情報」から、
-最下部の『 ご連絡先メールアドレス 』が
-受信可能なものであるかをご確認ください。
-
-受信可能なメールアドレスでしたら、そのアドレス宛に、
-以下のメールが送信されている可能性がございます。
-
------------------------------
-件名：【重要】[お名前.com] ドメイン 情報認証のお願い
-または
-件名：【重要】[お名前.com] ドメイン利用制限設定　完了通知
-または
-件名：【重要】[ムームードメイン] ドメイン 情報認証のお願い
-
-送信元メールアドレス：[verification-noreply@onamae.com]
------------------------------
-
-恐れ入りますが、受信メールBOXや迷惑メールBOXなどに、
-届いていないかご確認いただき、メールを確認されましたら、
-メール本文内に記載された「URL」へアクセスをお願いいたします。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;メールボックス調べたら確かに届いていた。&lt;br /&gt;
-ドメインはムームードメインで契約したが、このメールはお名前.com から届いていた。&lt;br /&gt;
-たぶん、広告かなんかだと思って全く読んでなかった。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;From: verification-noreply@onamae.com
-Subject: 【重要】[お名前.com] ドメイン 情報認証のお願い
-────────────────────────────────── 
-■メールアドレスの有効性認証■
-────────────────────────────────── 
-
-本メールは、先日お送りしているドメイン登録者（Registrant）情報のメール
-アドレス有効性認証をご対応いただけていない方に送信しております。
-
-対応期日までに認証が行われない場合、ドメインの利用が制限されますので、
-お早めにご対応いただきますようお願いいたします。
-
-ドメイン登録者情報のメールアドレスとして情報が正しい場合は、以下URLへ
-アクセスしてください。
-
-対応期日：2015年07月18日 15:25
-https://www.onamae.com/domain/verification?authId=26534&amp;amp;token=pq4CWa3gNp7vbA_9ATkiuRbKt&amp;amp;lang=ja
-
-※メールアドレス以外にも、Whois情報が不正確なドメインは、登録抹消や
-　 使用停止の対象となることがございますのでご注意ください。
-※各種情報の確認・修正等はご利用のドメイン管理会社へご相談くださいます
-　ようお願いいたします。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;有効期限半年ぐらい過ぎてたけど、メール内のリンク先をクリックしたらドメイン利用制限は無事解除された。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ whois everydaymusic.net | grep Status
-   Status: clientTransferProhibited https://www.icann.org/epp#clientTransferProhibited
-Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;Domain Status: ok&lt;/code&gt; ではないけど、大丈夫なのかな。&lt;/p&gt;
-
-&lt;p&gt;ちなみに、ムームードメインからもこんなメールが来ていた。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;From: ムームードメイン news@service.muumuu-domain.com mag.pepabo.com
-Subject: 【重要】ドメイン情報認証開始および利用規約改定のお知らせ【ムームードメイン】
-
-このメールはムームードメインのすべてのユーザー様へお送りしています。
-------------------------------------------------------------------
-
-平素よりムームードメインをご利用いただき、誠にありがとうございます。
-
-この度、特定のお手続きを行った際に、ICANNのWHOIS情報正確性確認方針に基づき、
-ムームードメインの上位レジストラである「お名前.com」（GMOインターネット株式会社）より、
-お客様のメールアドレスの有効性を確認するメール（ドメイン情報認証）が
-送信されることとなりました。
-
-ドメイン情報認証のメールを受信されましたら、2週間以内に、
-メールアドレスの有効性確認のお手続きをお願いいたします。
-
-ドメイン情報認証のお手続きが期限内に行われない場合、
-ドメインの利用制限が行われ、該当のドメインを利用したホームページの閲覧や、
-メールの送受信ができなくなりますので、必ずお手続きをお願いいたします。
-
-ドメイン情報認証の対象となるお手続きおよび詳細は以下のとおりです。
-
-
-■ドメイン情報認証が行われるお手続き
-
-　・新規ドメイン取得（一括取得を含む）
-　・WHOIS情報のうち、登録者情報（Registrant）の変更
-　・ムームードメインへのドメイン移管
-
-※認証はメールアドレスひとつにつき1回です。
-　一度認証を行ったメールアドレスについてはその後の認証は行われません。
-
-■ドメイン情報認証メール送信元メールアドレス
-
-　verification-noreply@onamae.com
-
-■ドメイン情報認証メールタイトル
-
-　「【重要】[お名前.com] ドメイン 情報認証のお願い」
-
-■送信先メールアドレス
-
-　○WHOIS情報を弊社情報で代理公開している方
-　　・お客様のご連絡先メールアドレスへ送信されます
-
-　○WHOIS情報をお客様の情報で公開している方
-　　・登録者情報（Registrant）に記載されているメールアドレスへ送信されます
-
-■ドメイン情報認証方法
-　上記タイトルで送信されるメールに記載されているURLをクリックし、
-　メールアドレスの有効性認証を行ってください。
-
-■ドメイン情報認証開始日時
-　2015年6月30日午前12時以降のお手続き
-
-■ドメイン情報認証の対象となるドメイン
-
-.com/.net/.org/.biz/.asia/.info/.mobi/.xxx/.ceo/.wiki/.yokohama/.xyz/.bar/
-.rest/.christmas/.blackfriday/.click/.fishing/.rodeo/.vodka/.hosting/.property/
-.diet/.help/.audio/.hiphop/.juegos/.host/.press/.website/.black/.onl/.rich/
-.global/.ryukyu/.surf/.club/.nagoya/.tokyo/.sexy/.tattoo/.link/.guitars/.pics/
-.gift/.photo/.pink/.red/.blue/.kim/.ink/.okinawa/.cooking/.horse/.bid/.trade/
-.webcam/.market/.beer/.uno/.cricket/.science/.casa/.work/.yoga/.vegas/.dance/
-.social/.pub/.moda/.consulting/.kaufen/.actor/.rocks/.haus/.party/.fashion/
-.garden/.fit/.flowers/.kiwi/.buzz/.country/.wedding/.space/
-
-※日本語ドメインを含みます。
-※上記リストはムームードメインで今後取り扱い予定のドメインを含んでいます。
-
-
-また、ドメイン情報認証の開始に伴い、
-『ムームードメイン利用規約』の一部を改定いたします。
-
-━━━━━━━━━━━━
-■改定日
-━━━━━━━━━━━━
-2015年6月30日（火）
-
-━━━━━━━━━━━━
-■改定内容
-━━━━━━━━━━━━
-改定の概要は以下の通りです。
-
-・ムームードメイン利用規約第5条に
-　ドメイン情報認証に関する規定を追加（第5条第3項および第4項の新規追加）
-
-利用規約の全文につきましては、下記ページをご確認ください。
-
-▽ムームードメイン利用規約
-https://muumuu-domain.com/?mode=kiyaku
-
-
-これからも、ムームードメインをどうぞよろしくお願いいたします。
-
-------------------------------------------------------------------
-◆ご不明な点がございましたらお問い合わせフォームよりご連絡ください
-https://muumuu-domain.com/?mode=inq
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ムームードメイン https://muumuu-domain.com
-GMOペパボ株式会社 http://pepabo.com/company/overview/
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;はっきり言って、こういうメールは広告かスパムかだと思って自分のメールフィルターから全く外れてしまっている。。&lt;/p&gt;</description>
+      <guid>http://localhost:1313/domain-status-clienthold/</guid>
+      <description>Route 53 でdnsの設定をした後、何度 dig や nslookup をやっても反映されないのでおかしいと思ったが、ドメインステータスに問題があるらしい。&#xA;$ whois everydaymusic.net | grep Status Status: clientHold https://www.icann.org/epp#clientHold Status: clientTransferProhibited https://www.icann.org/epp#clientTransferProhibited Domain Status: clientTransferProhibited https://icann.org/epp#clientTransferProhibited Domain Status: clientHold https://icann.org/epp#clientHold Domain Status: clientHold&#xA;参考にしていたページだとここが&#xA;Domain Status: ok と表示されている。&#xA;調べた所、以下のように書いてあった。&#xA;https://muumuu-domain.com/?mode=faq&amp;amp;state=answer&amp;amp;id=000717&#xA;Ｑ．【clientHoldとは？】ドメインが急に利用できなくなりました。 取得されているドメインのご契約やネームサーバ設定に問題がないのに、 ホームページの表示や、メールアドレスがご利用いただけなくなった場合、 上位機関による『利用制限(clientHold)』が行われている可能性があります。 ・・・ 利用制限の解除は、ドメインのWHOIS情報・ムームーIDにご登録の メールアドレスをご確認いただき、上位機関より送信される、 『 ドメイン情報認証 』へのご対応が必要です。 ・・・ ■WHOIS情報に「弊社の情報を代理公開する」を設定されている場合 コントロールパネルへログイン後、左方メニュー項目の 「[その他]個人設定 &amp;gt; ユーザー登録情報」から、 最下部の『 ご連絡先メールアドレス 』が 受信可能なものであるかをご確認ください。 受信可能なメールアドレスでしたら、そのアドレス宛に、 以下のメールが送信されている可能性がございます。 ----------------------------- 件名：【重要】[お名前.com] ドメイン 情報認証のお願い または 件名：【重要】[お名前.com] ドメイン利用制限設定　完了通知 または 件名：【重要】[ムームードメイン] ドメイン 情報認証のお願い 送信元メールアドレス：[verification-noreply@onamae.</description>
     </item>
-    
+    <item>
+      <title>how to change facebook timezone setting</title>
+      <link>http://localhost:1313/how-to-change-facebook-timezone-setting/</link>
+      <pubDate>Mon, 21 Dec 2015 20:21:43 -0800</pubDate>
+      <guid>http://localhost:1313/how-to-change-facebook-timezone-setting/</guid>
+      <description>You have to change the timezone of your computer.&#xA;https://www.facebook.com/help/community/question/?id=4570099785144</description>
+    </item>
+    <item>
+      <title>apple music playlist 001</title>
+      <link>http://localhost:1313/apple-music-playlist-001/</link>
+      <pubDate>Sat, 19 Dec 2015 17:59:44 +0900</pubDate>
+      <guid>http://localhost:1313/apple-music-playlist-001/</guid>
+      <description>Mystery Jets 2&#xA;https://t.co/p0urGDUeqk&#xA;Telomere / Mystery Jets Serotonin / Mystery Jets Young Love / Mystery Jets Dreaming of Another World / Mystery Jets Two Doors Down / Mystery Jets Someone Purer / Mystery Jets You Can&amp;rsquo;t Fool Me Dennis / Mystery Jets Diamonds In the Dark / Mystery Jets Hideaway / Mystery Jets Flakes / Mystery Jets </description>
+    </item>
+    <item>
+      <title>fujirock 2015</title>
+      <link>http://localhost:1313/fujirock-2015/</link>
+      <pubDate>Tue, 04 Aug 2015 23:27:11 +0900</pubDate>
+      <guid>http://localhost:1313/fujirock-2015/</guid>
+      <description> </description>
+    </item>
+    <item>
+      <title>reduce docker image size</title>
+      <link>http://localhost:1313/reduce-docker-image-size/</link>
+      <pubDate>Wed, 15 Jul 2015 19:40:08 +0900</pubDate>
+      <guid>http://localhost:1313/reduce-docker-image-size/</guid>
+      <description>&lt;p&gt;Big Docker image makes our container life slow.&lt;br&gt;&#xA;So here&amp;rsquo;s some manners to reduce image size.&lt;br&gt;&#xA;I could reduce my image size from 1.2GB to 600MB with them.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Continuous integration with gitbucket and jenkins</title>
+      <link>http://localhost:1313/continuous-integration-with-gitbucket-and-jenkins/</link>
+      <pubDate>Thu, 11 Jun 2015 13:10:53 +0900</pubDate>
+      <guid>http://localhost:1313/continuous-integration-with-gitbucket-and-jenkins/</guid>
+      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;</description>
+    </item>
+    <item>
+      <title>php max_input_vars makes you lose form values</title>
+      <link>http://localhost:1313/php-max-input-vars/</link>
+      <pubDate>Tue, 19 May 2015 14:55:52 +0900</pubDate>
+      <guid>http://localhost:1313/php-max-input-vars/</guid>
+      <description>ie(11) でのみ form で送られるべき値が送られてこないということが起きた。&#xA;最初は js のバグかと思っていたが、php の設定が問題だった。&#xA;【php】max_input_varsの影響でフォームの値を全部受け取れないことがある at softelメモ&#xA;問題 フォームから送信した値が、サーバー側（php）で取得できない。 プログラムは動いてるみたいなんだけど、あるはずの $_REQUEST[‘hoge’] などがないみたい。 どうなってるのこれ？ 答え 以下の条件に当てはまるようなら、phpのmax_input_varsの設定値の影響かもしれない。 ... max_input_vars integer 入力変数を最大で何個まで受け付けるかを指定します (この制限は、スーパーグローバル $_GET、$_POST そして $_COOKIE にそれぞれ個別に適用されます)。 対象サーバーの max_input_vars は 150 だったので、300 まで上げた。&#xA;解決した。&#xA;それにしても ie(11) だけで起こった理由がわからない。&#xA;他のブラウザよりも多くのフォーム値を送信しているということ？&#xA;同じ実装ではないが、次のような記事を見つけた。&#xA;inputタグのonclickでform.submit()を実行しているため、IEだけ二重にリクエストが送信される時の対処法&#xA;この対処法は自分の場合は有効でなかった。&#xA;とりあえず、max_input_vars の値には気をつける。</description>
+    </item>
+    <item>
+      <title>第89回 PHP勉強会＠東京</title>
+      <link>http://localhost:1313/php-study-89/</link>
+      <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
+      <guid>http://localhost:1313/php-study-89/</guid>
+      <description>&lt;p&gt;先日、&lt;a href=&#34;http://localhost:1313/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Paul Mccartney Japan Tour 04.27.15</title>
+      <link>http://localhost:1313/paul-mccartney-japan-tour-042715/</link>
+      <pubDate>Wed, 29 Apr 2015 13:04:40 +0900</pubDate>
+      <guid>http://localhost:1313/paul-mccartney-japan-tour-042715/</guid>
+      <description>2公演観に行くうちの二回目。&#xA;この日は父と見に行った。&#xA;父は1950年生まれで、ビートルズ世代。&#xA;親孝行。笑&#xA;I went with my father this day.&#xA;Paul played &amp;ldquo;I Saw Her Standing There&amp;rdquo; !!&#xA;I danced to it.&#xA;My father never danced, but he seemed to enjoy it very much.&#xA;Set List&#xA;Magical Mystery Tour (The Beatles song) Save Us Can&amp;rsquo;t Buy Me Love (The Beatles song) Listen to What the Man Said (Wings song) Let Me Roll It (Wings song) Paperback Writer (The Beatles song) My Valentine Nineteen Hundred and Eighty-Five (Wings song) The Long and Winding Road (The Beatles song) Maybe I&amp;rsquo;m Amazed I&amp;rsquo;ve Just Seen a Face (The Beatles song) We Can Work It Out (The Beatles song) Another Day Hope for the Future And I Love Her (The Beatles song) Blackbird (The Beatles song) Here Today New Queenie Eye Lady Madonna (The Beatles song) All Together Now (The Beatles song) Lovely Rita (The Beatles song) Eleanor Rigby (The Beatles song) Being for the Benefit of Mr.</description>
+    </item>
+    <item>
+      <title>Paul McCartney Japan Tour 04.25.15</title>
+      <link>http://localhost:1313/paul-mccartney-japan-tour-042515/</link>
+      <pubDate>Sun, 26 Apr 2015 00:37:21 +0900</pubDate>
+      <guid>http://localhost:1313/paul-mccartney-japan-tour-042515/</guid>
+      <description>2公演観に行くうちの一回目。&#xA;チケットは安くはないので2回も行く必要なかったんじゃないかと思っていたが、そんなことはなかった!!&#xA;最高にロックしていて素晴らしかった。&#xA;そして、観客のノリの良さがライブを特別なものにしていた。&#xA;会場全体からのポールに対する愛の強さが半端じゃない。&#xA;個人的に一番良かった曲は &amp;ldquo;Maybe I&amp;rsquo;m Amazed&amp;rdquo;&#xA;2013年に聞けなかった &amp;ldquo;Jet&amp;rdquo; も聞けたので満足。&#xA;月曜も楽しみ。&#xA;Set list&#xA;Eight Days a Week (The Beatles song) Save Us All My Loving (The Beatles song) Jet (Wings song) Let Me Roll It (Wings song) Paperback Writer (The Beatles song) My Valentine Nineteen Hundred and Eighty-Five (Wings song) The Long and Winding Road (The Beatles song) Maybe I&amp;rsquo;m Amazed I&amp;rsquo;ve Just Seen a Face (The Beatles song) We Can Work It Out (The Beatles song) Another Day Hope for the Future And I Love Her (The Beatles song) Blackbird (The Beatles song) Here Today New Queenie Eye Lady Madonna (The Beatles song) All Together Now (The Beatles song) Lovely Rita (The Beatles song) Eleanor Rigby (The Beatles song) Being for the Benefit of Mr.</description>
+    </item>
+    <item>
+      <title>provisioning with itamae</title>
+      <link>http://localhost:1313/provisioning-with-itamae/</link>
+      <pubDate>Tue, 07 Apr 2015 22:42:50 +0900</pubDate>
+      <guid>http://localhost:1313/provisioning-with-itamae/</guid>
+      <description>&lt;p&gt;I provisioned my company&amp;rsquo;s webhook server with &lt;a href=&#34;https://github.com/itamae-kitchen/itamae&#34;&gt;itamae&lt;/a&gt; recently.&lt;br&gt;&#xA;itamae is a &lt;em&gt;very simple&lt;/em&gt; provisioning tool created by &lt;a href=&#34;https://cookpad.com/en/categories/japanese-recipes&#34;&gt;cookpad&lt;/a&gt; and formerly they called it as Lightchef.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>I made a deployment tool - ryogoku</title>
+      <link>http://localhost:1313/i-made-a-deployment-tool-ryogoku/</link>
+      <pubDate>Wed, 25 Mar 2015 23:11:48 +0900</pubDate>
+      <guid>http://localhost:1313/i-made-a-deployment-tool-ryogoku/</guid>
+      <description>&lt;p&gt;rsync によるデプロイツール・&lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;ryogoku&lt;/a&gt; を作成した。&lt;br&gt;&#xA;I made a deployment tool, &lt;a href=&#34;https://github.com/yutaf/ryogoku&#34;&gt;ryogoku&lt;/a&gt;.&lt;br&gt;&#xA;It uses &lt;code&gt;rsync&lt;/code&gt; to deploy.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>phpbrew note</title>
+      <link>http://localhost:1313/phpbrew-note/</link>
+      <pubDate>Tue, 17 Feb 2015 12:32:23 +0900</pubDate>
+      <guid>http://localhost:1313/phpbrew-note/</guid>
+      <description>&lt;p&gt;ローカル開発環境に phpenv + php-build を使っていたが、&lt;a href=&#34;https://github.com/phpbrew/phpbrew&#34;&gt;phpbrew&lt;/a&gt; のほうが簡単そうだったので移行した。&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

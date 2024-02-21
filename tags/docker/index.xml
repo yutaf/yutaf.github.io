@@ -1,60 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/docker/index.xml</link>
+    <link>http://localhost:1313/tags/docker/</link>
     <description>Recent content in Docker on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <atom:link href="http://yutaf.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 18 Oct 2016 18:15:41 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Run phpmyadmin in docker-compose</title>
-      <link>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</link>
+      <link>http://localhost:1313/run-phpmyadmin-in-docker-compose/</link>
       <pubDate>Tue, 18 Oct 2016 18:15:41 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/run-phpmyadmin-in-docker-compose/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#34;&gt;https://hub.docker.com/r/phpmyadmin/phpmyadmin/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Set &lt;code&gt;PMA_HOST&lt;/code&gt;, &lt;code&gt;PMA_PORT&lt;/code&gt; as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&lt;/p&gt;
-
-&lt;p&gt;docker-compose.yml&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;mysql:
-  build: mysql
-  environment:
-    MYSQL_USER: dbuser
-    MYSQL_PASSWORD: dbpassword
-    MYSQL_ROOT_PASSWORD: dbrootpassword
-    MYSQL_DATABASE: dbdatabase
-  volumes_from:
-    - datastore
-phpmyadmin:
-  image: phpmyadmin/phpmyadmin
-  links:
-    - mysql
-  environment:
-    PMA_HOST: mysql
-    PMA_PORT: 3306
-  ports:
-    - &#39;8080:80&#39;
-datastore:
-  image: busybox
-  volumes:
-    - /var/lib/mysql
-php:
-  build: php
-  ports:
-    - &#39;80:80&#39;
-  links:
-    - mysql
-  volumes:
-    - ./php/www:/srv/www
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <guid>http://localhost:1313/run-phpmyadmin-in-docker-compose/</guid>
+      <description>https://hub.docker.com/r/phpmyadmin/phpmyadmin/&#xA;Set PMA_HOST, PMA_PORT as environment of phpmyadmin in docker-compose.yml to connect separeted mysql container.&#xA;docker-compose.yml&#xA;mysql: build: mysql environment: MYSQL_USER: dbuser MYSQL_PASSWORD: dbpassword MYSQL_ROOT_PASSWORD: dbrootpassword MYSQL_DATABASE: dbdatabase volumes_from: - datastore phpmyadmin: image: phpmyadmin/phpmyadmin links: - mysql environment: PMA_HOST: mysql PMA_PORT: 3306 ports: - &amp;#39;8080:80&amp;#39; datastore: image: busybox volumes: - /var/lib/mysql php: build: php ports: - &amp;#39;80:80&amp;#39; links: - mysql volumes: - ./php/www:/srv/www </description>
     </item>
-    
   </channel>
 </rss>

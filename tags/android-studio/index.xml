@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android Studio on yutaf blog</title>
+    <link>http://localhost:1313/tags/android-studio/</link>
+    <description>Recent content in Android Studio on yutaf blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
+    <lastBuildDate>Thu, 25 May 2017 10:48:21 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/android-studio/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RingCaptcha Android development</title>
+      <link>http://localhost:1313/ringcaptcha-android-development/</link>
+      <pubDate>Thu, 25 May 2017 10:48:21 +0900</pubDate>
+      <guid>http://localhost:1313/ringcaptcha-android-development/</guid>
+      <description>This article covers&#xA;Install Android Studio Create a sample project which installs RingCaptcha SDK Setup an emulator Test SDK in the sample project Create SDK project Create aar file Publish updated SDK Test SDK in the sample project again Commit changes and push Update guideline documents Software Versions&#xA;macOS 10.12.4 Android Studio: 2.3.2 Install Android Studio https://developer.android.com/studio/index.html&#xA;This takes a while.&#xA;Key in password when you are asked.&#xA;Create a sample project which installs RingCaptcha SDK Create a project Choose &amp;ldquo;Start a new Android Studio project&amp;rdquo; in the startup prompt.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,122 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Presentation on yutaf blog</title>
-    <link>http://yutaf.github.io/tags/presentation/index.xml</link>
+    <link>http://localhost:1313/tags/presentation/</link>
     <description>Recent content in Presentation on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <atom:link href="http://yutaf.github.io/tags/presentation/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Thu, 30 Apr 2015 18:14:33 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/presentation/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>第89回 PHP勉強会＠東京</title>
-      <link>http://yutaf.github.io/php-study-89/</link>
+      <link>http://localhost:1313/php-study-89/</link>
       <pubDate>Thu, 30 Apr 2015 18:14:33 +0900</pubDate>
-      
-      <guid>http://yutaf.github.io/php-study-89/</guid>
-      <description>&lt;p&gt;先日、&lt;a href=&#34;http://yutaf.github.io/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;br /&gt;
-&lt;/p&gt;
-
-&lt;p&gt;当日の朝に自分が発表者になっていることに気づき、大急ぎで資料を準備して発表に臨んだ。&lt;br /&gt;
-結果、資料の完成度の低さ、発表の段取りや分量など、かなり失敗して恥ずかしかったが、気付きもあったのでチャレンジしてよかった。&lt;br /&gt;
-ちなみに、これは自分にとって初めての社外の人に向けた発表だった。&lt;/p&gt;
-
-&lt;script async class=&#34;speakerdeck-embed&#34; data-id=&#34;a57e354b64c9494eb03f30e5a38afa27&#34; data-ratio=&#34;1.33333333333333&#34; src=&#34;//speakerdeck.com/assets/embed.js&#34;&gt;&lt;/script&gt;
-
-&lt;h2 id=&#34;発表を通じてわかったこと&#34;&gt;発表を通じてわかったこと&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;発表の時間配分&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;本題に入る前に時間が終わるというひどい体たらくだった。&lt;br /&gt;
-今後、リハーサルはしっかりやろう、自分。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;参加者のデプロイツール使用状況&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;参加者の方のデプロイ状況を知りたかったので、発表中に聞いてみた。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;デプロイツールを使っている人数&lt;br /&gt;
-20-30 / 60 人&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;内訳&lt;br /&gt;
-
-&lt;ul&gt;
-&lt;li&gt;capistrano 95 %&lt;/li&gt;
-&lt;li&gt;fabric 1人?&lt;/li&gt;
-&lt;li&gt;rocketeer 1人?&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;なんだかんだ capistrano 人気の根強さに驚いた。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;質問&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;発表に対する質問も受けた。そのおかげで、デプロイに関してのポイントや自分が気づいていないところに気づけたので、質問者の方には感謝したい。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「既存のツールを使わないで、自分たちで作ったツールを使うメリットは？」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;その時は上手く答えられなかったので、ここに書こうと思う。&lt;/p&gt;
-
-&lt;p&gt;メリットは、自分たちの仕事に最適化したツールが作れるということ。&lt;br /&gt;
-既存のツールの不要な機能をそぎ落として、自分たちに必要な最低限のものを作れる。&lt;/p&gt;
-
-&lt;p&gt;デメリットは、しっかりメンテナンスをしなければならないこと。&lt;br /&gt;
-スライド中にある、フロントツールのビルドに時間がかかるといった問題のように、時間の経過とともに出てくる問題に対処出来なければ使い続けていけるツールにならない。&lt;/p&gt;
-
-&lt;p&gt;また、既存のツールと違い、ネット上に情報が集積されていないので、作成者以外の人間が理解できるようドキュメントの整備は既存のツール以上にしっかりやらなければならない。&lt;/p&gt;
-
-&lt;p&gt;この辺りのことを考えると本当に一長一短で、 今後上手く行かなくなった時の選択肢として、 capistrano やその他の方法も考慮しておかなければと思っている。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「APC, OPcache を使用しているアプリケーションのデプロイは上手くいくか」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;恥ずかしながら、APC, OPcache について知らなかった。&lt;br /&gt;
-&lt;a href=&#34;https://www.xserver.ne.jp/manual/man_server_php_apc.php&#34;&gt;https://www.xserver.ne.jp/manual/man_server_php_apc.php&lt;/a&gt;&lt;br /&gt;
-&lt;code&gt;「APC」や「OPcache」とは、PHPの高速化、CPU負荷を軽減するための拡張モジュールです。&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;これらの拡張機能においては、PHPの初回実行時に、PHPの内容を最適化した状態でキャッシュしておき、次回以降、同じPHPにアクセスがあった際にキャッシュを利用することで、PHP実行時のCPU負荷の軽減や、PHPの大幅な高速化を図ることが可能です。&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;おそらくこの質問者の方が聞きたかったことに関連する記事もあった。&lt;br /&gt;
-&lt;a href=&#34;http://kohkimakimoto.hatenablog.com/entry/2014/09/13/154342&#34;&gt;http://kohkimakimoto.hatenablog.com/entry/2014/09/13/154342&lt;/a&gt;&lt;br /&gt;
-&lt;code&gt;OPcacheはシンボリックを解決して、実ファイルパスの状態でキャッシュする。&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;よってシンボリックリンクを更新しても、実ファイルパスのキャッシュが保持されてしまう。&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;つまり、capistrano のようなシンボリックリンクを切り替えることでデプロイを実現しているツールでは、OPcache のキャッシュの影響で最新のファイルが実行・表示されないという問題があるらしい。&lt;br /&gt;
-もちろん、上記ブログではその解決策も記されている。&lt;br /&gt;
-こういった問題があることは全く知らなかったので勉強になった。&lt;/p&gt;
-
-&lt;p&gt;ryogoku に関して言えば、シンボリックリンクを張り替えず、実ファイルを上書きする作りになっているので、OPcache を使っていても問題にならない。&lt;/p&gt;
-
-&lt;p&gt;一方で考えたことは、OPcache を使うような高いパフォーマンスが求められるアプリケーションでは、シンボリックリンクを切り替えるタイプのゼロダウンタイムなデプロイが求められるのではないかということ。&lt;br /&gt;
-そういったアプリケーションには ryogoku は不向きだと思った。&lt;/p&gt;
-
-&lt;p&gt;逆にどんなものが向いているか考えると、静的なコンテンツやブログ、CMSなど、コンマ何秒間のダウンタイムが問題にならないものかと思う。&lt;br /&gt;
-言い換えれば、自分たちが普段仕事で開発しているアプリケーションがそういったもので、その範囲であれば ryogoku は十分なツールだと思っている。&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;「ロールバックはどうしている？」&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;ryogoku には revert というコマンドがあり、それでロールバックを実現している。&lt;br /&gt;
-このコマンドの実際の動作がどうなっているかというと、戻りたいgit の commit id を指定してデプロイしている。&lt;br /&gt;
-つまり、バックアップからの復元でない。&lt;br /&gt;
-大抵はこれで上手くロールバックできるが、正直、上手くいかなかったこともある。&lt;/p&gt;
-
-&lt;p&gt;細かい話になるので簡単に言いたいが、あるデプロイを境に rsync の除外リストから外されたファイル(転送対象になったファイル)があると、ロールバックしたときに不要なファイルがデプロイ先サーバーに残ってしまうことがある。&lt;br /&gt;
-これは今後改善しなくてはと思っている。&lt;/p&gt;
-
-&lt;p&gt;ちなみに capistrano であれば、デプロイごとにアプリケーションをまるまるディレクトリごと作成して、シンボリックリンクを張り替えて対応しているので、ロールバックも過去のディレクトリにリンクを張り替えればいいだけなので、確実。&lt;/p&gt;
-
-&lt;p&gt;ただ、ryogoku をシンボリックリンクを張り替えるつくりにはしたくないので、なにか考えないといけない。&lt;/p&gt;
-
-&lt;h2 id=&#34;発表を通じてわかったこと-まとめ&#34;&gt;発表を通じてわかったこと・まとめ&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;勉強会は補欠になっていても、繰り上がって発表者になることもあるので笑、準備はしておくこと&lt;/li&gt;
-&lt;li&gt;自作ツールは自分たちの仕事に合わせた細かい調整が利くが、メンテナンスやドキュメント整備を続ける責任がある&lt;/li&gt;
-&lt;li&gt;ryogoku は静的なコンテンツやブログ、CMS といったコンマ何秒程度のダウンタイムを気にしなくていいアプリケーションのデプロイに向いている&lt;/li&gt;
-&lt;li&gt;ryogoku のロールバックには改善の余地あり&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <guid>http://localhost:1313/php-study-89/</guid>
+      <description>&lt;p&gt;先日、&lt;a href=&#34;http://localhost:1313/i-made-a-deployment-tool-ryogoku/&#34;&gt;デプロイツールを作成したという記事&lt;/a&gt;を投稿したが、&lt;a href=&#34;https://phpstudy.doorkeeper.jp/events/23826&#34;&gt;第89回 PHP勉強会＠東京&lt;/a&gt; でそれについての発表を行った。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
