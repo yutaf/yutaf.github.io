@@ -1,20 +1,131 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Composer on yutaf blog</title>
-    <link>http://localhost:1313/tags/composer/</link>
-    <description>Recent content in Composer on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/composer/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Fri, 20 Jul 2018 13:09:20 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/composer/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/composer/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>composer update is slow</title>
-      <link>http://localhost:1313/composer-update-is-slow/</link>
+      <link>https://yutaf.github.io/composer-update-is-slow/</link>
       <pubDate>Fri, 20 Jul 2018 13:09:20 +0900</pubDate>
-      <guid>http://localhost:1313/composer-update-is-slow/</guid>
-      <description>TL;DR Executing compser update &amp;lt;package name&amp;gt; on Vagrant is so slow. Execute it on your local machine directly compser update seems comsuming a lot of computer resources like CPU or Memory. compser update &amp;lt;package name&amp;gt; is so slow when I execute it on Vagrant.&#xA;This is caused because Vangrant has the limited computer resources like CPU or Memory.&#xA;And compser update seems comsuming a lot of computer resources.&#xA;https://github.com/composer/composer/issues/1805&#xA;A workaround for this is executing it on your local machine directly, not on Vagrant.</description>
+      
+      <guid>https://yutaf.github.io/composer-update-is-slow/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tl-dr&#34;&gt;TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Executing &lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; on Vagrant is so slow.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Execute it on your local machine directly&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources like CPU or Memory.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;code&gt;compser update &amp;lt;package name&amp;gt;&lt;/code&gt; is so slow when I execute it on Vagrant.&lt;br /&gt;
+This is caused because Vangrant has the limited computer resources like CPU or Memory.&lt;br /&gt;
+And &lt;code&gt;compser update&lt;/code&gt; seems comsuming a lot of computer resources.&lt;br /&gt;
+&lt;a href=&#34;https://github.com/composer/composer/issues/1805&#34;&gt;https://github.com/composer/composer/issues/1805&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;A workaround for this is executing it on your local machine directly, not on Vagrant.&lt;br /&gt;
+Because it should have more powerful cpu and bigger memory.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-slow-on-vagrant&#34;&gt;So slow on Vagrant&lt;/h3&gt;
+
+&lt;p&gt;My Vagrant spec is;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Vagrantfile&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+config.vm.provider :virtualbox do |vb|
+  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--memory&amp;quot;, &amp;quot;512&amp;quot;]
+  vb.customize [&amp;quot;modifyvm&amp;quot;, :id, &amp;quot;--cpus&amp;quot;, 2]
+end
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I added a swap in order to prevent the termination caused by Out of Memory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ swapon -s
+Filename				Type		Size	Used	Priority
+/dev/mapper/precise64-swap_1            partition	786428	565820	-1
+/swapfile                               file		16785404	0	-2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I executed the below command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vagrant@sandbox:/srv/local/panel$ composer --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+Checked CA file /etc/ssl/certs/ca-certificates.crt: valid
+Executing command (/srv/local/panel): git branch --no-color --no-abbrev -v
+Reading /home/vagrant/.composer/composer.json
+Loading config file /home/vagrant/.composer/composer.json
+Reading /srv/local/panel/vendor/composer/installed.json
+Reading /home/vagrant/.composer/vendor/composer/installed.json
+Loading plugin Hirak\Prestissimo\Plugin
+Downloading https://packagist.org/packages.json
+Writing /home/vagrant/.composer/cache/repo/https---packagist.org/packages.json into cache
+    1/4:	http://packagist.org/p/provider-2018-07$b7d1972f4b5592672d3041c6fc96759395b5d6a233e3244c49ef1fa0aa89d0b0.json
+    2/4:	http://packagist.org/p/provider-latest$672c0071fa698a90e507dd61adb926774c7c19bdaa1284b198861bc6cf4de78f.json
+
+...
+
+[567.5MB/2546.62s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[567.4MB/2546.77s] Memory usage: 567.42MB (peak: 2135.2MB), time: 2546.77s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It took &lt;code&gt;2546.77s&lt;/code&gt;, 42 minutes.&lt;/p&gt;
+
+&lt;h3 id=&#34;execute-it-on-your-local-machine-directly&#34;&gt;Execute it on your local machine directly&lt;/h3&gt;
+
+&lt;p&gt;My machine is Mac.&lt;br /&gt;
+So this is a workaround for Mac.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;My Mac Specs&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;macOS Sierra
+Version 10.12.6 (16G1408)
+MacBook Pro (13-inch, 2016, Two Thunderbolt 3 ports)
+Processor 2 GHz Intel Core i5
+Memory 8 GB 1867 MHz LPDDR3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Requirements&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;composer &lt;a href=&#34;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&#34;&gt;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I logged out Vagrant and executed the command in Vagrant synced folder on my Mac.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;yuta:~/dev/ringcaptcha/panel
+$ COMPOSER_MEMORY_LIMIT=-1 php composer.phar --no-dev -vvv --profile update ringcaptcha/app-lookup
+Reading ./composer.json
+Loading config file ./composer.json
+
+...
+
+[568.5MB/200.31s] Installing assets as hard copies.
+Installing assets for Symfony\Bundle\FrameworkBundle into web/bundles/framework
+[568.5MB/200.32s] Installing assets for Sensio\Bundle\DistributionBundle into web/bundles/sensiodistribution
+[568.5MB/200.38s] Memory usage: 568.45MB (peak: 2135.72MB), time: 200.38s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It took &lt;code&gt;200.38s&lt;/code&gt;, less than 4 minutes.&lt;/p&gt;
+
+&lt;p&gt;By the way, &lt;code&gt;COMPOSER_MEMORY_LIMIT=-1&lt;/code&gt; in the command is for;&lt;br /&gt;
+&lt;a href=&#34;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&#34;&gt;https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors&lt;/a&gt;&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>

@@ -1,20 +1,103 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Portfolio on yutaf blog</title>
-    <link>http://localhost:1313/tags/portfolio/</link>
-    <description>Recent content in Portfolio on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/portfolio/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 14 Jul 2016 11:32:37 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/portfolio/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>everydaymusic</title>
-      <link>http://localhost:1313/everydaymusic/</link>
+      <link>https://yutaf.github.io/everydaymusic/</link>
       <pubDate>Thu, 14 Jul 2016 11:32:37 +0900</pubDate>
-      <guid>http://localhost:1313/everydaymusic/</guid>
-      <description>Info http://everydaymusic.net/&#xA;Released February 2016&#xA;Overview This web app searches a music video you might prefer from youtube once a day.&#xA;Then it notifies you of the update by email.&#xA;github https://github.com/yutaf/everydaymusic&#xA;https://github.com/yutaf/everydaymusic-facebook-service&#xA;Technology stacks DigitalOcean (IaaS) SendGrid (Mail service) Docker Compose nginx Ruby On Rails 4.2 php 5.6 CoffeeScript mysql 5.6 Redis Technical insights How it searches music&#xA;The app knows users&amp;rsquo; prefernces from facebook likes or users&amp;rsquo; manual inputs.</description>
+      
+      <guid>https://yutaf.github.io/everydaymusic/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p style=&#34;text-align: center;&#34;&gt;Login page&lt;/p&gt;
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;https://yutaf.github.io/images/everydaymusic/everydaymusic_01.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
+　  
+&lt;p style=&#34;text-align: center;&#34;&gt;List page&lt;/p&gt;
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;https://yutaf.github.io/images/everydaymusic/everydaymusic_02.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
+　  
+&lt;p style=&#34;text-align: center;&#34;&gt;Video page&lt;/p&gt;
+&lt;p style=&#34;text-align: center;&#34;&gt;&lt;img src=&#34;https://yutaf.github.io/images/everydaymusic/everydaymusic_03.png&#34; class=&#34;image&#34; style=&#34;border: 1px solid rgba(0, 0, 0, 0.3);&#34;&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;info&#34;&gt;Info&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://everydaymusic.net/&#34;&gt;http://everydaymusic.net/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;released&#34;&gt;Released&lt;/h4&gt;
+
+&lt;p&gt;February 2016&lt;/p&gt;
+
+&lt;h4 id=&#34;overview&#34;&gt;Overview&lt;/h4&gt;
+
+&lt;p&gt;This web app searches a music video you might prefer from youtube once a day.&lt;br /&gt;
+Then it notifies you of the update by email.&lt;/p&gt;
+
+&lt;h4 id=&#34;github&#34;&gt;github&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/yutaf/everydaymusic&#34;&gt;https://github.com/yutaf/everydaymusic&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;https://github.com/yutaf/everydaymusic-facebook-service&#34;&gt;https://github.com/yutaf/everydaymusic-facebook-service&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;technology-stacks&#34;&gt;Technology stacks&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DigitalOcean (IaaS)&lt;/li&gt;
+&lt;li&gt;SendGrid (Mail service)&lt;/li&gt;
+&lt;li&gt;Docker Compose&lt;/li&gt;
+&lt;li&gt;nginx&lt;/li&gt;
+&lt;li&gt;Ruby On Rails 4.2&lt;/li&gt;
+&lt;li&gt;php 5.6&lt;/li&gt;
+&lt;li&gt;CoffeeScript&lt;/li&gt;
+&lt;li&gt;mysql 5.6&lt;/li&gt;
+&lt;li&gt;Redis&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;technical-insights&#34;&gt;Technical insights&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;em&gt;How it searches music&lt;/em&gt;&lt;br /&gt;
+The app knows users&amp;rsquo; prefernces from facebook likes or users&amp;rsquo; manual inputs.&lt;br /&gt;
+Then it requests to Youtube search API with the data and find music.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Find music outside user&amp;rsquo;s prefernce list&lt;/em&gt;&lt;br /&gt;
+I think finding new music is a great joy.&lt;br /&gt;
+This app has a trick to find new music/artists with &lt;a href=&#34;https://developer.spotify.com/web-api/get-related-artists/&#34;&gt;Spotify&amp;rsquo;s Related Artists API&lt;/a&gt;.&lt;br /&gt;
+The API helps the app find other artists related to users&amp;rsquo; prefernce list.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Microsevices&lt;/em&gt;&lt;br /&gt;
+I tried microsevices for the first time with this app development.&lt;br /&gt;
+It is built with &lt;em&gt;Ruby On Rails&lt;/em&gt; and &lt;em&gt;php&lt;/em&gt;.&lt;br /&gt;
+&lt;em&gt;php&lt;/em&gt; is only used for facebook login part.&lt;br /&gt;
+The other parts were developed with &lt;em&gt;Ruby On Rails&lt;/em&gt;.&lt;br /&gt;
+It was just because I wanted to develop with official facebook&amp;rsquo;s php sdk.&lt;br /&gt;
+Of course we can build facebook login with Rails adequately.
+So it&amp;rsquo;s nonsense, I know.&lt;br /&gt;
+But I just wanted to try.&lt;br /&gt;
+　&lt;br /&gt;
+However, Looking back the development process, I didn&amp;rsquo;t get much profits from it.&lt;br /&gt;
+I wasted too much time for the jobs made from microsevices architecture.&lt;br /&gt;
+　&lt;br /&gt;
+A lesson I got is that &lt;em&gt;microsevices&lt;/em&gt; makes a lot of duplicated works.&lt;br /&gt;
+I mean, If I implement model jobs like fetching records from MySql in Rails service, I should implement another same model jobs in php.&lt;br /&gt;
+This made me feel like the code I should implement getting twice.&lt;br /&gt;
+Besides, there was a context switch when I moved from php to rails and vice versa.&lt;br /&gt;
+&lt;em&gt;Microsevices&lt;/em&gt; might be a good architecture for scaling, though this app apparently doesn&amp;rsquo;t need it.&lt;br /&gt;
+Because this app is very small and just started.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;em&gt;&lt;a href=&#34;http://sidekiq.org/&#34;&gt;Sidekiq&lt;/a&gt;&lt;/em&gt;&lt;br /&gt;
+This is a great concurrency job tool offered by ruby gems.&lt;br /&gt;
+It really makes concurrency implemention easier.&lt;br /&gt;
+I used it for batch jobs sending emails to users.&lt;br /&gt;
+It also offers cool management dashbord.&lt;br /&gt;
+Awesome!&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
+    
   </channel>
 </rss>

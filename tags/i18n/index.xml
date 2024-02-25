@@ -1,34 +1,225 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>I18n on yutaf blog</title>
-    <link>http://localhost:1313/tags/i18n/</link>
-    <description>Recent content in I18n on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/i18n/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Fri, 24 Jun 2016 13:33:48 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/i18n/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/i18n/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Translate csrf validation message in symfony form component</title>
-      <link>http://localhost:1313/translate-csrf-validation-message-in-symfony-form-component/</link>
+      <link>https://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</link>
       <pubDate>Fri, 24 Jun 2016 13:33:48 +0900</pubDate>
-      <guid>http://localhost:1313/translate-csrf-validation-message-in-symfony-form-component/</guid>
-      <description>I was stuck for a while.&#xA;You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&#xA;php&#xA;use Symfony\Component\Form\Extension\Csrf\CsrfExtension; use Symfony\Component\Form\Forms; ... $csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &amp;#39;validators&amp;#39;); $formFactory = Forms::createFormFactoryBuilder() -&amp;gt;addExtensions([$csrfExtension]) -&amp;gt;getFormFactory(); ... I wrote about internationalization of symfony validation component in older post,&#xA;however it seems each form extensions should be passed the Translator instance individually.&#xA;use Symfony\Component\Form\Extension\Csrf\CsrfExtension; use Symfony\Component\Form\Extension\Validator\ValidatorExtension; use Symfony\Component\Form\Forms; use Symfony\Component\Security\Csrf\CsrfTokenManager; use Symfony\Component\Translation\Translator; use Symfony\Component\Validator\Validation; .</description>
+      
+      <guid>https://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I was stuck for a while.&lt;br /&gt;
+You need to pass translator instance(also domain as needed) as an argument when you instantiate CsrfExtension.&lt;/p&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Forms;
+
+...
+
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([$csrfExtension])
+  -&amp;gt;getFormFactory();
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;　&lt;/p&gt;
+
+&lt;p&gt;I wrote about internationalization of symfony validation component in &lt;a href=&#34;https://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/&#34;&gt;older post&lt;/a&gt;,&lt;br /&gt;
+however it seems each form extensions should be passed the Translator instance individually.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Form\Extension\Csrf\CsrfExtension;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Validator\Validation;
+
+...
+
+$validator = Validation::createValidatorBuilder()
+  -&amp;gt;setTranslator($translator)
+  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
+  -&amp;gt;getValidator();
+
+// extensions
+$validatorExtension = new ValidatorExtension($validator);
+$csrfExtension = new CsrfExtension($csrfTokenManager, $translator, &#39;validators&#39;);
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([$csrfExtension, $validatorExtension])
+  -&amp;gt;getFormFactory();
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
+    
     <item>
       <title>Internationalize symfony validation component outside of symfony framework</title>
-      <link>http://localhost:1313/internationalize-symfony-validation-component-outside-of-symfony-framework/</link>
+      <link>https://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</link>
       <pubDate>Sun, 19 Jun 2016 13:35:28 +0900</pubDate>
-      <guid>http://localhost:1313/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
-      <description>It took me several hours to make it, Symfony validation component Internationalization.&#xA;The point is instantiation of translator and validator.&#xA;composer.json&#xA;{ &amp;#34;require&amp;#34; : { &amp;#34;twig/twig&amp;#34;: &amp;#34;~1.0&amp;#34;, &amp;#34;symfony/translation&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/twig-bridge&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/config&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/form&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/validator&amp;#34;: &amp;#34;^3.1&amp;#34;, }, } php&#xA;use Symfony\Component\Translation\Translator; use Symfony\Component\Translation\MessageSelector; use Symfony\Component\Translation\Loader\XliffFileLoader use Symfony\Component\Validator\Validation; use Symfony\Component\Form\Extension\Validator\ValidatorExtension; $translator = new Translator($locale, new MessageSelector()); $vendorDir = realpath(__DIR__.&amp;#39;/../vendor&amp;#39;); $vendorFormDir = $vendorDir.&amp;#39;/symfony/form&amp;#39;; $vendorValidatorDir = $vendorDir.&amp;#39;/symfony/validator&amp;#39;; $translator-&amp;gt;addLoader(&amp;#39;xlf&amp;#39;, new XliffFileLoader()); // there are built-in translations for the core error messages $translator-&amp;gt;addResource(&amp;#39;xlf&amp;#39;, $vendorFormDir.</description>
+      
+      <guid>https://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;It took me several hours to make it, Symfony validation component Internationalization.&lt;br /&gt;
+The point is instantiation of &lt;code&gt;translator&lt;/code&gt; and &lt;code&gt;validator&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;require&amp;quot; : {
+    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
+    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/form&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/validator&amp;quot;: &amp;quot;^3.1&amp;quot;,
+  },
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Loader\XliffFileLoader
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+
+$translator = new Translator($locale, new MessageSelector());
+
+$vendorDir = realpath(__DIR__.&#39;/../vendor&#39;);
+$vendorFormDir = $vendorDir.&#39;/symfony/form&#39;;
+$vendorValidatorDir = $vendorDir.&#39;/symfony/validator&#39;;
+
+$translator-&amp;gt;addLoader(&#39;xlf&#39;, new XliffFileLoader());
+// there are built-in translations for the core error messages
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.en.xlf&#39;, &#39;en&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorFormDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
+$translator-&amp;gt;addResource(&#39;xlf&#39;, $vendorValidatorDir.&#39;/Resources/translations/validators.ja.xlf&#39;, &#39;ja&#39;, &#39;validators&#39;);
+
+$validator = Validation::createValidatorBuilder()
+  -&amp;gt;setTranslator($translator)
+  -&amp;gt;setTranslationDomain(&#39;validators&#39;)
+  -&amp;gt;getValidator();
+
+$formFactory = Forms::createFormFactoryBuilder()
+  -&amp;gt;addExtensions([new ValidatorExtension($validator)])
+  -&amp;gt;getFormFactory();
+
+$form = $formFactory-&amp;gt;get()-&amp;gt;createBuilder()
+  -&amp;gt;add(&#39;email&#39;, TextType::class, array(
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 4)),
+          ),
+        ))
+  -&amp;gt;add(&#39;password&#39;, PasswordType::class, array(
+        &#39;constraints&#39; =&amp;gt; array(
+          new NotBlank(),
+          new Length(array(&#39;min&#39; =&amp;gt; 6)),
+          ),
+        ))
+  -&amp;gt;getForm();
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is important that you specify &lt;code&gt;validators&lt;/code&gt; as the domain, 4th argument of &lt;code&gt;addResource&lt;/code&gt; method.&lt;br /&gt;
+And it should correspond to the validator&amp;rsquo;s domain, which is specified with &lt;code&gt;setTranslationDomain&lt;/code&gt; method.&lt;br /&gt;
+You have to pass translator instance to the validator, too.&lt;/p&gt;
+
+&lt;p&gt;Please see the documentation if you want further explanation for domain.
+&lt;a href=&#34;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&#34;&gt;http://symfony.com/doc/current/components/translation/introduction.html#using-message-domains&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s it!&lt;br /&gt;
+You already have form with internationalized validation messages.&lt;/p&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;http://symfony.com/doc/current/components/form/introduction.html#translation&#34;&gt;http://symfony.com/doc/current/components/form/introduction.html#translation&lt;/a&gt;
+&lt;a href=&#34;http://stackoverflow.com/questions/16063531/translation-in-validator-component&#34;&gt;http://stackoverflow.com/questions/16063531/translation-in-validator-component&lt;/a&gt;&lt;/p&gt;</description>
     </item>
+    
     <item>
       <title>php i18n with twig and symfony translation component outside of symfony framework</title>
-      <link>http://localhost:1313/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</link>
+      <link>https://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</link>
       <pubDate>Sun, 05 Jun 2016 14:47:30 +0900</pubDate>
-      <guid>http://localhost:1313/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
-      <description>composer.json&#xA;{ &amp;#34;require&amp;#34; : { &amp;#34;twig/twig&amp;#34;: &amp;#34;~1.0&amp;#34;, &amp;#34;symfony/translation&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/twig-bridge&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/config&amp;#34;: &amp;#34;^3.1&amp;#34;, &amp;#34;symfony/yaml&amp;#34;: &amp;#34;^3.1&amp;#34; }, } php&#xA;$loader = new Twig_Loader_Filesystem(__DIR__.&amp;#39;/../templates&amp;#39;); $twig = new Twig_Environment($loader); $locale = &amp;#39;en&amp;#39;; if(isset($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;]) &amp;amp;&amp;amp; strlen($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;])&amp;gt;0) { $locale = substr($_SERVER[&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;], 0, 2); } $translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector()); $translator-&amp;gt;setFallbackLocales([&amp;#39;en&amp;#39;]); $translator-&amp;gt;addLoader(&amp;#39;yaml&amp;#39;, new Symfony\Component\Translation\Loader\YamlFileLoader()); $translator-&amp;gt;addResource(&amp;#39;yaml&amp;#39;, __DIR__.&amp;#39;/../locales/en.yml&amp;#39;, &amp;#39;en&amp;#39;); $translator-&amp;gt;addResource(&amp;#39;yaml&amp;#39;, __DIR__.&amp;#39;/../locales/ja.yml&amp;#39;, &amp;#39;ja&amp;#39;); $twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator)); $data = [&amp;#39;somethig&amp;#39; =&amp;gt; &amp;#39;abcd&amp;#39;]; $twig-&amp;gt;render(&amp;#34;hello.html&amp;#34;, $data); yml&#xA;foo: FOO html&#xA;&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;body&amp;gt; &amp;lt;p&amp;gt;{{ &amp;#39;foo&amp;#39;|trans }}&amp;lt;/p&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt; output</description>
+      
+      <guid>https://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;require&amp;quot; : {
+    &amp;quot;twig/twig&amp;quot;: &amp;quot;~1.0&amp;quot;,
+    &amp;quot;symfony/translation&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/twig-bridge&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/config&amp;quot;: &amp;quot;^3.1&amp;quot;,
+    &amp;quot;symfony/yaml&amp;quot;: &amp;quot;^3.1&amp;quot;
+  },
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$loader = new Twig_Loader_Filesystem(__DIR__.&#39;/../templates&#39;);
+$twig = new Twig_Environment($loader);
+
+$locale = &#39;en&#39;;
+if(isset($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;]) &amp;amp;&amp;amp; strlen($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;])&amp;gt;0) {
+  $locale = substr($_SERVER[&#39;HTTP_ACCEPT_LANGUAGE&#39;], 0, 2);
+}
+$translator = new Symfony\Component\Translation\Translator($locale, new \Symfony\Component\Translation\MessageSelector());
+$translator-&amp;gt;setFallbackLocales([&#39;en&#39;]);
+$translator-&amp;gt;addLoader(&#39;yaml&#39;, new Symfony\Component\Translation\Loader\YamlFileLoader());
+$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/en.yml&#39;, &#39;en&#39;);
+$translator-&amp;gt;addResource(&#39;yaml&#39;,  __DIR__.&#39;/../locales/ja.yml&#39;, &#39;ja&#39;);
+
+$twig-&amp;gt;addExtension(new \Symfony\Bridge\Twig\Extension\TranslationExtension($translator));
+$data = [&#39;somethig&#39; =&amp;gt; &#39;abcd&#39;];
+$twig-&amp;gt;render(&amp;quot;hello.html&amp;quot;, $data);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;yml&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;foo: FOO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;p&amp;gt;{{ &#39;foo&#39;|trans }}&amp;lt;/p&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;output&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;FOO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;References:&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/2bard/4329452&#34;&gt;https://gist.github.com/2bard/4329452&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/twig.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/twig.html&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://silex.sensiolabs.org/doc/providers/translation.html&#34;&gt;http://silex.sensiolabs.org/doc/providers/translation.html&lt;/a&gt;&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>

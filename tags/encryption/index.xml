@@ -1,27 +1,109 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Encryption on yutaf blog</title>
-    <link>http://localhost:1313/tags/encryption/</link>
-    <description>Recent content in Encryption on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/encryption/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 13 Mar 2018 10:44:36 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/encryption/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/encryption/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Aes encryption in android, decryption in php</title>
-      <link>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</link>
+      <link>https://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
       <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
-      <guid>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</guid>
-      <description>Notes PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0 http://php.net/manual/en/intro.mcrypt.php I could not decrypt in alternative way(openssl_decrypt) instead of Mcrypt. References https://developer.android.com/reference/android/util/Base64.html#URL_SAFE https://github.com/stevenholder/PHP-Java-AES-Encrypt class Encryption { ... /** * Decrypt AES encrypted data by Android * * @param $sStr * @param $sKey * @return bool|string */ public static function decryptAesAndroid($sStr, $sKey) { // Replace strings escaped by Android&amp;#39;s Base64.URL_SAFE // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE $sStr = str_replace(array(&amp;#39;-&amp;#39;, &amp;#39;_&amp;#39;), array(&amp;#39;+&amp;#39;, &amp;#39;/&amp;#39;), $sStr); // Borrowed from https://github.</description>
+      
+      <guid>https://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0
+&lt;a href=&#34;http://php.net/manual/en/intro.mcrypt.php&#34;&gt;http://php.net/manual/en/intro.mcrypt.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I could not decrypt in alternative way(&lt;a href=&#34;http://php.net/manual/en/function.openssl-decrypt.php&#34;&gt;openssl_decrypt&lt;/a&gt;) instead of Mcrypt.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&#34;&gt;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stevenholder/PHP-Java-AES-Encrypt&#34;&gt;https://github.com/stevenholder/PHP-Java-AES-Encrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;class Encryption {
+
+    ...
+
+    /**
+     * Decrypt AES encrypted data by Android
+     *
+     * @param $sStr
+     * @param $sKey
+     * @return bool|string
+     */
+    public static function decryptAesAndroid($sStr, $sKey) {
+      // Replace strings escaped by Android&#39;s Base64.URL_SAFE
+      // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE
+      $sStr = str_replace(array(&#39;-&#39;, &#39;_&#39;), array(&#39;+&#39;, &#39;/&#39;), $sStr);
+
+      // Borrowed from https://github.com/stevenholder/PHP-Java-AES-Encrypt
+      $decrypted= mcrypt_decrypt(
+        MCRYPT_RIJNDAEL_128,
+        $sKey,
+        base64_decode($sStr),
+        MCRYPT_MODE_ECB
+      );
+      $dec_s = strlen($decrypted);
+      $padding = ord($decrypted[$dec_s-1]);
+      $decrypted = substr($decrypted, 0, -$padding);
+      return $decrypted;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
+    
     <item>
       <title>Decrypt gpg data in salt masterless</title>
-      <link>http://localhost:1313/decrypt-gpg-data-in-salt-masterless/</link>
+      <link>https://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</link>
       <pubDate>Wed, 05 Jul 2017 10:49:38 +0900</pubDate>
-      <guid>http://localhost:1313/decrypt-gpg-data-in-salt-masterless/</guid>
-      <description>You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&#xA;If gpgkeys is located in /etc/salt/gpgkeys/ in the salt master(default),&#xA;you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&#xA;root@salt-master:~# ll /etc/salt/gpgkeys/ total 28 drwx------ 2 root root 4096 Sep 4 2015 ./ drwxr-xr-x 9 root root 4096 Jun 22 23:31 .</description>
+      
+      <guid>https://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;You must copy gpgkeys from salt master to masterless minion If you encrypt data with gpg in salt master.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;If gpgkeys is located in &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; in the salt master(default),&lt;br /&gt;
+you need to copy it to the same path(default) or some place you defined by config file in the masterless minion.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root@salt-master:~# ll /etc/salt/gpgkeys/
+total 28
+drwx------ 2 root root 4096 Sep  4  2015 ./
+drwxr-xr-x 9 root root 4096 Jun 22 23:31 ../
+-rw------- 1 root root 1194 Sep  4  2015 pubring.gpg
+-rw------- 1 root root  600 Jun 30 03:33 random_seed
+-rw------- 1 root root 2495 Sep  4  2015 secring.gpg
+-rw------- 1 root root 1280 Sep  4  2015 trustdb.gpg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And you also have to be careful about the permisson when you download it.&lt;br /&gt;
+If ssh user is not root, &lt;code&gt;/etc/salt/gpgkeys/&lt;/code&gt; is owned by root and you use sftp to download it, you can&amp;rsquo;t download the directory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sftp salt_master
+Connected to salt_master.
+sftp&amp;gt; get -r /etc/salt/gpgkeys
+Fetching /etc/salt/gpgkeys/ to gpgkeys
+Retrieving /etc/salt/gpgkeys
+remote readdir(&amp;quot;/etc/salt/gpgkeys&amp;quot;): Permission denied
+/etc/salt/gpgkeys: Failed to get directory contents
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I copied the directory to a temporary directory which permisson is appropriate for the ssh user to download, and change the owner of the copied directory to the ssh user to download it correctly.&lt;br /&gt;
+Then I could download it successfully with sftp.&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>

@@ -1,20 +1,83 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Packer on yutaf blog</title>
-    <link>http://localhost:1313/tags/packer/</link>
-    <description>Recent content in Packer on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/packer/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 04 Jul 2017 13:00:56 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/packer/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/packer/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Do not remove instance when packer build fails</title>
-      <link>http://localhost:1313/do-not-remove-instance-when-packer-build-fails/</link>
+      <link>https://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</link>
       <pubDate>Tue, 04 Jul 2017 13:00:56 +0900</pubDate>
-      <guid>http://localhost:1313/do-not-remove-instance-when-packer-build-fails/</guid>
-      <description>I want to run commands manually inside the instance built by packer for investigation when packer build fails.&#xA;Packer remove the instance by default when the build fails.&#xA;We can change the behavior by -on-error=abort option.&#xA;$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json Then you can ssh to the instance after packer build exited with error.&#xA;ssh into EC2 instance built by packer This time I use AMI Builder (EBS backed) as builder.</description>
+      
+      <guid>https://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;I want to run commands manually inside the instance built by packer for investigation when packer build fails.&lt;br /&gt;
+Packer remove the instance by default when the build fails.&lt;br /&gt;
+We can change the behavior by &lt;code&gt;-on-error=abort&lt;/code&gt; option.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ AWS_ACCESS_KEY=*** AWS_SECRET_KEY=*** packer build -on-error=abort app.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you can ssh to the instance after packer build exited with error.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ssh-into-ec2-instance-built-by-packer&#34;&gt;ssh into EC2 instance built by packer&lt;/h3&gt;
+
+&lt;p&gt;This time I use &lt;code&gt;AMI Builder (EBS backed)&lt;/code&gt; as builder.&lt;br /&gt;
+Packer allocates ssh key randomly by default and I don&amp;rsquo;t know where it is.&lt;br /&gt;
+So I can&amp;rsquo;t ssh into the instance.&lt;br /&gt;
+To avoid this, we can specify ssh keys by &lt;code&gt;ssh_keypair_name&lt;/code&gt; and &lt;code&gt;ssh_private_key_file&lt;/code&gt; in the packer config file.&lt;br /&gt;
+&lt;a href=&#34;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&#34;&gt;https://www.packer.io/docs/builders/amazon-ebs.html#ssh_keypair_name&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;variables&amp;quot;: {
+    &amp;quot;aws_access_key&amp;quot;: &amp;quot;&amp;quot;,
+    &amp;quot;aws_secret_key&amp;quot;: &amp;quot;&amp;quot;
+  },
+  &amp;quot;builders&amp;quot;: [{
+    &amp;quot;type&amp;quot;: &amp;quot;amazon-ebs&amp;quot;,
+    &amp;quot;access_key&amp;quot;: &amp;quot;{{user `aws_access_key`}}&amp;quot;,
+    &amp;quot;secret_key&amp;quot;: &amp;quot;{{user `aws_secret_key`}}&amp;quot;,
+    &amp;quot;region&amp;quot;: &amp;quot;us-east-1&amp;quot;,
+    &amp;quot;vpc_id&amp;quot;: &amp;quot;***&amp;quot;,
+    &amp;quot;subnet_id&amp;quot;: &amp;quot;***&amp;quot;,
+    &amp;quot;source_ami&amp;quot;: &amp;quot;ami-427a392a&amp;quot;,
+    &amp;quot;instance_type&amp;quot;: &amp;quot;c3.large&amp;quot;,
+    &amp;quot;ssh_username&amp;quot;: &amp;quot;ubuntu&amp;quot;,
+    &amp;quot;ssh_keypair_name&amp;quot;: &amp;quot;salt&amp;quot;,
+    &amp;quot;ssh_private_key_file&amp;quot;: &amp;quot;/Users/me/.ssh/salt.pem&amp;quot;,
+    &amp;quot;ami_name&amp;quot;: &amp;quot;image-app {{timestamp}}&amp;quot;
+  }],
+  &amp;quot;provisioners&amp;quot;: [
+    ...
+    {
+      &amp;quot;type&amp;quot;: &amp;quot;shell&amp;quot;,
+      &amp;quot;inline&amp;quot;: [
+        &amp;quot;sudo curl -o bootstrap-salt.sh -L https://bootstrap.saltstack.com&amp;quot;,
+        &amp;quot;sudo sh bootstrap-salt.sh -P git v2016.11.6&amp;quot;
+      ]
+    },
+    {
+      &amp;quot;type&amp;quot;: &amp;quot;salt-masterless&amp;quot;,
+      &amp;quot;skip_bootstrap&amp;quot;: true,
+      &amp;quot;local_state_tree&amp;quot;: &amp;quot;../file_roots&amp;quot;,
+      &amp;quot;local_pillar_roots&amp;quot;: &amp;quot;../pillar_roots&amp;quot;,
+      &amp;quot;minion_config&amp;quot;: &amp;quot;minion-app&amp;quot;
+    },
+    ...
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then I can ssh into the instance with the key I specified.&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>

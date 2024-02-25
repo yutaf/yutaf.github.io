@@ -1,193 +1,139 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
   <url>
-    <loc>https://yutaf.github.io/tags/composer/</loc>
-    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/composer-update-is-slow/</loc>
-    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/php/</loc>
-    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/</loc>
-    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
-  </url><url>
     <loc>https://yutaf.github.io/</loc>
     <lastmod>2018-07-20T13:09:20+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/phpbrew/</loc>
-    <lastmod>2018-07-20T13:09:19+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
+    <loc>https://yutaf.github.io/composer-update-is-slow/</loc>
+    <lastmod>2018-07-20T13:09:20+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/phpbrew-note2/</loc>
     <lastmod>2018-07-20T13:09:19+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</loc>
     <lastmod>2018-03-13T10:44:36+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/android/</loc>
-    <lastmod>2018-03-13T10:44:36+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/encryption/</loc>
-    <lastmod>2018-03-13T10:44:36+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/decrypt-gpg-data-in-salt-masterless/</loc>
     <lastmod>2017-07-05T10:49:38+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/salt/</loc>
-    <lastmod>2017-07-05T10:49:38+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/aws/</loc>
-    <lastmod>2017-07-04T13:00:56+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/do-not-remove-instance-when-packer-build-fails/</loc>
     <lastmod>2017-07-04T13:00:56+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/ec2/</loc>
-    <lastmod>2017-07-04T13:00:56+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/packer/</loc>
-    <lastmod>2017-07-04T13:00:56+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/supervisor/</loc>
-    <lastmod>2017-06-10T21:15:28+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/supervisords-path/</loc>
     <lastmod>2017-06-10T21:15:28+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/phpstorm/</loc>
-    <lastmod>2017-05-17T12:19:16+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/vagrant/</loc>
-    <lastmod>2017-05-17T12:19:16+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/xdebug/</loc>
-    <lastmod>2017-05-17T12:19:16+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/xdebug-remote-cli-debugging-with-vagrant-and-phpstorm/</loc>
     <lastmod>2017-05-17T12:19:16+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/docker/</loc>
-    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/mysql/</loc>
-    <lastmod>2016-10-18T18:15:41+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/run-phpmyadmin-in-docker-compose/</loc>
     <lastmod>2016-10-18T18:15:41+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/create_tsv_file_with_league_csv/</loc>
     <lastmod>2016-09-06T14:42:34+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/everydaymusic/</loc>
     <lastmod>2016-07-14T11:32:37+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/portfolio/</loc>
-    <lastmod>2016-07-14T11:32:37+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/i18n/</loc>
-    <lastmod>2016-06-24T13:33:48+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/symfony/</loc>
-    <lastmod>2016-06-24T13:33:48+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/translate-csrf-validation-message-in-symfony-form-component/</loc>
     <lastmod>2016-06-24T13:33:48+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/password-confirmation-form-with-symfony/</loc>
     <lastmod>2016-06-24T11:16:11+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/internationalize-symfony-validation-component-outside-of-symfony-framework/</loc>
     <lastmod>2016-06-19T13:35:28+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/php-i18n-with-twig-and-symfony-translation-component-outside-of-symfony-framework/</loc>
     <lastmod>2016-06-05T14:47:30+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/twig/</loc>
-    <lastmod>2016-06-05T14:47:30+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/dns/</loc>
-    <lastmod>2016-01-28T16:24:41+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/domain-status-clienthold/</loc>
     <lastmod>2016-01-28T16:24:41+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/route53/</loc>
-    <lastmod>2016-01-28T16:24:41+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/facebook/</loc>
-    <lastmod>2015-12-21T20:21:43-08:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/how-to-change-facebook-timezone-setting/</loc>
     <lastmod>2015-12-21T20:21:43-08:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/apple-music-playlist-001/</loc>
     <lastmod>2015-12-19T17:59:44+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/music/</loc>
-    <lastmod>2015-12-19T17:59:44+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/fujirock-2015/</loc>
     <lastmod>2015-08-04T23:27:11+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</loc>
     <lastmod>2015-06-11T13:10:53+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/deploy/</loc>
-    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/gitbucket/</loc>
-    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/jenkins/</loc>
-    <lastmod>2015-06-11T13:10:53+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/php-max-input-vars/</loc>
     <lastmod>2015-05-19T14:55:52+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/meetup/</loc>
-    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/presentation/</loc>
-    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/ryogoku/</loc>
-    <lastmod>2015-04-30T18:14:33+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/php-study-89/</loc>
     <lastmod>2015-04-30T18:14:33+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/paul-mccartney-japan-tour-042715/</loc>
     <lastmod>2015-04-29T13:04:40+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/paul-mccartney-japan-tour-042515/</loc>
     <lastmod>2015-04-26T00:37:21+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/itamae/</loc>
-    <lastmod>2015-04-07T22:42:50+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/provisioning/</loc>
-    <lastmod>2015-04-07T22:42:50+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/provisioning-with-itamae/</loc>
     <lastmod>2015-04-07T22:42:50+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/bash/</loc>
-    <lastmod>2015-03-25T23:11:48+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/i-made-a-deployment-tool-ryogoku/</loc>
     <lastmod>2015-03-25T23:11:48+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/rsync/</loc>
-    <lastmod>2015-03-25T23:11:48+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/tags/osx/</loc>
-    <lastmod>2015-02-17T12:32:23+09:00</lastmod>
-  </url><url>
+  </url>
+  
+  <url>
     <loc>https://yutaf.github.io/phpbrew-note/</loc>
     <lastmod>2015-02-17T12:32:23+09:00</lastmod>
-  </url><url>
-    <loc>https://yutaf.github.io/categories/</loc>
   </url>
+  
 </urlset>

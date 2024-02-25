@@ -1,27 +1,68 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Android on yutaf blog</title>
-    <link>http://localhost:1313/tags/android/</link>
-    <description>Recent content in Android on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/android/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Tue, 13 Mar 2018 10:44:36 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Aes encryption in android, decryption in php</title>
-      <link>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</link>
+      <link>https://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</link>
       <pubDate>Tue, 13 Mar 2018 10:44:36 +0900</pubDate>
-      <guid>http://localhost:1313/aes-encryption-in-android-decryption-in-php/</guid>
-      <description>Notes PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0 http://php.net/manual/en/intro.mcrypt.php I could not decrypt in alternative way(openssl_decrypt) instead of Mcrypt. References https://developer.android.com/reference/android/util/Base64.html#URL_SAFE https://github.com/stevenholder/PHP-Java-AES-Encrypt class Encryption { ... /** * Decrypt AES encrypted data by Android * * @param $sStr * @param $sKey * @return bool|string */ public static function decryptAesAndroid($sStr, $sKey) { // Replace strings escaped by Android&amp;#39;s Base64.URL_SAFE // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE $sStr = str_replace(array(&amp;#39;-&amp;#39;, &amp;#39;_&amp;#39;), array(&amp;#39;+&amp;#39;, &amp;#39;/&amp;#39;), $sStr); // Borrowed from https://github.</description>
+      
+      <guid>https://yutaf.github.io/aes-encryption-in-android-decryption-in-php/</guid>
+      <description>&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PHP Mcrypt is deprecated as of PHP 7.1.0, removed as of PHP 7.2.0
+&lt;a href=&#34;http://php.net/manual/en/intro.mcrypt.php&#34;&gt;http://php.net/manual/en/intro.mcrypt.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I could not decrypt in alternative way(&lt;a href=&#34;http://php.net/manual/en/function.openssl-decrypt.php&#34;&gt;openssl_decrypt&lt;/a&gt;) instead of Mcrypt.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&#34;&gt;https://developer.android.com/reference/android/util/Base64.html#URL_SAFE&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stevenholder/PHP-Java-AES-Encrypt&#34;&gt;https://github.com/stevenholder/PHP-Java-AES-Encrypt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;class Encryption {
+
+    ...
+
+    /**
+     * Decrypt AES encrypted data by Android
+     *
+     * @param $sStr
+     * @param $sKey
+     * @return bool|string
+     */
+    public static function decryptAesAndroid($sStr, $sKey) {
+      // Replace strings escaped by Android&#39;s Base64.URL_SAFE
+      // https://developer.android.com/reference/android/util/Base64.html#URL_SAFE
+      $sStr = str_replace(array(&#39;-&#39;, &#39;_&#39;), array(&#39;+&#39;, &#39;/&#39;), $sStr);
+
+      // Borrowed from https://github.com/stevenholder/PHP-Java-AES-Encrypt
+      $decrypted= mcrypt_decrypt(
+        MCRYPT_RIJNDAEL_128,
+        $sKey,
+        base64_decode($sStr),
+        MCRYPT_MODE_ECB
+      );
+      $dec_s = strlen($decrypted);
+      $padding = ord($decrypted[$dec_s-1]);
+      $decrypted = substr($decrypted, 0, -$padding);
+      return $decrypted;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
-    <item>
-      <title>RingCaptcha Android development</title>
-      <link>http://localhost:1313/ringcaptcha-android-development/</link>
-      <pubDate>Thu, 25 May 2017 10:48:21 +0900</pubDate>
-      <guid>http://localhost:1313/ringcaptcha-android-development/</guid>
-      <description>This article covers&#xA;Install Android Studio Create a sample project which installs RingCaptcha SDK Setup an emulator Test SDK in the sample project Create SDK project Create aar file Publish updated SDK Test SDK in the sample project again Commit changes and push Update guideline documents Software Versions&#xA;macOS 10.12.4 Android Studio: 2.3.2 Install Android Studio https://developer.android.com/studio/index.html&#xA;This takes a while.&#xA;Key in password when you are asked.&#xA;Create a sample project which installs RingCaptcha SDK Create a project Choose &amp;ldquo;Start a new Android Studio project&amp;rdquo; in the startup prompt.</description>
-    </item>
+    
   </channel>
 </rss>

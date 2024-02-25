@@ -1,20 +1,193 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Gitbucket on yutaf blog</title>
-    <link>http://localhost:1313/tags/gitbucket/</link>
-    <description>Recent content in Gitbucket on yutaf blog</description>
+    <title>yutaf blog</title>
+    <link>https://yutaf.github.io/tags/gitbucket/index.xml</link>
+    <description>Recent content on yutaf blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Yuta Fujishiro</copyright>
-    <lastBuildDate>Thu, 11 Jun 2015 13:10:53 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/gitbucket/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yutaf.github.io/tags/gitbucket/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Continuous integration with gitbucket and jenkins</title>
-      <link>http://localhost:1313/continuous-integration-with-gitbucket-and-jenkins/</link>
+      <link>https://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</link>
       <pubDate>Thu, 11 Jun 2015 13:10:53 +0900</pubDate>
-      <guid>http://localhost:1313/continuous-integration-with-gitbucket-and-jenkins/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;&#xA;&lt;!-- raw HTML omitted --&gt;</description>
+      
+      <guid>https://yutaf.github.io/continuous-integration-with-gitbucket-and-jenkins/</guid>
+      <description>&lt;!--
+Have you ever thought of these kind of things ?  
+
+- **We want to develop with github, but our codes must be placed in private network...**  
+- **Github Enterprise is too expensive...**  
+- **We want to run continuous integration with Travis CI or CircleCI to catch `pull request` events and build. But github is needed to use those services...**
+
+I have no idea to bring your team github.  
+But I found that we can do almost same things all in your private zone with `GitBucket` + `jenkins`.  
+--&gt;
+
+&lt;!--
+GitBucket is OSS almost like GitHub, easy to use and free.  
+Jenkins can catch pull requests with its plugins.  
+--&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;伊藤直也さんが書いた &lt;a href=&#34;http://d.hatena.ne.jp/naoya/20140502/1399027655&#34;&gt;GitHub 時代のデプロイ戦略&lt;/a&gt; という記事がある。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;GitHub のイベントを契機に CI as a Service にデプロイを担当させる&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;去年この記事を読んだときは、先端を行っている会社はこんなことをやっているのか、すごい、としか思えなかった。&lt;br /&gt;
+そもそも &lt;code&gt;GitBucket&lt;/code&gt; を使っている自分の会社では無理だろうと。&lt;/p&gt;
+
+&lt;p&gt;しかし、GitBucket をしばらく運用し、プルリクエストを覚え、jenkins でテストを回そう、ということを進めていくうちに、&lt;code&gt;GitBucket&lt;/code&gt; + &lt;code&gt;Jenkins&lt;/code&gt; で案外ここに書いてあることと近いことができるのが分かってきた。&lt;/p&gt;
+
+&lt;h2 id=&#34;requirement&#34;&gt;requirement&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket&#34;&gt;GitBucket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jenkins-ci.org/&#34;&gt;Jenkins&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin&#34;&gt;GitHub pull request builder plugin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;github-pull-request-builder-plugin&#34;&gt;GitHub pull request builder plugin&lt;/h2&gt;
+
+&lt;p&gt;github のプルリクエストを契機にJenkins に自動マージ、任意のジョブを実行させることができるプラグイン。&lt;br /&gt;
+実際にはgithub に限らず、GitBucket でも使うことが出来る。&lt;/p&gt;
+
+&lt;!--
+また、Jenkins の Job 設定の際に使用できる `Environment Variables` があり、どのブランチからどのブランチに pull request が送られたかもわかるようになっている。  
+以下、プラグインのドキュメントより引用。  
+
+```
+Environment Variables
+The plugin makes some very useful environment variables available.
+
+・ ghprbActualCommit
+・ ghprbActualCommitAuthor
+・ ghprbActualCommitAuthorEmail
+・ ghprbPullDescription
+・ ghprbPullId
+・ ghprbPullLink
+・ ghprbPullTitle
+・ ghprbSourceBranch
+・ ghprbTargetBranch
+・ sha1
+```
+--&gt;
+
+&lt;h2 id=&#34;settings&#34;&gt;Settings&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&#34;&gt;https://github.com/takezoe/gitbucket/wiki/Setup-Jenkins-GitHub-pull-request-builder-plugin&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;リンクに従って、設定を行う。&lt;/p&gt;
+
+&lt;p&gt;GitBucket と Jenkins の url は以下。&lt;br /&gt;
+GitBucket url : &lt;code&gt;http://gitbucket.sample.co.jp/&lt;/code&gt;&lt;br /&gt;
+Jenkins url : &lt;code&gt;http://192.168.10.11:8080&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;jenkinsbot ユーザーを gitbucket に作成&lt;br /&gt;
+jenkinsbot ユーザーが対象のレポジトリにアクセスできるように、Group に入れたり、Collaborators に入れたりしておく&lt;/li&gt;
+&lt;li&gt;gitbucket レポジトリ &lt;code&gt;http://gitbucket.sample.co.jp/root/test&lt;/code&gt; を作成&lt;/li&gt;
+&lt;li&gt;gitbucket レポジトリのwebhook url に &lt;code&gt;http://192.168.10.11:8080/ghprbhook/&lt;/code&gt; を設定。&lt;br /&gt;
+&lt;img src=&#34;https://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-01.png&#34; class=&#34;image&#34;&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;http://gitbucket.sample.co.jp/jenkinsbot/_application&lt;/code&gt; で Personal access tokens を作成&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Jenkins の設定ページで GitHub Pull Request Builder のセクションを設定する&lt;br /&gt;
+&lt;code&gt;http://192.168.10.11:8080/configure&lt;/code&gt;&lt;br /&gt;
+&lt;img src=&#34;https://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-02.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GitHub server api URL: &lt;code&gt;http://gitbucket.sample.co.jp/api/v3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Access Token: 上で取得したものを入力&lt;/li&gt;
+&lt;li&gt;保存&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Jenkins でジョブを作成&lt;br /&gt;
+testjob を作成&lt;br /&gt;
+&lt;code&gt;http://192.168.10.11:8080/job/testjob/&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;ジョブの設定&lt;br /&gt;
+&lt;code&gt;http://192.168.10.11:8080/job/testjob/configure&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;GitHub project : &lt;code&gt;http://gitbucket.sample.co.jp/root/test&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;ソースコード管理&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Git&lt;/li&gt;
+&lt;li&gt;Repository URL: ssh://jenkinsbot@gitbucket.sample.co.jp/root/test.git&lt;/li&gt;
+&lt;li&gt;Credentials : 有効なSSH キーを設定&lt;br /&gt;
+高度な設定を開く&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Refspec : &lt;code&gt;+refs/pull/*:refs/remotes/origin/pr/*&lt;/code&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Branch Specifier (blank for &amp;lsquo;any&amp;rsquo;) : &lt;code&gt;${sha1}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Build trigger
+
+&lt;ul&gt;
+&lt;li&gt;GitHub Pull Request Builder&lt;/li&gt;
+&lt;li&gt;Admin list = &lt;code&gt;root&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;保存する
+&lt;img src=&#34;https://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-03.png&#34; class=&#34;image&#34;&gt;&lt;br /&gt;
+&lt;img src=&#34;https://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-04.png&#34; class=&#34;image&#34;&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;gitbucket-のプルリクエストでテストを実行&#34;&gt;GitBucket のプルリクエストでテストを実行&lt;/h2&gt;
+
+&lt;p&gt;ここまで出来たら GitBucket 上で pull request を作成すると、jenkins でブランチの自動マージが行われ、その後 job (テスト) が実行される。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://yutaf.github.io/images/continuous-integration-with-gitbucket-and-jenkins-05.png&#34; class=&#34;image&#34;&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;test&#34;&gt;Test&lt;/h2&gt;
+
+&lt;p&gt;どのようなテストを行っているか。&lt;/p&gt;
+
+&lt;p&gt;Jenkins に、自動マージされたブランチのソースコードをデプロイ対象ホストの適当なディレクトリにデプロイさせる。&lt;br /&gt;
+もちろん、本来のデプロイのパスではない、影響のないパスに。&lt;br /&gt;
+その後、デプロイ対象ホストで unit テストを実行する。&lt;/p&gt;
+
+&lt;p&gt;そうすることで pull request マージ後のソースコードがデプロイ対象ホストで正しく動くかを確認できる。&lt;br /&gt;
+自分は db のテストを中心に書いていて、各デプロイ先ホストで db テーブルが正しく作られているか等を確認している。&lt;/p&gt;
+
+&lt;h2 id=&#34;merged-or-closed-without-merge&#34;&gt;Merged ? or Closed without merge ?&lt;/h2&gt;
+
+&lt;p&gt;後はテストの結果を見て、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;成功したらpull request をマージして Jenkins から自動デプロイする&lt;/li&gt;
+&lt;li&gt;マージされずに close されたら Jenkins は何もしない&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;というふうに進めたい。&lt;br /&gt;
+しかし、そこまで出来ていない。&lt;br /&gt;
+なぜなら、GitBucket で pull request がマージされたか、マージされずに close されたかが Jenkins 側で判別できない為。(2015.06 時点)&lt;/p&gt;
+
+&lt;p&gt;GitBucket で pull request がマージ、もしくは close されたタイミングで Jenkins に通知を送ることは可能で、GitBucket のレポジトリに以下の様な webhook url を設定すればできる。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;http://192.168.10.11:8080/job/testjob/buildWithParameters&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;通知はjson 形式で Jenkins にPOST送信され、その中にはレポジトリやブランチ、git のsha 1 等が含まている。&lt;br /&gt;
+しかし、肝心の pull request がマージされたのか、マージされず close されたのかが分かる情報が含まれていない。。&lt;/p&gt;
+
+&lt;p&gt;その為、今はマージした後にブランチを手元に pull してから デプロイを行っている。&lt;/p&gt;
+
+&lt;p&gt;GitBucket のソースコードを調べてみると、マージを判定する値の部分がコメントアウトされていた。&lt;br /&gt;
+いずれのアップデートで含まれるようになるのだろうか。。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&#34;&gt;https://github.com/takezoe/gitbucket/search?l=scala&amp;amp;q=merged&amp;amp;type=Code&amp;amp;utf8=%E2%9C%93&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;
+
+&lt;p&gt;今まで、手元でたまに行っていたテストを pull request をきっかけに自動的に実行出来るようになったので、安心感が増した。&lt;br /&gt;
+これをきっかけにテストを今までよりちゃんと書こうと思う。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://d.hatena.ne.jp/oovu70/20130118/p1&#34;&gt;JenkinsプラグインのGitHub pull request builder pluginを使ってみる&lt;/a&gt;&lt;/p&gt;</description>
     </item>
+    
   </channel>
 </rss>
